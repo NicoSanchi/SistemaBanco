@@ -125,7 +125,7 @@ void RegistrarUsuario() {
     else
         numeroCuentaCliente = 1000; // Si no inicializa a 1000 el numero de cuenta
 	
-	printf("Introduce el nombre de usuario que quieres\n");
+	printf("Introduce el nombre de usuario que quieres: ");
 	fgets(nombre, sizeof(nombre), stdin);
     nombre[strcspn(nombre, "\n")] = 0;
 
