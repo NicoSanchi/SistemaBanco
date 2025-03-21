@@ -9,20 +9,20 @@
 void iniciar_sesion()
 {
     system("clear");
+    int fd[2];
     bool encontrado = false;
     FILE *archivo;
     char linea[100];        // Buffer para leer cada línea
     char numero_cuenta[10]; // Se recomienda mayor tamaño para seguridad
     char titular[50];
-    char espera;
 
     // Leer número de cuenta
-    printf("Ingrese el numero de cuenta: ");
+    printf("🔴 Ingrese el numero de cuenta: ");
     fgets(numero_cuenta, sizeof(numero_cuenta), stdin);
     numero_cuenta[strcspn(numero_cuenta, "\n")] = 0; // Eliminar salto de línea
 
     // Leer titular de la cuenta
-    printf("Ingrese el titular de la cuenta: ");
+    printf("🚹 Ingrese el titular de la cuenta: ");
     fgets(titular, sizeof(titular), stdin);
     titular[strcspn(titular, "\n")] = 0; // Eliminar salto de línea
 
@@ -66,9 +66,10 @@ void iniciar_sesion()
 
     fclose(archivo); // Cerrar el archivo
 
-    // Si los datos son correctos, iniciar sesión en otra terminal
+    // Mensaje de salida
     if (encontrado)
     {
+        pipe(fd);
         __pid_t pid = fork();
         if (pid == -1)
         {
@@ -76,50 +77,45 @@ void iniciar_sesion()
             exit(EXIT_FAILURE);
         }
 
-        if (pid == 0) // Proceso hijo
+        if (pid == 0)
         {
-            // Construir el comando para compilar usuario.c y ejecutarlo con los datos ingresados
-    		char comando[300];
-    		snprintf(comando, sizeof(comando),"gcc usuario.c -o usuario && ./usuario '%s' '%s'", numero_cuenta, titular);
+            char comando[300];
+            snprintf(comando, sizeof(comando), "gcc usuario.c -o usuario && ./usuario '%s' '%s'", numero_cuenta, titular);
 
-    		// Ejecutar gnome-terminal y correr el comando
-    		execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
-
-    		// Si execlp falla:
-    		perror("Error al ejecutar gnome-terminal");
-    		exit(EXIT_FAILURE);
-        }
-        else // Proceso padre
-        {
-            wait(NULL); // Esperar al hijo antes de continuar
+            // Ejecutar gnome-terminal y correr el comando
+            execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
         }
     }
     else
     {
-        printf("Algunos de los datos son incorrectos. Presiona una tecla para continuar\n");
-        scanf("%c", &espera);
+        printf("Algunos de los datos son incorrectos.\n");
     }
+    char tecla;
+    printf("Presione una tecla para continuar...");
+    scanf("%c", &tecla);
     system("clear");
 }
 
 int main()
 {
-    int opcion = 0;
-    while (opcion != 2)
+    int opcion;
+    while (opcion != 3)
     {
-        printf("1. Iniciar sesión.\n");
-        printf("2. Salir.\n");
+        printf("1. 👤Iniciar sesión.\n");
+        printf("2. 👥Registrarse.\n");
+        printf("3. 👋Salir.\n");
         printf("Opción: ");
         scanf("%d", &opcion);
-        while (getchar() != '\n'); // Limpiar buffer de entrada
-
+        while (getchar() != '\n');
         switch (opcion)
         {
         case 1:
             iniciar_sesion();
             break;
         case 2:
-            printf("Adiós.\n");
+            break;
+        case 3:
+            printf("🔜¡HASTA LUEGO!🔜\n");
         }
     }
     return 0;
