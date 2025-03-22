@@ -14,19 +14,63 @@ void *realizar_retiro(void *arg) {
     return NULL;
 }
 
-void *realizar_transferencia(void *arg) {
+void *realizar_transferencia(void *arg) { // Tiene que recibir el numero de cuenta
+
+    FILE* fichero;
+    fichero = fopen(fichero, "a+");
+    char linea[100];
+    int cuentaSeleccionada = 0;
+
+    printf("Introduzca el numero de cuenta al cual quiere realizar la transeferencia: ");
+
+    while (fgets(linea, sizeof(linea), fichero))
+    {
+        char* numCuenta = strtok(linea, ",");
+
+
+        if (atoi(numCuenta) != arg) { // Lista a las cuentas a las que puede realizar una transferencia, sin contar la suya propia
+            char* nombre = strtok(NULL, ",");
+
+            printf("Numero de cuenta: %d - %s", atoi(numCuenta), nombre);
+        }
+
+    }
+    scanf("%d", &cuentaSeleccionada);
+
+
+
     printf("Realizando transferencia...\n");
+
     return NULL;
 }
 
-void *consultar_saldo(void *arg) {
+void *consultar_saldo(void *arg) { // Tiene que recibir el numero de cuenta
+
     printf("Consultando saldo...\n");
+
+    char linea[100];
+    FILE* fichero;
+
+    fichero = fopen(fichero, "r");
+
+    while (fgets(linea, sizeof(linea), fichero))
+    {
+        char* token = strtok(linea, ",");
+
+        if (atoi(token) == arg) {
+            // Mostrar saldo
+        }
+    }
+    
+
     return NULL;
 }
 
 int main(int argc, char* argv[]){
     pthread_t hilo[4];  // ← CORREGIDO para permitir las 4 operaciones
 
+    int *numeroCueta;
+    numeroCueta = argv[1]; // Guardamos el numero de cuenta para las operaciones
 
     int opcion;
     while (1) {
