@@ -7,6 +7,52 @@
 #include <sys/types.h>
 #include <time.h>
 
+
+// Estructura para almacenar la configuración
+typedef struct Config {
+    int limite_retiro;
+    int limite_transferencia;
+    int umbral_retiros;
+    int umbral_transferencias;
+    int num_hilos;
+    char archivo_cuentas[50];
+    char archivo_log[50];
+} Config;
+
+Config configuracion;
+
+// Función para leer config.txt al inicio del programa
+Config LeerConfiguracion(const char *ruta) {
+    FILE *archivo = fopen(ruta, "r");
+    if (archivo == NULL) {
+        perror("Error al abrir config.txt");
+        exit(1);
+    }
+    Config config;
+    char linea[100];
+    while (fgets(linea, sizeof(linea), archivo)) {
+        if (linea[0] == '#' || strlen(linea) < 3)
+            continue; // Ignorar comentarios y líneas vacías
+        if (strstr(linea, "LIMITE_RETIRO"))
+            sscanf(linea, "LIMITE_RETIRO=%d", &config.limite_retiro);
+        else if (strstr(linea, "LIMITE_TRANSFERENCIA"))
+            sscanf(linea, "LIMITE_TRANSFERENCIA=%d", &config.limite_transferencia);
+        else if (strstr(linea, "UMBRAL_RETIROS"))
+            sscanf(linea, "UMBRAL_RETIROS=%d", &config.umbral_retiros);
+        else if (strstr(linea, "UMBRAL_TRANSFERENCIAS"))
+            sscanf(linea, "UMBRAL_TRANSFERENCIAS=%d", &config.umbral_transferencias);
+        else if (strstr(linea, "NUM_HILOS"))
+            sscanf(linea, "NUM_HILOS=%d", &config.num_hilos);
+        else if (strstr(linea, "ARCHIVO_CUENTAS"))
+            sscanf(linea, "ARCHIVO_CUENTAS=%s", config.archivo_cuentas);
+        else if (strstr(linea, "ARCHIVO_LOG"))
+            sscanf(linea, "ARCHIVO_LOG=%s", config.archivo_log);
+    }
+    fclose(archivo);
+    return config;
+}
+
+
 void iniciar_sesion()
 {
     system("clear");
@@ -28,7 +74,7 @@ void iniciar_sesion()
     titular[strcspn(titular, "\n")] = 0; // Eliminar salto de línea
 
     // Abrir archivo
-    archivo = fopen("cuentas.dat", "r");
+    archivo = fopen(configuracion.archivo_cuentas, "r");
     if (archivo == NULL)
     {
         perror("Error a la hora de abrir el archivo");
@@ -108,7 +154,7 @@ void RegistrarUsuario() {
 
     srand(time(NULL));
         
-	ficheroUsers = fopen("cuentas.dat", "a+"); // Abrimos el archivo en formato append
+	ficheroUsers = fopen(configuracion.archivo_cuentas, "a+"); // Abrimos el archivo en formato append
 
     while (fgets(linea, sizeof(linea), ficheroUsers))
     {
@@ -153,6 +199,8 @@ void RegistrarUsuario() {
 
 int main()
 {
+    configuracion = LeerConfiguracion("config.txt");
+
     int opcion;
     while (opcion != 3)
     {
