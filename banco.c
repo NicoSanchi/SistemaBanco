@@ -98,6 +98,62 @@ void iniciar_sesion()
     system("clear");
 }
 
+void RegistrarUsuario() {
+
+    system("clear");
+
+    Config configuracion = leer_configuracion("config.txt");
+
+	FILE *ficheroUsers;
+	char nombre[100], linea[100], esperar;
+    int numeroCuentaCliente = 0, numeroTransacciones = 0, saldo = 0;
+    bool hayUsuarios = false;
+
+    srand(time(NULL));
+        
+	ficheroUsers = fopen(configuracion.archivo_cuentas, "a+"); // Abrimos el archivo en formato append
+
+    while (fgets(linea, sizeof(linea), ficheroUsers))
+    {
+        char* token = strtok(linea, ","); // Tomamos el numero de cuenta de la linea
+        
+        if (token != NULL) { // Si el archivo no esta vacio, asignamos al numero de cuenta el numero de cuenta del ultimo cliente
+            numeroCuentaCliente = atoi(token); 
+            hayUsuarios = true;
+        }
+    }
+
+    if (hayUsuarios) // Si habia usuarios existentes, asigna el nuevo numero de cuenta siguiente
+        numeroCuentaCliente++;
+    else
+        numeroCuentaCliente = 1000; // Si no inicializa a 1000 el numero de cuenta
+	
+	printf("Introduce el nombre de usuario que quieres: ");
+	fgets(nombre, sizeof(nombre), stdin);
+    nombre[strcspn(nombre, "\n")] = 0;
+
+    saldo = rand() % (10000 - 1000 + 1) + 1000; // Generamos un numero entre 1000 y 10000 que sera su saldo
+
+    fseek(ficheroUsers, -1, SEEK_END);
+    char ultimoCaracter = fgetc(ficheroUsers);
+
+    if (ultimoCaracter != '\n' && hayUsuarios)
+        fprintf(ficheroUsers, "\n");
+
+    fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); // Escribimos en el archivo de usaurio el nuevo usuario
+
+    printf("\nHola %s tu numero de cuenta es %d\n", nombre, numeroCuentaCliente);
+    printf("\nPulsa una tecla para continuar...");
+    scanf("%c", &esperar);
+
+	fclose(ficheroUsers);
+
+    system("clear");
+
+    return;
+
+}
+
 int main()
 {
     int opcion;

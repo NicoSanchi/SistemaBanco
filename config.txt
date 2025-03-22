@@ -7,4 +7,4 @@ UMBRAL_TRANSFERENCIAS=5
 # Parámetros de Ejecución
 NUM_HILOS=4
 ARCHIVO_CUENTAS=cuentas.dat
-ARCHIVO_LOG=archivo.log
+ARCHIVO_LOG=registro.log
