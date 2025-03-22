@@ -5,57 +5,12 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 #include <sys/types.h>
-#include <time.h>
-
-
-// Estructura para almacenar la configuración
-typedef struct Config {
-    int limite_retiro;
-    int limite_transferencia;
-    int umbral_retiros;
-    int umbral_transferencias;
-    int num_hilos;
-    char archivo_cuentas[50];
-    char archivo_log[50];
-} Config;
-
-Config configuracion;
-
-// Función para leer config.txt al inicio del programa
-Config LeerConfiguracion(const char *ruta) {
-    FILE *archivo = fopen(ruta, "r");
-    if (archivo == NULL) {
-        perror("Error al abrir config.txt");
-        exit(1);
-    }
-    Config config;
-    char linea[100];
-    while (fgets(linea, sizeof(linea), archivo)) {
-        if (linea[0] == '#' || strlen(linea) < 3)
-            continue; // Ignorar comentarios y líneas vacías
-        if (strstr(linea, "LIMITE_RETIRO"))
-            sscanf(linea, "LIMITE_RETIRO=%d", &config.limite_retiro);
-        else if (strstr(linea, "LIMITE_TRANSFERENCIA"))
-            sscanf(linea, "LIMITE_TRANSFERENCIA=%d", &config.limite_transferencia);
-        else if (strstr(linea, "UMBRAL_RETIROS"))
-            sscanf(linea, "UMBRAL_RETIROS=%d", &config.umbral_retiros);
-        else if (strstr(linea, "UMBRAL_TRANSFERENCIAS"))
-            sscanf(linea, "UMBRAL_TRANSFERENCIAS=%d", &config.umbral_transferencias);
-        else if (strstr(linea, "NUM_HILOS"))
-            sscanf(linea, "NUM_HILOS=%d", &config.num_hilos);
-        else if (strstr(linea, "ARCHIVO_CUENTAS"))
-            sscanf(linea, "ARCHIVO_CUENTAS=%s", config.archivo_cuentas);
-        else if (strstr(linea, "ARCHIVO_LOG"))
-            sscanf(linea, "ARCHIVO_LOG=%s", config.archivo_log);
-    }
-    fclose(archivo);
-    return config;
-}
-
+#include "comun.h"
 
 void iniciar_sesion()
 {
     system("clear");
+    Config configuracion = leer_configuracion("config.txt");
     int fd[2];
     bool encontrado = false;
     FILE *archivo;
@@ -127,7 +82,7 @@ void iniciar_sesion()
         if (pid == 0)
         {
             char comando[300];
-            snprintf(comando, sizeof(comando), "gcc usuario.c -o usuario && ./usuario '%s' '%s'", numero_cuenta, titular);
+            snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario && ./usuario '%s' '%s'", numero_cuenta, titular);
 
             // Ejecutar gnome-terminal y correr el comando
             execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
@@ -143,86 +98,30 @@ void iniciar_sesion()
     system("clear");
 }
 
-void RegistrarUsuario() {
-
-    system("clear");
-
-	FILE *ficheroUsers;
-	char nombre[100], linea[100], esperar;
-    int numeroCuentaCliente = 0, numeroTransacciones = 0, saldo = 0;
-    bool hayUsuarios = false;
-
-    srand(time(NULL));
-        
-	ficheroUsers = fopen(configuracion.archivo_cuentas, "a+"); // Abrimos el archivo en formato append
-
-    while (fgets(linea, sizeof(linea), ficheroUsers))
-    {
-        char* token = strtok(linea, ","); // Tomamos el numero de cuenta de la linea
-        
-        if (token != NULL) { // Si el archivo no esta vacio, asignamos al numero de cuenta el numero de cuenta del ultimo cliente
-            numeroCuentaCliente = atoi(token); 
-            hayUsuarios = true;
-        }
-    }
-
-    if (hayUsuarios) // Si habia usuarios existentes, asigna el nuevo numero de cuenta siguiente
-        numeroCuentaCliente++;
-    else
-        numeroCuentaCliente = 1000; // Si no inicializa a 1000 el numero de cuenta
-	
-	printf("Introduce el nombre de usuario que quieres: ");
-	fgets(nombre, sizeof(nombre), stdin);
-    nombre[strcspn(nombre, "\n")] = 0;
-
-    saldo = rand() % (10000 - 1000 + 1) + 1000; // Generamos un numero entre 1000 y 10000 que sera su saldo
-
-    fseek(ficheroUsers, -1, SEEK_END);
-    char ultimoCaracter = fgetc(ficheroUsers);
-
-    if (ultimoCaracter != '\n' && hayUsuarios)
-        fprintf(ficheroUsers, "\n");
-
-    fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); // Escribimos en el archivo de usaurio el nuevo usuario
-
-    printf("\nHola %s tu numero de cuenta es %d\n", nombre, numeroCuentaCliente);
-    printf("\nPulsa una tecla para continuar...");
-    scanf("%c", &esperar);
-
-	fclose(ficheroUsers);
-
-    system("clear");
-
-    return;
-
-}
-
 int main()
 {
-    configuracion = LeerConfiguracion("config.txt");
-
     int opcion;
     while (opcion != 3)
     {
-        system("clear");
         printf("1. 👤Iniciar sesión.\n");
         printf("2. 👥Registrarse.\n");
         printf("3. 👋Salir.\n");
         printf("Opción: ");
         scanf("%d", &opcion);
-        while (getchar() != '\n');
+        while (getchar() != '\n')
+            ;
         switch (opcion)
         {
         case 1:
             iniciar_sesion();
             break;
         case 2:
-            RegistrarUsuario();
+            system("clear");
+
             break;
         case 3:
             printf("🔜¡HASTA LUEGO!🔜\n");
         }
     }
-
-    return (0);
+    return 0;
 }

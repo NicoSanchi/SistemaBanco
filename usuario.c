@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <string.h>
+#include "comun.h">
 
 void *realizar_deposito(void *arg) {
     printf("Realizando depósito...\n");
