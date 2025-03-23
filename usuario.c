@@ -162,7 +162,7 @@ void *realizar_retiro(void *arg)
 
 void *realizar_transferencia(void *arg)
 {
-
+    char tecla;
     Config configuracion = leer_configuracion("config.txt");
 
     int numero_cuenta_origen = *(int *)arg; // Recuperar el número de cuenta de origen desde el argumento
@@ -174,10 +174,12 @@ void *realizar_transferencia(void *arg)
     // Solicitar el número de cuenta de destino
     printf("\nIntroduzca el número de cuenta de destino: ");
     scanf("%d", &numero_cuenta_destino);
+    while(getchar()!='\n');
 
     // Solicitar la cantidad a transferir
     printf("Introduzca la cantidad a transferir: ");
     scanf("%f", &cantidad);
+    while(getchar()!='\n');
 
     // Verificar el límite de transferencia
     if (cantidad > configuracion.limite_transferencia)
@@ -298,6 +300,10 @@ void *realizar_transferencia(void *arg)
     EscribirLog("El usuario ha realizado una transferencia exitosa");
 
     fclose(fichero);
+
+    printf("Presione una tecla para continuar...");
+    scanf("%c", &tecla);
+    system("clear");
     return NULL;
 }
 
