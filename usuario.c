@@ -118,7 +118,8 @@ void *realizar_transferencia(void *arg) {
 
     // Variables para almacenar los datos de las cuentas
     int cuenta_actual;
-    char titular[50];
+    char titular_origen[50]; // Variable para almacenar el titular de la cuenta de origen
+    char titular_destino[50]; // Variable para almacenar el titular de la cuenta de destino
     float saldo;
     int num_transacciones;
     long posicion_cuenta_origen = -1;
@@ -137,7 +138,9 @@ void *realizar_transferencia(void *arg) {
             // Comparar con el número de cuenta de origen
             if (cuenta_actual == numero_cuenta_origen) {
                 // Obtener el titular
-                char *titular_origen = strtok(NULL, ",");
+                char *titular = strtok(NULL, ",");
+                strncpy(titular_origen, titular, sizeof(titular_origen) - 1);
+                titular_origen[sizeof(titular_origen) - 1] = '\0'; // Asegurar que la cadena esté terminada
 
                 // Obtener el saldo actual
                 char *saldo_str = strtok(NULL, ",");
@@ -154,7 +157,9 @@ void *realizar_transferencia(void *arg) {
             // Comparar con el número de cuenta de destino
             if (cuenta_actual == numero_cuenta_destino) {
                 // Obtener el titular
-                char *titular_destino = strtok(NULL, ",");
+                char *titular = strtok(NULL, ",");
+                strncpy(titular_destino, titular, sizeof(titular_destino) - 1);
+                titular_destino[sizeof(titular_destino) - 1] = '\0'; // Asegurar que la cadena esté terminada
 
                 // Obtener el saldo actual
                 char *saldo_str = strtok(NULL, ",");
@@ -195,11 +200,11 @@ void *realizar_transferencia(void *arg) {
 
     // Actualizar la cuenta de origen
     fseek(fichero, posicion_cuenta_origen, SEEK_SET);
-    fprintf(fichero, "%d,%s,%.2f,%d\n", numero_cuenta_origen, "Titular Origen", nuevo_saldo_origen, num_transacciones + 1);
+    fprintf(fichero, "%d,%s,%.2f,%d\n", numero_cuenta_origen, titular_origen, nuevo_saldo_origen, num_transacciones + 1);
 
     // Actualizar la cuenta de destino
     fseek(fichero, posicion_cuenta_destino, SEEK_SET);
-    fprintf(fichero, "%d,%s,%.2f,%d\n", numero_cuenta_destino, "Titular Destino", nuevo_saldo_destino, num_transacciones + 1);
+    fprintf(fichero, "%d,%s,%.2f,%d\n", numero_cuenta_destino, titular_destino, nuevo_saldo_destino, num_transacciones + 1);
 
     // Mostrar el resultado
     printf("Transferencia exitosa.\n");
