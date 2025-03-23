@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "comun.h"
 
 Config leer_configuracion(const char *ruta)
@@ -41,4 +42,24 @@ Config leer_configuracion(const char *ruta)
     }
     fclose(archivo);
     return config;
+}
+
+void EscribirLog(const char *mensaje) {
+    FILE* fichero;
+    fichero = fopen("registro.log", "a");
+
+    if (fichero == NULL)
+        return;
+
+    time_t tiempo;
+    struct tm *tm_info;
+    char hora[26];
+
+    time(&tiempo);
+    tm_info = localtime(&tiempo);
+    strftime(hora, 26, "%Y-%m-%d %H:%M:%S", tm_info);
+    fprintf(fichero, "[%s] %s\n", hora, mensaje);
+
+    fclose(fichero);
+    
 }

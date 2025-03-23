@@ -22,4 +22,6 @@ typedef struct Cuenta
 
 Config leer_configuracion(const char *ruta);
 
+void EscribirLog(const char *mensaje);
+
 #endif

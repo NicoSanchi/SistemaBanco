@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 #include <sys/types.h>
+#include <time.h>
 #include "comun.h"
 
 void iniciar_sesion()
@@ -33,6 +34,7 @@ void iniciar_sesion()
     if (archivo == NULL)
     {
         perror("Error a la hora de abrir el archivo");
+        EscribirLog("Fallo al abrir el archivo de usuarios\n");
         return;
     }
 
@@ -76,6 +78,7 @@ void iniciar_sesion()
         if (pid == -1)
         {
             perror("Ha ocurrido un fallo en el sistema");
+            EscribirLog("El usuario ha intentado iniciat sesion. Fallo en el sistema\n");
             exit(EXIT_FAILURE);
         }
 
@@ -85,12 +88,14 @@ void iniciar_sesion()
             snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario && ./usuario '%s' '%s'", numero_cuenta, titular);
 
             // Ejecutar gnome-terminal y correr el comando
+            EscribirLog("El usuario a iniciado sesión correctamente\n");
             execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
         }
     }
     else
     {
         printf("Algunos de los datos son incorrectos.\n");
+        EscribirLog("El usuario ha intentado iniciar sesion. Fallo al introducir las credenciales");
     }
     char tecla;
     printf("Presione una tecla para continuar...");
@@ -147,6 +152,8 @@ void RegistrarUsuario() {
     scanf("%c", &esperar);
 
 	fclose(ficheroUsers);
+
+    EscribirLog("El usuario se ha registrado correctamente");
 
     system("clear");
 

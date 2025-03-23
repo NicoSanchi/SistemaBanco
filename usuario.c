@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <string.h>
+#include <time.h>
 #include "comun.h"
 
 void *realizar_deposito(void *arg) {
@@ -71,6 +72,7 @@ void *realizar_retiro(void *arg) {
 
                 // Mostrar el resultado
                 printf("Retiro exitoso. Nuevo saldo: %.2f\n", nuevo_saldo);
+                EscribirLog("El usuario ha realizado un retiro exitosamente\n");
 
                 fclose(fichero);
                 return NULL;
@@ -80,6 +82,7 @@ void *realizar_retiro(void *arg) {
 
     // Si no se encontró la cuenta
     printf("No se encontró la cuenta con el número %d\n", numero_cuenta);
+    EscribirLog("El usuario ha intentado realizar un deposito. Fallo al no encontrar ninguna cuenta con el numero introducido\n");
 
     fclose(fichero);
     return NULL;
@@ -210,6 +213,7 @@ void *realizar_transferencia(void *arg) {
     printf("Transferencia exitosa.\n");
     printf("Nuevo saldo de la cuenta de origen (%d): %.2f\n", numero_cuenta_origen, nuevo_saldo_origen);
     printf("Nuevo saldo de la cuenta de destino (%d): %.2f\n", numero_cuenta_destino, nuevo_saldo_destino);
+    EscribirLog("El usuario ha realizado una transferencia exitosa\n");
 
     fclose(fichero);
     return NULL;
@@ -230,6 +234,7 @@ void *consultar_saldo(void *arg) {
     fichero = fopen(configuracion.archivo_cuentas, "r");
     if (fichero == NULL) {
         perror("Error al abrir el archivo de cuentas");
+        EscribirLog("El usuario ha intentado consultar las transacciones. Fallo al abrir el archivo de cuentas\n");
         return NULL;
     }
 
@@ -251,6 +256,7 @@ void *consultar_saldo(void *arg) {
                 // Mostrar el saldo
                 printf("Titular: %s\n", titular);
                 printf("Saldo actual: %.2f\n", saldo);
+                EscribirLog("El usuario ha consultado el saldo exitosamente\n");
 
                 fclose(fichero);
                 return NULL;
@@ -260,6 +266,7 @@ void *consultar_saldo(void *arg) {
 
     // Si no se encontró la cuenta
     printf("No se encontró la cuenta con el número %d\n", numero_cuenta);
+    EscribirLog("El usuairo ha intentado consultar su saldo. Fallo al no encontrar la cuenta con su numero\n");
 
     fclose(fichero);
     return NULL;
