@@ -85,33 +85,128 @@ void *realizar_retiro(void *arg) {
     return NULL;
 }
 
-void *realizar_transferencia(void *arg) { // Tiene que recibir el numero de cuenta
+void *realizar_transferencia(void *arg) {
 
-    FILE* fichero;
-    fichero = fopen(fichero, "a+");
+    Config configuracion = leer_configuracion("config.txt");
+
+    int numero_cuenta_origen = *(int *)arg; // Recuperar el número de cuenta de origen desde el argumento
+    float cantidad;
+    int numero_cuenta_destino;
     char linea[100];
-    int cuentaSeleccionada = 0;
+    FILE *fichero;
 
-    printf("Introduzca el numero de cuenta al cual quiere realizar la transeferencia: ");
+    // Solicitar el número de cuenta de destino
+    printf("Introduzca el número de cuenta de destino: ");
+    scanf("%d", &numero_cuenta_destino);
 
-    while (fgets(linea, sizeof(linea), fichero))
-    {
-        char* numCuenta = strtok(linea, ",");
+    // Solicitar la cantidad a transferir
+    printf("Introduzca la cantidad a transferir: ");
+    scanf("%f", &cantidad);
 
-
-        if (atoi(numCuenta) != arg) { // Lista a las cuentas a las que puede realizar una transferencia, sin contar la suya propia
-            char* nombre = strtok(NULL, ",");
-
-            printf("Numero de cuenta: %d - %s", atoi(numCuenta), nombre);
-        }
-
+    // Verificar el límite de transferencia
+    if (cantidad > configuracion.limite_transferencia) {
+        printf("Error: La cantidad excede el límite de transferencia permitido (%d)\n", configuracion.limite_transferencia);
+        return NULL;
     }
-    scanf("%d", &cuentaSeleccionada);
 
+    // Abrir el archivo de cuentas en modo lectura y escritura
+    fichero = fopen(configuracion.archivo_cuentas, "r+");
+    if (fichero == NULL) {
+        perror("Error al abrir el archivo de cuentas");
+        return NULL;
+    }
 
+    // Variables para almacenar los datos de las cuentas
+    int cuenta_actual;
+    char titular[50];
+    float saldo;
+    int num_transacciones;
+    long posicion_cuenta_origen = -1;
+    long posicion_cuenta_destino = -1;
+    float saldo_origen = -1;
+    float saldo_destino = -1;
 
-    printf("Realizando transferencia...\n");
+    // Leer línea por línea y buscar las cuentas
+    while (fgets(linea, sizeof(linea), fichero)) {
+        long posicion_actual = ftell(fichero) - strlen(linea); // Guardar la posición inicial de la línea
 
+        char *token = strtok(linea, ",");
+        if (token != NULL) {
+            cuenta_actual = atoi(token);
+
+            // Comparar con el número de cuenta de origen
+            if (cuenta_actual == numero_cuenta_origen) {
+                // Obtener el titular
+                char *titular_origen = strtok(NULL, ",");
+
+                // Obtener el saldo actual
+                char *saldo_str = strtok(NULL, ",");
+                saldo_origen = atof(saldo_str);
+
+                // Obtener el número de transacciones
+                char *num_transacciones_str = strtok(NULL, ",");
+                num_transacciones = atoi(num_transacciones_str);
+
+                // Guardar la posición de la cuenta de origen
+                posicion_cuenta_origen = posicion_actual;
+            }
+
+            // Comparar con el número de cuenta de destino
+            if (cuenta_actual == numero_cuenta_destino) {
+                // Obtener el titular
+                char *titular_destino = strtok(NULL, ",");
+
+                // Obtener el saldo actual
+                char *saldo_str = strtok(NULL, ",");
+                saldo_destino = atof(saldo_str);
+
+                // Obtener el número de transacciones
+                char *num_transacciones_str = strtok(NULL, ",");
+                num_transacciones = atoi(num_transacciones_str);
+
+                // Guardar la posición de la cuenta de destino
+                posicion_cuenta_destino = posicion_actual;
+            }
+        }
+    }
+
+    // Verificar si se encontraron ambas cuentas
+    if (posicion_cuenta_origen == -1) {
+        printf("No se encontró la cuenta de origen con el número %d\n", numero_cuenta_origen);
+        fclose(fichero);
+        return NULL;
+    }
+    if (posicion_cuenta_destino == -1) {
+        printf("No se encontró la cuenta de destino con el número %d\n", numero_cuenta_destino);
+        fclose(fichero);
+        return NULL;
+    }
+
+    // Verificar si hay fondos suficientes en la cuenta de origen
+    if (saldo_origen < cantidad) {
+        printf("Error: Fondos insuficientes en la cuenta de origen. Saldo actual: %.2f\n", saldo_origen);
+        fclose(fichero);
+        return NULL;
+    }
+
+    // Calcular los nuevos saldos
+    float nuevo_saldo_origen = saldo_origen - cantidad;
+    float nuevo_saldo_destino = saldo_destino + cantidad;
+
+    // Actualizar la cuenta de origen
+    fseek(fichero, posicion_cuenta_origen, SEEK_SET);
+    fprintf(fichero, "%d,%s,%.2f,%d\n", numero_cuenta_origen, "Titular Origen", nuevo_saldo_origen, num_transacciones + 1);
+
+    // Actualizar la cuenta de destino
+    fseek(fichero, posicion_cuenta_destino, SEEK_SET);
+    fprintf(fichero, "%d,%s,%.2f,%d\n", numero_cuenta_destino, "Titular Destino", nuevo_saldo_destino, num_transacciones + 1);
+
+    // Mostrar el resultado
+    printf("Transferencia exitosa.\n");
+    printf("Nuevo saldo de la cuenta de origen (%d): %.2f\n", numero_cuenta_origen, nuevo_saldo_origen);
+    printf("Nuevo saldo de la cuenta de destino (%d): %.2f\n", numero_cuenta_destino, nuevo_saldo_destino);
+
+    fclose(fichero);
     return NULL;
 }
 
@@ -181,19 +276,19 @@ int main(int argc, char* argv[]) {
 
         switch (opcion) {
             case 1:
-                if (pthread_create(&hilo[0], NULL, realizar_deposito, NULL) != 0)
+                if (pthread_create(&hilo[0], NULL, realizar_deposito, &numeroCuenta) != 0)
                     perror("Error creando hilo de depósito.");
                 else
                     pthread_join(hilo[0], NULL);
                 break;
             case 2:
-                if (pthread_create(&hilo[1], NULL, realizar_retiro, NULL) != 0)
+                if (pthread_create(&hilo[1], NULL, realizar_retiro, &numeroCuenta) != 0)
                     perror("Error creando hilo de retiro.");
                 else
                     pthread_join(hilo[1], NULL);
                 break;
             case 3:
-                if (pthread_create(&hilo[2], NULL, realizar_transferencia, NULL) != 0)
+                if (pthread_create(&hilo[2], NULL, realizar_transferencia, &numeroCuenta) != 0)
                     perror("Error creando hilo de transferencia.");
                 else
                     pthread_join(hilo[2], NULL);
