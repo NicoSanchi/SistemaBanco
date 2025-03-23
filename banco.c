@@ -34,7 +34,7 @@ void iniciar_sesion()
     if (archivo == NULL)
     {
         perror("Error a la hora de abrir el archivo");
-        EscribirLog("Fallo al abrir el archivo de usuarios\n");
+        EscribirLog("Fallo al abrir el archivo de usuarios");
         return;
     }
 
@@ -78,7 +78,7 @@ void iniciar_sesion()
         if (pid == -1)
         {
             perror("Ha ocurrido un fallo en el sistema");
-            EscribirLog("El usuario ha intentado iniciat sesion. Fallo en el sistema\n");
+            EscribirLog("El usuario ha intentado iniciat sesion. Fallo en el sistema");
             exit(EXIT_FAILURE);
         }
 
@@ -180,10 +180,11 @@ int main()
             break;
         case 2:
             system("clear");
-
+            RegistrarUsuario();
             break;
         case 3:
             printf("🔜¡HASTA LUEGO!🔜\n");
+            EscribirLog("El usuario ha salido del sistema");
         }
     }
     return 0;
