@@ -382,9 +382,14 @@ int main(int argc, char *argv[])
     int opcion;
     while (1)
     {
-        printf("\n🏦--------¡BIENVENIDO %s--------🏦\n", argv[2]);
-        printf("1. 💸Depósito\n2. 📉Retiro\n3. 💰Transferencia\n4. 💼Consultar saldo\n5. 👋Salir\n");
-        printf("Opción: ");
+        printf("\n🏦--------¡BIENVENIDO %s!--------🏦\n", argv[2]);
+        // printf("1. 💸Depósito\n2. 📉Retiro\n3. 💰Transferencia\n4. 💼Consultar saldo\n5. 👋Salir\n");
+        printf("1. 💸Depósito\n");
+        printf("\n2. 📉Retiro\n");
+        printf("\n3. 💰Transferencia\n");
+        printf("\n4. 💼Consultar saldo\n");
+        printf("\n5. 👋Salir\n");
+        printf("\nOpción: ");
         scanf("%d", &opcion);
         while (getchar() != '\n')
             ; // Limpiar buffer del stdin
