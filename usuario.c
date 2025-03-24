@@ -160,6 +160,8 @@ void *realizar_retiro(void *arg)
     return NULL;
 }
 
+void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, char *titularOrigen);
+
 void *realizar_transferencia(void *arg)
 {
     char tecla;
@@ -298,6 +300,7 @@ void *realizar_transferencia(void *arg)
     printf("Nuevo saldo de la cuenta de origen (%d): %.2f\n", numero_cuenta_origen, nuevo_saldo_origen);
     printf("Nuevo saldo de la cuenta de destino (%d): %.2f\n", numero_cuenta_destino, nuevo_saldo_destino);
     EscribirLog("El usuario ha realizado una transferencia exitosa");
+    RegistrarTransacciones(numero_cuenta_origen, numero_cuenta_destino, cantidad, titular_origen);
 
     fclose(fichero);
 
@@ -379,16 +382,16 @@ int main(int argc, char *argv[])
 
     int numeroCuenta = atoi(argv[1]); // Guardamos el numero de cuenta como entero para las operaciones
 
-    int opcion;
+    int opcion = 0;
     while (1)
     {
         printf("\n🏦--------¡BIENVENIDO %s!--------🏦\n", argv[2]);
-        // printf("1. 💸Depósito\n2. 📉Retiro\n3. 💰Transferencia\n4. 💼Consultar saldo\n5. 👋Salir\n");
-        printf("1. 💸Depósito\n");
-        printf("\n2. 📉Retiro\n");
-        printf("\n3. 💰Transferencia\n");
-        printf("\n4. 💼Consultar saldo\n");
-        printf("\n5. 👋Salir\n");
+        printf("1. 💸Depósito\n2. 📉Retiro\n3. 💰Transferencia\n4. 💼Consultar saldo\n5. 👋Salir\n");
+        // printf("1. 💸Depósito\n");
+        // printf("\n2. 📉Retiro\n");
+        // printf("\n3. 💰Transferencia\n");
+        // printf("\n4. 💼Consultar saldo\n");
+        // printf("\n5. 👋Salir\n");
         printf("\nOpción: ");
         scanf("%d", &opcion);
         while (getchar() != '\n')
@@ -428,4 +431,26 @@ int main(int argc, char *argv[])
     }
 
     return 0;
+}
+
+void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, char *titularOrigen) {
+
+    FILE* ficheroTransacciones;
+    ficheroTransacciones = fopen("transacciones.txt", "a");
+
+    if (ficheroTransacciones == NULL)
+        return;
+
+    time_t tiempo;
+    struct tm *tm_info;
+    char hora[26];
+    
+    time(&tiempo);
+    tm_info = localtime(&tiempo);
+    strftime(hora, 26, "%Y-%m-%d %H:%M:%S", tm_info);
+    fprintf(ficheroTransacciones, "[%s] El usuario %s con la cuenta %d ha realizado una transaccion de %f a la cuenta %d\n", hora, titularOrigen, cuentaOrigen, cantidad, cuentaDestino);
+    
+    fclose(ficheroTransacciones);
+
+    return;
 }

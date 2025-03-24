@@ -88,7 +88,7 @@ void iniciar_sesion()
             snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario && ./usuario '%s' '%s'", numero_cuenta, titular);
 
             // Ejecutar gnome-terminal y correr el comando
-            EscribirLog("\nEl usuario a iniciado sesión correctamente");
+            EscribirLog("El usuario a iniciado sesión correctamente");
             execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
         }
     }
