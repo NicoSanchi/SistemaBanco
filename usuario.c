@@ -6,6 +6,49 @@
 #include <time.h>
 #include "comun.h"
 
+
+void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, const char *tipo_operacion, const char *titularOrigen, const char *titularDestino)
+{
+    Config configuracion = leer_configuracion("config.txt");
+
+    FILE *ficheroTransacciones = fopen(configuracion.archivo_transacciones, "a");
+    if (ficheroTransacciones == NULL)
+    {
+        perror("Error al abrir el archivo de transacciones");
+        return;
+    }
+
+    time_t tiempo;
+    struct tm *tm_info;
+    char hora[26];
+
+    time(&tiempo);
+    tm_info = localtime(&tiempo);
+    strftime(hora, 26, "%Y-%m-%d %H:%M:%S", tm_info);
+
+    // Formato para transferencias (incluye ambos titulares)
+    if (strcmp(tipo_operacion, "TRANSFERENCIA") == 0)
+    {
+        fprintf(ficheroTransacciones,
+                "[%s] %s - Cuenta Origen: %d (%s), Cuenta Destino: %d (%s), Cantidad: %.2f\n",
+                hora, tipo_operacion,
+                cuentaOrigen, titularOrigen,
+                cuentaDestino, titularDestino,
+                cantidad);
+    }
+    // Formato para otras operaciones (depósito y retiro)
+    else
+    {
+        fprintf(ficheroTransacciones,
+                "[%s] %s - Cuenta: %d (%s), Cantidad: %.2f\n",
+                hora, tipo_operacion,
+                cuentaOrigen, titularOrigen,
+                cantidad);
+    }
+
+    fclose(ficheroTransacciones);
+}
+
 void *realizar_deposito(void *arg)
 {
     char tecla;
@@ -56,6 +99,8 @@ void *realizar_deposito(void *arg)
                 // Mostrar el resultado
                 printf("Ingreso realizado con éxito. Nuevo saldo: %.2f\n", saldo);
                 EscribirLog("El usuario ha realizado un ingreso exitosamente");
+                RegistrarTransacciones(cuenta_actual, 0, cantidad, "DEPÓSITO", titular, NULL);
+
                 break;
             }
         }
@@ -139,6 +184,7 @@ void *realizar_retiro(void *arg)
                 // Mostrar el resultado
                 printf("Retiro exitoso. Nuevo saldo: %.2f\n", nuevo_saldo);
                 EscribirLog("El usuario ha realizado un retiro exitosamente");
+                RegistrarTransacciones(cuenta_actual, 0, cantidad, "RETIRO", titular, NULL);
 
                 fclose(fichero);
                 printf("Presione una tecla para continuar");
@@ -151,7 +197,7 @@ void *realizar_retiro(void *arg)
 
     // Si no se encontró la cuenta
     printf("No se encontró la cuenta con el número %d\n", numero_cuenta);
-    EscribirLog("El usuario ha intentado realizar un deposito. Fallo al no encontrar ninguna cuenta con el numero introducido");
+    EscribirLog("El usuario ha intentado realizar un retiro. Fallo al no encontrar ninguna cuenta");
 
     fclose(fichero);
     printf("Presione una tecla para continuar...");
@@ -159,8 +205,6 @@ void *realizar_retiro(void *arg)
     system("clear");
     return NULL;
 }
-
-void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, char *titularOrigen);
 
 void *realizar_transferencia(void *arg)
 {
@@ -327,7 +371,7 @@ void *consultar_saldo(void *arg)
     if (fichero == NULL)
     {
         perror("Error al abrir el archivo de cuentas");
-        EscribirLog("El usuario ha intentado consultar las transacciones. Fallo al abrir el archivo de cuentas");
+        EscribirLog("El usuario ha intentado consultar su saldo. Fallo al abrir el archivo de cuentas");
         return NULL;
     }
 
@@ -365,7 +409,7 @@ void *consultar_saldo(void *arg)
 
     // Si no se encontró la cuenta
     printf("No se encontró la cuenta con el número %d\n", numero_cuenta);
-    EscribirLog("El usuairo ha intentado consultar su saldo. Fallo al no encontrar la cuenta con su numero");
+    EscribirLog("El usuario ha intentado consultar su saldo. Fallo al no encontrar la cuenta");
 
     fclose(fichero);
 
@@ -425,32 +469,10 @@ int main(int argc, char *argv[])
             break;
         case 5:
             printf("Saliendo...\n");
-            EscribirLog("El usuario ha salido del menu de usuario");
+            EscribirLog("El usuario ha salido del menú de usuario");
             exit(0);
         }
     }
 
     return 0;
-}
-
-void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, char *titularOrigen) {
-
-    FILE* ficheroTransacciones;
-    ficheroTransacciones = fopen("transacciones.txt", "a");
-
-    if (ficheroTransacciones == NULL)
-        return;
-
-    time_t tiempo;
-    struct tm *tm_info;
-    char hora[26];
-    
-    time(&tiempo);
-    tm_info = localtime(&tiempo);
-    strftime(hora, 26, "%Y-%m-%d %H:%M:%S", tm_info);
-    fprintf(ficheroTransacciones, "[%s] El usuario %s con la cuenta %d ha realizado una transaccion de %f a la cuenta %d\n", hora, titularOrigen, cuentaOrigen, cantidad, cuentaDestino);
-    
-    fclose(ficheroTransacciones);
-
-    return;
 }

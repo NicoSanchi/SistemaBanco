@@ -78,7 +78,7 @@ void iniciar_sesion()
         if (pid == -1)
         {
             perror("Ha ocurrido un fallo en el sistema");
-            EscribirLog("El usuario ha intentado iniciat sesion. Fallo en el sistema");
+            EscribirLog("El usuario ha intentado iniciar sesión. Fallo en el sistema");
             exit(EXIT_FAILURE);
         }
 
@@ -88,14 +88,14 @@ void iniciar_sesion()
             snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario && ./usuario '%s' '%s'", numero_cuenta, titular);
 
             // Ejecutar gnome-terminal y correr el comando
-            EscribirLog("El usuario a iniciado sesión correctamente");
+            EscribirLog("El usuario ha iniciado sesión correctamente");
             execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
         }
     }
     else
     {
         printf("Algunos de los datos son incorrectos.\n");
-        EscribirLog("El usuario ha intentado iniciar sesion. Fallo al introducir las credenciales");
+        EscribirLog("El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales");
     }
     char tecla;
     printf("Presione una tecla para continuar...");

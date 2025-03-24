@@ -10,6 +10,7 @@ typedef struct Config
     int num_hilos;
     char archivo_cuentas[50];
     char archivo_log[50];
+    char archivo_transacciones[50];
 } Config;
 
 typedef struct Cuenta

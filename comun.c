@@ -19,26 +19,21 @@ Config leer_configuracion(const char *ruta)
         if (linea[0] == '#' || strlen(linea) < 3)
             continue; // Ignorar comentarios y líneas vacías
         if (strstr(linea, "LIMITE_RETIRO"))
-            sscanf(linea, "LIMITE_RETIRO=%d",
-                   &config.limite_retiro);
+            sscanf(linea, "LIMITE_RETIRO=%d", &config.limite_retiro);
         else if (strstr(linea, "LIMITE_TRANSFERENCIA"))
-            sscanf(linea,
-                   "LIMITE_TRANSFERENCIA=%d", &config.limite_transferencia);
+            sscanf(linea, "LIMITE_TRANSFERENCIA=%d", &config.limite_transferencia);
         else if (strstr(linea, "UMBRAL_RETIROS"))
-            sscanf(linea, "UMBRAL_RETIROS=%d",
-                   &config.umbral_retiros);
+            sscanf(linea, "UMBRAL_RETIROS=%d", &config.umbral_retiros);
         else if (strstr(linea, "UMBRAL_TRANSFERENCIAS"))
-            sscanf(linea,
-                   "UMBRAL_TRANSFERENCIAS=%d", &config.umbral_transferencias);
+            sscanf(linea, "UMBRAL_TRANSFERENCIAS=%d", &config.umbral_transferencias);
         else if (strstr(linea, "NUM_HILOS"))
-            sscanf(linea, "NUM_HILOS=%d",
-                   &config.num_hilos);
+            sscanf(linea, "NUM_HILOS=%d", &config.num_hilos);
         else if (strstr(linea, "ARCHIVO_CUENTAS"))
-            sscanf(linea, "ARCHIVO_CUENTAS=%s",
-                   config.archivo_cuentas);
+            sscanf(linea, "ARCHIVO_CUENTAS=%s", config.archivo_cuentas);
         else if (strstr(linea, "ARCHIVO_LOG"))
-            sscanf(linea, "ARCHIVO_LOG=%s",
-                   config.archivo_log);
+            sscanf(linea, "ARCHIVO_LOG=%s", config.archivo_log);
+        else if (strstr(linea, "ARCHIVO_TRANSACCIONES"))
+            sscanf(linea, "ARCHIVO_TRANSACCIONES=%s", config.archivo_transacciones);    
     }
     fclose(archivo);
     return config;
