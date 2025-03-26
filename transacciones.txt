@@ -1,2 +1,5 @@
 [2025-03-24 17:10:06] El usuario Gonzalo con la cuenta 1001 ha realizado una transaccion de 1500.000000 a la cuenta 1002
 [2025-03-24 17:13:28] El usuario Jesús con la cuenta 1003 ha realizado una transaccion de 1000.000000 a la cuenta 1002
+[2025-03-26 18:40:46] DEPÓSITO - Cuenta: 1003 (Chuso), Cantidad: 200.00
+[2025-03-26 18:42:36] DEPÓSITO - Cuenta: 1003 (Chuso), Cantidad: 2.00
+[2025-03-26 18:43:32] DEPÓSITO - Cuenta: 1003 (Chuso), Cantidad: 2.00

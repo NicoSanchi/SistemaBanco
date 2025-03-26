@@ -15,8 +15,11 @@ void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad,
     if (ficheroTransacciones == NULL)
     {
         perror("Error al abrir el archivo de transacciones");
+        EscribirLog("Fallo al abrir el archivo de transacciones");
         return;
     }
+    else
+        EscribirLog("Se ha abierto el archivo de transacciones");
 
     time_t tiempo;
     struct tm *tm_info;
@@ -47,6 +50,7 @@ void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad,
     }
 
     fclose(ficheroTransacciones);
+    EscribirLog("Se ha cerrado el archivo de transacciones");
 }
 
 void *realizar_deposito(void *arg)
@@ -69,9 +73,12 @@ void *realizar_deposito(void *arg)
     fichero = fopen(configuracion.archivo_cuentas, "r+");
     if (fichero == NULL)
     {
-        perror("Error al abrir el archivo de cuenta.");
+        perror("Error al abrir el archivo de cuentas.");
+        EscribirLog("Fallo al abrir el archivo de cuentas");
         return NULL;
     }
+    else
+        EscribirLog("Se ha abierto el archivo de cuentas");
 
     // Leer línea por línea y buscar la cuenta.
     while (fgets(linea, sizeof(linea), fichero))
@@ -97,7 +104,7 @@ void *realizar_deposito(void *arg)
                 fprintf(fichero, "%d,%s,%.2f,%d\n", cuenta_actual, titular, saldo, num_transaciones + 1);
 
                 // Mostrar el resultado
-                printf("Ingreso realizado con éxito. Nuevo saldo: %.2f\n", saldo);
+                printf("✅ Ingreso realizado con éxito. Nuevo saldo: %.2f\n", saldo);
                 EscribirLog("El usuario ha realizado un ingreso exitosamente");
                 RegistrarTransacciones(cuenta_actual, 0, cantidad, "DEPÓSITO", titular, NULL);
 
@@ -106,6 +113,7 @@ void *realizar_deposito(void *arg)
         }
     }
     fclose(fichero);
+    EscribirLog("Se ha cerrado el archivo de cuentas");
     printf("Presione una tecla para continuar...");
     scanf("%c", &tecla);
     system("clear");
@@ -140,8 +148,11 @@ void *realizar_retiro(void *arg)
     if (fichero == NULL)
     {
         perror("Error al abrir el archivo de cuentas");
+        EscribirLog("Fallo al abrir el archivo de cuentas");
         return NULL;
     }
+    else
+        EscribirLog("Se ha abierto el archivo de cuentas");
 
     // Leer línea por línea y buscar la cuenta
     while (fgets(linea, sizeof(linea), fichero))
@@ -182,7 +193,7 @@ void *realizar_retiro(void *arg)
                 fprintf(fichero, "%d,%s,%.2f,%d\n", cuenta_actual, titular, nuevo_saldo, num_transacciones + 1);
 
                 // Mostrar el resultado
-                printf("Retiro exitoso. Nuevo saldo: %.2f\n", nuevo_saldo);
+                printf("✅ Retiro exitoso. Nuevo saldo: %.2f\n", nuevo_saldo);
                 EscribirLog("El usuario ha realizado un retiro exitosamente");
                 RegistrarTransacciones(cuenta_actual, 0, cantidad, "RETIRO", titular, NULL);
 
@@ -200,6 +211,7 @@ void *realizar_retiro(void *arg)
     EscribirLog("El usuario ha intentado realizar un retiro. Fallo al no encontrar ninguna cuenta");
 
     fclose(fichero);
+    EscribirLog("Se ha cerrado el archivo de cuentas");
     printf("Presione una tecla para continuar...");
     scanf("%c", &tecla);
     system("clear");
@@ -239,8 +251,11 @@ void *realizar_transferencia(void *arg)
     if (fichero == NULL)
     {
         perror("Error al abrir el archivo de cuentas");
+        EscribirLog("Fallo al abrir el archivo de cuentas");
         return NULL;
     }
+    else
+        EscribirLog("Se ha abierto el archivo de cuentas");
 
     // Variables para almacenar los datos de las cuentas
     int cuenta_actual;
@@ -340,13 +355,14 @@ void *realizar_transferencia(void *arg)
     fprintf(fichero, "%d,%s,%.2f,%d\n", numero_cuenta_destino, titular_destino, nuevo_saldo_destino, num_transacciones + 1);
 
     // Mostrar el resultado
-    printf("Transferencia exitosa.\n");
+    printf("✅ Transferencia exitosa.\n");
     printf("Nuevo saldo de la cuenta de origen (%d): %.2f\n", numero_cuenta_origen, nuevo_saldo_origen);
     printf("Nuevo saldo de la cuenta de destino (%d): %.2f\n", numero_cuenta_destino, nuevo_saldo_destino);
     EscribirLog("El usuario ha realizado una transferencia exitosa");
     RegistrarTransacciones(numero_cuenta_origen, numero_cuenta_destino, cantidad, "TRANSFERENCIA", titular_origen, titular_destino);
     
     fclose(fichero);
+    EscribirLog("Se ha cerrado el archivo de cuentas");
 
     printf("Presione una tecla para continuar...");
     scanf("%c", &tecla);
@@ -371,9 +387,11 @@ void *consultar_saldo(void *arg)
     if (fichero == NULL)
     {
         perror("Error al abrir el archivo de cuentas");
-        EscribirLog("El usuario ha intentado consultar su saldo. Fallo al abrir el archivo de cuentas");
+        EscribirLog("Fallo al abrir el archivo de cuentas");
         return NULL;
     }
+    else
+        EscribirLog("Se ha abierto el archivo de cuentas");
 
     // Leer línea por línea
     while (fgets(linea, sizeof(linea), fichero))
@@ -412,6 +430,7 @@ void *consultar_saldo(void *arg)
     EscribirLog("El usuario ha intentado consultar su saldo. Fallo al no encontrar la cuenta");
 
     fclose(fichero);
+    EscribirLog("Se ha cerrado el archivo de cuentas");
 
     printf("Presione una tecla para continuar...");
     scanf("%c", &tecla);
@@ -431,11 +450,6 @@ int main(int argc, char *argv[])
     {
         printf("\n🏦--------¡BIENVENIDO %s!--------🏦\n", argv[2]);
         printf("1. 💸Depósito\n2. 📉Retiro\n3. 💰Transferencia\n4. 💼Consultar saldo\n5. 👋Salir\n");
-        // printf("1. 💸Depósito\n");
-        // printf("\n2. 📉Retiro\n");
-        // printf("\n3. 💰Transferencia\n");
-        // printf("\n4. 💼Consultar saldo\n");
-        // printf("\n5. 👋Salir\n");
         printf("\nOpción: ");
         scanf("%d", &opcion);
         while (getchar() != '\n')

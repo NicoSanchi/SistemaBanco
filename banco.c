@@ -12,7 +12,7 @@ void iniciar_sesion()
 {
     system("clear");
     Config configuracion = leer_configuracion("config.txt");
-    int fd[2];
+    //int fd[2];
     bool encontrado = false;
     FILE *archivo;
     char linea[100];        // Buffer para leer cada línea
@@ -20,7 +20,7 @@ void iniciar_sesion()
     char titular[50];
 
     // Leer número de cuenta
-    printf("🔴 Ingrese el numero de cuenta: ");
+    printf("🔴 Ingrese el número de cuenta: ");
     fgets(numero_cuenta, sizeof(numero_cuenta), stdin);
     numero_cuenta[strcspn(numero_cuenta, "\n")] = 0; // Eliminar salto de línea
 
@@ -37,6 +37,8 @@ void iniciar_sesion()
         EscribirLog("Fallo al abrir el archivo de usuarios");
         return;
     }
+    else
+        EscribirLog("Se ha abierto el archivo de cuentas");
 
     // Leer línea por línea
     while (fgets(linea, sizeof(linea), archivo))
@@ -69,11 +71,12 @@ void iniciar_sesion()
     }
 
     fclose(archivo); // Cerrar el archivo
+    EscribirLog("Se ha cerrado el archivo de cuentas");
 
     // Mensaje de salida
     if (encontrado)
     {
-        pipe(fd);
+        //pipe(fd);
         __pid_t pid = fork();
         if (pid == -1)
         {
@@ -97,9 +100,9 @@ void iniciar_sesion()
         printf("Algunos de los datos son incorrectos.\n");
         EscribirLog("El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales");
     }
-    char tecla;
-    printf("Presione una tecla para continuar...");
-    scanf("%c", &tecla);
+    //char tecla;
+    //printf("Presione una tecla para continuar...");
+    //scanf("%c", &tecla);
     system("clear");
 }
 
@@ -110,13 +113,21 @@ void RegistrarUsuario() {
     Config configuracion = leer_configuracion("config.txt");
 
 	FILE *ficheroUsers;
-	char nombre[100], linea[100], esperar;
+	char nombre[50], linea[100], esperar;
     int numeroCuentaCliente, numeroTransacciones = 0, saldo = 0;
     bool hayUsuarios = false;
 
     srand(time(NULL));
         
 	ficheroUsers = fopen(configuracion.archivo_cuentas, "a+"); // Abrimos el archivo en formato append
+    if (ficheroUsers == NULL)
+    {
+        perror("Error a la hora de abrir el archivo");
+        EscribirLog("Fallo al abrir el archivo de usuarios");
+        return;
+    }
+    else
+        EscribirLog("Se ha abierto el archivo de cuentas");
 
     while (fgets(linea, sizeof(linea), ficheroUsers))
     {
@@ -133,7 +144,7 @@ void RegistrarUsuario() {
     else
         numeroCuentaCliente = 1000; // Si no inicializa a 1000 el numero de cuenta
 	
-	printf("Introduce el nombre de usuario que quieres: ");
+	printf("Introduce el nombre del titular: ");
 	fgets(nombre, sizeof(nombre), stdin);
     nombre[strcspn(nombre, "\n")] = 0;
 
@@ -147,11 +158,12 @@ void RegistrarUsuario() {
 
     fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); // Escribimos en el archivo de usaurio el nuevo usuario
 
-    printf("\nHola %s tu numero de cuenta es %d\n", nombre, numeroCuentaCliente);
+    printf("\n👋 Hola %s tu número de cuenta es %d\n", nombre, numeroCuentaCliente);
     printf("\nPulsa una tecla para continuar...");
     scanf("%c", &esperar);
 
 	fclose(ficheroUsers);
+    EscribirLog("Se ha cerrado el archivo de cuentas");
 
     EscribirLog("El usuario se ha registrado correctamente");
 
@@ -166,9 +178,9 @@ int main()
     int opcion;
     while (opcion != 3)
     {
-        printf("1. 👤Iniciar sesión.\n");
-        printf("2. 👥Registrarse.\n");
-        printf("3. 👋Salir.\n");
+        printf("1. 👤 Iniciar sesión.\n");
+        printf("2. 👥 Registrarse.\n");
+        printf("3. 👋 Salir.\n");
         printf("Opción: ");
         scanf("%d", &opcion);
         while (getchar() != '\n')
