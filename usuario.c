@@ -449,11 +449,20 @@ int main(int argc, char *argv[])
     while (1)
     {
         printf("\n🏦--------¡BIENVENIDO %s!--------🏦\n", argv[2]);
-        printf("1. 💸Depósito\n2. 📉Retiro\n3. 💰Transferencia\n4. 💼Consultar saldo\n5. 👋Salir\n");
+        printf("    ┌──────────────────────────────┐\n");
+        printf("    │      📌 MENÚ PRINCIPAL       │\n");
+        printf("    ├──────────────────────────────┤\n");
+        printf("    │ 1.  💸 Depósito              │\n");
+        printf("    │ 2.  💵 Retiro                │\n");
+        printf("    │ 3.  💰 Transferencia         │\n");
+        printf("    │ 4.  💼 Consultar saldo       │\n");
+        printf("    │ 5.  👋 Salir                 │\n");
+        printf("    └──────────────────────────────┘\n");
+
         printf("\nOpción: ");
         scanf("%d", &opcion);
-        while (getchar() != '\n')
-            ; // Limpiar buffer del stdin
+        
+        while (getchar() != '\n'); // Limpiar buffer del stdin
 
         switch (opcion)
         {

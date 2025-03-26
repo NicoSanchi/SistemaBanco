@@ -39,14 +39,14 @@ Config leer_configuracion(const char *ruta)
     return config;
 }
 
-void EscribirLog(const char *mensaje) {
+void EscribirLog(const char *mensaje) { // Recibe un mensaje que será el que aparecerá en el log
     FILE* fichero;
-    fichero = fopen("registro.log", "a");
+    fichero = fopen("registro.log", "a"); // Abrimos el archivo
 
     if (fichero == NULL)
         return;
 
-    time_t tiempo;
+    time_t tiempo; // Creamos una varible para tomar la hora a la que se escribio el log
     struct tm *tm_info;
     char hora[26];
 

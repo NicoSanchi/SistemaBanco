@@ -112,8 +112,9 @@ void RegistrarUsuario() {
 
     Config configuracion = leer_configuracion("config.txt");
 
+    // Inicializamos las varibales
 	FILE *ficheroUsers;
-	char nombre[50], linea[100], esperar;
+	char nombre[50], linea[100], esperar;  
     int numeroCuentaCliente, numeroTransacciones = 0, saldo = 0;
     bool hayUsuarios = false;
 
@@ -129,7 +130,7 @@ void RegistrarUsuario() {
     else
         EscribirLog("Se ha abierto el archivo de cuentas");
 
-    while (fgets(linea, sizeof(linea), ficheroUsers))
+    while (fgets(linea, sizeof(linea), ficheroUsers)) // Leemos el archivo linea por linea
     {
         char* token = strtok(linea, ","); // Tomamos el numero de cuenta de la linea
         
@@ -150,11 +151,12 @@ void RegistrarUsuario() {
 
     saldo = rand() % (10000 - 1000 + 1) + 1000; // Generamos un numero entre 1000 y 10000 que sera su saldo
 
-    fseek(ficheroUsers, -1, SEEK_END);
+    fseek(ficheroUsers, -1, SEEK_END); // Nos movemos al final del archivo de usuarios
     char ultimoCaracter = fgetc(ficheroUsers);
 
-    if (ultimoCaracter != '\n' && hayUsuarios)
-        fprintf(ficheroUsers, "\n");
+    if (ultimoCaracter != '\n' && hayUsuarios) // Y comprobamos si hay usuarios y si el ultimo caracter no es un salto de linea
+        fprintf(ficheroUsers, "\n"); // En el caso de que haya usuarios y el utlimo caracter no es un salto de linea, lo añadimos manualmente 
+    // De modo que se escriba en el archivo de usuarios linea por linea
 
     fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); // Escribimos en el archivo de usaurio el nuevo usuario
 
@@ -178,10 +180,14 @@ int main()
     int opcion;
     while (opcion != 3)
     {
-        printf("1. 👤 Iniciar sesión.\n");
-        printf("2. 👥 Registrarse.\n");
-        printf("3. 👋 Salir.\n");
-        printf("Opción: ");
+        printf("┌──────────────────────────────┐\n");
+        printf("│        🔐 MENÚ LOGIN         │\n");
+        printf("├──────────────────────────────┤\n");
+        printf("│ 1.  👤 Iniciar sesión        │\n");
+        printf("│ 2.  👥 Registrarse           │\n");
+        printf("│ 3.  👋 Salir                 │\n");
+        printf("└──────────────────────────────┘\n");
+        printf("\nOpcion: ");
         scanf("%d", &opcion);
         while (getchar() != '\n')
             ;
