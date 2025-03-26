@@ -187,7 +187,7 @@ int main()
         printf("│ 2.  👥 Registrarse           │\n");
         printf("│ 3.  👋 Salir                 │\n");
         printf("└──────────────────────────────┘\n");
-        printf("\nOpcion: ");
+        printf("\nOpción: ");
         scanf("%d", &opcion);
         while (getchar() != '\n')
             ;
