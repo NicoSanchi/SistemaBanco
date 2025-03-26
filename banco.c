@@ -111,7 +111,7 @@ void RegistrarUsuario() {
 
 	FILE *ficheroUsers;
 	char nombre[100], linea[100], esperar;
-    int numeroCuentaCliente = 0, numeroTransacciones = 0, saldo = 0;
+    int numeroCuentaCliente, numeroTransacciones = 0, saldo = 0;
     bool hayUsuarios = false;
 
     srand(time(NULL));

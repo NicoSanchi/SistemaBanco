@@ -140,3 +140,6 @@
 [2025-03-24 17:18:14] El usuario a iniciado sesión correctamente
 [2025-03-24 17:18:18] El usuario ha consultado el saldo exitosamente
 [2025-03-24 17:18:20] El usuario ha salido del menu de usuario
+[2025-03-26 09:53:51] El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales
+[2025-03-26 09:55:09] El usuario se ha registrado correctamente
+[2025-03-26 09:56:31] El usuario se ha registrado correctamente
