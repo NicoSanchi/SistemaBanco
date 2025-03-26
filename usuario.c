@@ -344,8 +344,8 @@ void *realizar_transferencia(void *arg)
     printf("Nuevo saldo de la cuenta de origen (%d): %.2f\n", numero_cuenta_origen, nuevo_saldo_origen);
     printf("Nuevo saldo de la cuenta de destino (%d): %.2f\n", numero_cuenta_destino, nuevo_saldo_destino);
     EscribirLog("El usuario ha realizado una transferencia exitosa");
-    RegistrarTransacciones(numero_cuenta_origen, numero_cuenta_destino, cantidad, titular_origen);
-
+    RegistrarTransacciones(numero_cuenta_origen, numero_cuenta_destino, cantidad, "TRANSFERENCIA", titular_origen, titular_destino);
+    
     fclose(fichero);
 
     printf("Presione una tecla para continuar...");
