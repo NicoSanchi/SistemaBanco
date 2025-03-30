@@ -12,7 +12,7 @@ void iniciar_sesion()
 {
     system("clear");
     Config configuracion = leer_configuracion("config.txt");
-    //int fd[2];
+    // int fd[2];
     bool encontrado = false;
     FILE *archivo;
     char linea[100];        // Buffer para leer cada línea
@@ -76,7 +76,8 @@ void iniciar_sesion()
     // Mensaje de salida
     if (encontrado)
     {
-        //pipe(fd);
+        pid_t pid_banco = getpid(); // guarda PID del padre real
+        // pipe(fd);
         __pid_t pid = fork();
         if (pid == -1)
         {
@@ -88,7 +89,7 @@ void iniciar_sesion()
         if (pid == 0)
         {
             char comando[300];
-            snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario && ./usuario '%s' '%s'", numero_cuenta, titular);
+            snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario && ./usuario '%s' '%s' %d", numero_cuenta, titular, pid_banco);
 
             // Ejecutar gnome-terminal y correr el comando
             EscribirLog("El usuario ha iniciado sesión correctamente");
@@ -100,27 +101,28 @@ void iniciar_sesion()
         printf("Algunos de los datos son incorrectos.\n");
         EscribirLog("El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales");
     }
-    //char tecla;
-    //printf("Presione una tecla para continuar...");
-    //scanf("%c", &tecla);
+    // char tecla;
+    // printf("Presione una tecla para continuar...");
+    // scanf("%c", &tecla);
     system("clear");
 }
 
-void RegistrarUsuario() {
+void RegistrarUsuario()
+{
 
     system("clear");
 
     Config configuracion = leer_configuracion("config.txt");
 
     // Inicializamos las varibales
-	FILE *ficheroUsers;
-	char nombre[50], linea[100], esperar;  
+    FILE *ficheroUsers;
+    char nombre[50], linea[100], esperar;
     int numeroCuentaCliente, numeroTransacciones = 0, saldo = 0;
     bool hayUsuarios = false;
 
     srand(time(NULL));
-        
-	ficheroUsers = fopen(configuracion.archivo_cuentas, "a+"); // Abrimos el archivo en formato append
+
+    ficheroUsers = fopen(configuracion.archivo_cuentas, "a+"); // Abrimos el archivo en formato append
     if (ficheroUsers == NULL)
     {
         perror("Error a la hora de abrir el archivo");
@@ -132,10 +134,11 @@ void RegistrarUsuario() {
 
     while (fgets(linea, sizeof(linea), ficheroUsers)) // Leemos el archivo linea por linea
     {
-        char* token = strtok(linea, ","); // Tomamos el numero de cuenta de la linea
-        
-        if (token != NULL) { // Si el archivo no esta vacio, asignamos al numero de cuenta el numero de cuenta del ultimo cliente
-            numeroCuentaCliente = atoi(token); 
+        char *token = strtok(linea, ","); // Tomamos el numero de cuenta de la linea
+
+        if (token != NULL)
+        { // Si el archivo no esta vacio, asignamos al numero de cuenta el numero de cuenta del ultimo cliente
+            numeroCuentaCliente = atoi(token);
             hayUsuarios = true;
         }
     }
@@ -144,9 +147,9 @@ void RegistrarUsuario() {
         numeroCuentaCliente++;
     else
         numeroCuentaCliente = 1000; // Si no inicializa a 1000 el numero de cuenta
-	
-	printf("Introduce el nombre del titular: ");
-	fgets(nombre, sizeof(nombre), stdin);
+
+    printf("Introduce el nombre del titular: ");
+    fgets(nombre, sizeof(nombre), stdin);
     nombre[strcspn(nombre, "\n")] = 0;
 
     saldo = rand() % (10000 - 1000 + 1) + 1000; // Generamos un numero entre 1000 y 10000 que sera su saldo
@@ -155,7 +158,7 @@ void RegistrarUsuario() {
     char ultimoCaracter = fgetc(ficheroUsers);
 
     if (ultimoCaracter != '\n' && hayUsuarios) // Y comprobamos si hay usuarios y si el ultimo caracter no es un salto de linea
-        fprintf(ficheroUsers, "\n"); // En el caso de que haya usuarios y el utlimo caracter no es un salto de linea, lo añadimos manualmente 
+        fprintf(ficheroUsers, "\n");           // En el caso de que haya usuarios y el utlimo caracter no es un salto de linea, lo añadimos manualmente
     // De modo que se escriba en el archivo de usuarios linea por linea
 
     fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); // Escribimos en el archivo de usaurio el nuevo usuario
@@ -164,7 +167,7 @@ void RegistrarUsuario() {
     printf("\nPulsa una tecla para continuar...");
     scanf("%c", &esperar);
 
-	fclose(ficheroUsers);
+    fclose(ficheroUsers);
     EscribirLog("Se ha cerrado el archivo de cuentas");
 
     EscribirLog("El usuario se ha registrado correctamente");
@@ -172,7 +175,6 @@ void RegistrarUsuario() {
     system("clear");
 
     return;
-
 }
 
 int main()
@@ -189,8 +191,7 @@ int main()
         printf("└──────────────────────────────┘\n");
         printf("\nOpción: ");
         scanf("%d", &opcion);
-        while (getchar() != '\n')
-            ;
+        while (getchar() != '\n');
         switch (opcion)
         {
         case 1:
@@ -203,6 +204,14 @@ int main()
         case 3:
             printf("🔜¡HASTA LUEGO!🔜\n");
             EscribirLog("El usuario ha salido del sistema");
+            break;
+
+        default:
+            printf("La opción seleccionada no es válida.\n");
+            printf("Presione una tecla para continuar...");
+            getchar();
+            system("clear");
+            break;
         }
     }
     return 0;

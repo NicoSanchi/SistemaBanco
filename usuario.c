@@ -4,8 +4,9 @@
 #include <pthread.h>
 #include <string.h>
 #include <time.h>
+#include <signal.h>
+#include <errno.h>
 #include "comun.h"
-
 
 void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, const char *tipo_operacion, const char *titularOrigen, const char *titularDestino)
 {
@@ -67,7 +68,8 @@ void *realizar_deposito(void *arg)
     // Solicitar la cantidad a ingresar.
     printf("\nIntroduzca la cantidad a ingresar: ");
     scanf("%f", &cantidad);
-    while(getchar()!='\n');
+    while (getchar() != '\n')
+        ;
 
     // Abrir el archivo de cuentas en modo lectura y escritura.
     fichero = fopen(configuracion.archivo_cuentas, "r+");
@@ -134,7 +136,8 @@ void *realizar_retiro(void *arg)
     // Solicitar la cantidad a retirar
     printf("\nIntroduzca la cantidad a retirar: ");
     scanf("%f", &cantidad);
-    while(getchar()!='\n');
+    while (getchar() != '\n')
+        ;
 
     // Verificar el límite de retiro
     if (cantidad > configuracion.limite_retiro)
@@ -232,12 +235,14 @@ void *realizar_transferencia(void *arg)
     // Solicitar el número de cuenta de destino
     printf("\nIntroduzca el número de cuenta de destino: ");
     scanf("%d", &numero_cuenta_destino);
-    while(getchar()!='\n');
+    while (getchar() != '\n')
+        ;
 
     // Solicitar la cantidad a transferir
     printf("Introduzca la cantidad a transferir: ");
     scanf("%f", &cantidad);
-    while(getchar()!='\n');
+    while (getchar() != '\n')
+        ;
 
     // Verificar el límite de transferencia
     if (cantidad > configuracion.limite_transferencia)
@@ -360,7 +365,7 @@ void *realizar_transferencia(void *arg)
     printf("Nuevo saldo de la cuenta de destino (%d): %.2f\n", numero_cuenta_destino, nuevo_saldo_destino);
     EscribirLog("El usuario ha realizado una transferencia exitosa");
     RegistrarTransacciones(numero_cuenta_origen, numero_cuenta_destino, cantidad, "TRANSFERENCIA", titular_origen, titular_destino);
-    
+
     fclose(fichero);
     EscribirLog("Se ha cerrado el archivo de cuentas");
 
@@ -438,8 +443,31 @@ void *consultar_saldo(void *arg)
     return NULL;
 }
 
+void *vigilar_banco(void *arg)
+{
+    pid_t banco = *(pid_t *)arg;
+    char comando[100];
+    while (1)
+    {
+        if (kill(banco, 0) == -1)
+        {
+            if (errno == ESRCH)
+            {
+
+                snprintf(comando, sizeof(comando), "kill -9 %d", getpid());
+                system(comando);
+            }
+        }
+        sleep(1); // No saturar la CPU
+    }
+    return NULL;
+}
+
 int main(int argc, char *argv[])
 {
+    pthread_t monitor;
+    pid_t pid_banco = atoi(argv[3]);
+    pthread_create(&monitor, NULL, vigilar_banco, &pid_banco);
 
     pthread_t hilo[4]; // ← CORREGIDO para permitir las 4 operaciones
 
@@ -461,8 +489,9 @@ int main(int argc, char *argv[])
 
         printf("\nOpción: ");
         scanf("%d", &opcion);
-        
-        while (getchar() != '\n'); // Limpiar buffer del stdin
+
+        while (getchar() != '\n')
+            ; // Limpiar buffer del stdin
 
         switch (opcion)
         {
