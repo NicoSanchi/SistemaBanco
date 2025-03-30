@@ -451,12 +451,9 @@ void *vigilar_banco(void *arg)
     {
         if (kill(banco, 0) == -1)
         {
-            if (errno == ESRCH)
-            {
 
-                snprintf(comando, sizeof(comando), "kill -9 %d", getpid());
-                system(comando);
-            }
+            snprintf(comando, sizeof(comando), "kill -9 %d", getpid());
+            system(comando);
         }
         sleep(1); // No saturar la CPU
     }
