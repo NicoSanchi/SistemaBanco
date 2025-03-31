@@ -1,6 +1,8 @@
 #ifndef COMUN_H
 #define COMUN_H
 
+#include <semaphore.h>
+
 typedef struct Config
 {
     int limite_retiro;
@@ -11,6 +13,7 @@ typedef struct Config
     char archivo_cuentas[50];
     char archivo_log[50];
     char archivo_transacciones[50];
+    char archivo_alertas[50];
 } Config;
 
 typedef struct Cuenta
@@ -21,8 +24,18 @@ typedef struct Cuenta
     int num_transacciones;
 } Cuenta;
 
-Config leer_configuracion(const char *ruta);
+// Declaraciones de variables globales (definidas en comun.c)
+extern Config configuracion;  
+extern sem_t *semaforo_cuentas;
+extern sem_t *semaforo_log;
+extern sem_t *semaforo_transacciones;
+extern sem_t *semaforo_alertas;
 
+// Declaraciones de funciones
+void inicializar_configuracion(); 
 void EscribirLog(const char *mensaje);
+void inicializar_semaforos();
+void destruir_semaforos();
+void conectar_semaforos();
 
 #endif

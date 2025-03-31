@@ -6,58 +6,117 @@
 #include <time.h>
 #include <signal.h>
 #include <errno.h>
+#include <semaphore.h>
+#include <fcntl.h>
 #include "comun.h"
 
-void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, const char *tipo_operacion, const char *titularOrigen, const char *titularDestino)
+// Declaraciones de funciones
+void *vigilar_banco(void *arg);
+void *realizar_deposito(void *arg);
+void *realizar_retiro(void *arg);
+void *realizar_transferencia(void *arg);
+void *consultar_saldo(void *arg);
+void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, const char *tipo_operacion, const char *titularOrigen, const char *titularDestino);
+
+
+int main(int argc, char *argv[])
 {
-    Config configuracion = leer_configuracion("config.txt");
+    inicializar_configuracion();
 
-    FILE *ficheroTransacciones = fopen(configuracion.archivo_transacciones, "a");
-    if (ficheroTransacciones == NULL)
+    conectar_semaforos();
+
+    pthread_t hilo[4];
+
+    pthread_t usuario;
+    pid_t pid_banco = atoi(argv[3]);
+    pthread_create(&usuario, NULL, vigilar_banco, &pid_banco);
+
+    int numeroCuenta = atoi(argv[1]); // Guardamos el numero de cuenta como entero para las operaciones
+
+    int opcion = 0;
+    while (1)
     {
-        perror("Error al abrir el archivo de transacciones");
-        EscribirLog("Fallo al abrir el archivo de transacciones");
-        return;
+        printf("\n🏦--------¡BIENVENIDO %s!--------🏦\n", argv[2]);
+        printf("    ┌──────────────────────────────┐\n");
+        printf("    │         MENÚ PRINCIPAL       │\n");
+        printf("    ├──────────────────────────────┤\n");
+        printf("    │ 1.  💸 Depósito              │\n");
+        printf("    │ 2.  💵 Retiro                │\n");
+        printf("    │ 3.  💰 Transferencia         │\n");
+        printf("    │ 4.  💼 Consultar saldo       │\n");
+        printf("    │ 5.  👋 Salir                 │\n");
+        printf("    └──────────────────────────────┘\n");
+
+        printf("\nOpción: ");
+        scanf("%d", &opcion);
+
+        while (getchar() != '\n')
+            ; // Limpiar buffer del stdin
+
+        switch (opcion)
+        {
+        case 1:
+            if (pthread_create(&hilo[0], NULL, realizar_deposito, &numeroCuenta) != 0) {
+                perror("Error creando hilo de depósito.");
+                EscribirLog("Fallo al crear hilo de depósito");
+            }
+            else
+                pthread_join(hilo[0], NULL);
+            break;
+        case 2:
+            if (pthread_create(&hilo[1], NULL, realizar_retiro, &numeroCuenta) != 0) {
+                perror("Error creando hilo de retiro.");
+                EscribirLog("Fallo al crear hilo de retiro");
+            }
+            else
+                pthread_join(hilo[1], NULL);
+            break;
+        case 3:
+            if (pthread_create(&hilo[2], NULL, realizar_transferencia, &numeroCuenta) != 0) {
+                perror("Error creando hilo de transferencia.");
+                EscribirLog("Fallo al crear hilo de transferencia");
+            }
+            else
+                pthread_join(hilo[2], NULL);
+            break;
+        case 4:
+            if (pthread_create(&hilo[3], NULL, consultar_saldo, &numeroCuenta) != 0) {
+                perror("Error creando hilo de consulta.");
+                EscribirLog("Fallo al crear hilo de consulta");
+            }
+            else
+                pthread_join(hilo[3], NULL);
+            break;
+        case 5:
+            printf("Saliendo...\n");
+            EscribirLog("El usuario ha salido del menú de usuario");
+            exit(0);
+        }
     }
-    else
-        EscribirLog("Se ha abierto el archivo de transacciones");
 
-    time_t tiempo;
-    struct tm *tm_info;
-    char hora[26];
+    return 0;
+}
 
-    time(&tiempo);
-    tm_info = localtime(&tiempo);
-    strftime(hora, 26, "%Y-%m-%d %H:%M:%S", tm_info);
-
-    // Formato para transferencias (incluye ambos titulares)
-    if (strcmp(tipo_operacion, "TRANSFERENCIA") == 0)
+void *vigilar_banco(void *arg)
+{
+    pid_t banco = *(pid_t *)arg;
+    char comando[100];
+    while (1)
     {
-        fprintf(ficheroTransacciones,
-                "[%s] %s - Cuenta Origen: %d (%s), Cuenta Destino: %d (%s), Cantidad: %.2f\n",
-                hora, tipo_operacion,
-                cuentaOrigen, titularOrigen,
-                cuentaDestino, titularDestino,
-                cantidad);
-    }
-    // Formato para otras operaciones (depósito y retiro)
-    else
-    {
-        fprintf(ficheroTransacciones,
-                "[%s] %s - Cuenta: %d (%s), Cantidad: %.2f\n",
-                hora, tipo_operacion,
-                cuentaOrigen, titularOrigen,
-                cantidad);
-    }
+        if (kill(banco, 0) == -1)
+        {
 
-    fclose(ficheroTransacciones);
-    EscribirLog("Se ha cerrado el archivo de transacciones");
+            snprintf(comando, sizeof(comando), "kill -9 %d", getpid());
+            system(comando);
+        }
+        sleep(1); // No saturar la CPU
+    }
+    return NULL;
 }
 
 void *realizar_deposito(void *arg)
 {
     char tecla;
-    Config configuracion = leer_configuracion("config.txt");
 
     int numero_cuenta = *(int *)arg; // Obtener el número de la cuenta desde el argumento.
     float cantidad;
@@ -125,7 +184,6 @@ void *realizar_deposito(void *arg)
 void *realizar_retiro(void *arg)
 {
     char tecla;
-    Config configuracion = leer_configuracion("config.txt");
 
     int numero_cuenta = *(int *)arg; // Recuperar el número de cuenta desde el argumento
     float cantidad;
@@ -224,7 +282,6 @@ void *realizar_retiro(void *arg)
 void *realizar_transferencia(void *arg)
 {
     char tecla;
-    Config configuracion = leer_configuracion("config.txt");
 
     int numero_cuenta_origen = *(int *)arg; // Recuperar el número de cuenta de origen desde el argumento
     float cantidad;
@@ -361,8 +418,7 @@ void *realizar_transferencia(void *arg)
 
     // Mostrar el resultado
     printf("✅ Transferencia exitosa.\n");
-    printf("Nuevo saldo de la cuenta de origen (%d): %.2f\n", numero_cuenta_origen, nuevo_saldo_origen);
-    printf("Nuevo saldo de la cuenta de destino (%d): %.2f\n", numero_cuenta_destino, nuevo_saldo_destino);
+    printf("Nuevo saldo de tu cuenta (%d): %.2f\n", numero_cuenta_origen, nuevo_saldo_origen);
     EscribirLog("El usuario ha realizado una transferencia exitosa");
     RegistrarTransacciones(numero_cuenta_origen, numero_cuenta_destino, cantidad, "TRANSFERENCIA", titular_origen, titular_destino);
 
@@ -378,7 +434,6 @@ void *realizar_transferencia(void *arg)
 void *consultar_saldo(void *arg)
 {
     char tecla;
-    Config configuracion = leer_configuracion("config.txt");
 
     int numero_cuenta = *(int *)arg; // Recuperar el número de cuenta desde el argumento
     char linea[100];
@@ -443,85 +498,57 @@ void *consultar_saldo(void *arg)
     return NULL;
 }
 
-void *vigilar_banco(void *arg)
+void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, const char *tipo_operacion, const char *titularOrigen, const char *titularDestino)
 {
-    pid_t banco = *(pid_t *)arg;
-    char comando[100];
-    while (1)
-    {
-        if (kill(banco, 0) == -1)
-        {
 
-            snprintf(comando, sizeof(comando), "kill -9 %d", getpid());
-            system(comando);
-        }
-        sleep(1); // No saturar la CPU
+    sem_wait(semaforo_transacciones);
+
+    FILE *ficheroTransacciones = fopen(configuracion.archivo_transacciones, "a");
+    if (ficheroTransacciones == NULL)
+    {
+        perror("Error al abrir el archivo de transacciones");
+        EscribirLog("Fallo al abrir el archivo de transacciones");
+
+        sem_post(semaforo_transacciones);
+
+        return;
     }
-    return NULL;
-}
+    else
+        EscribirLog("Se ha abierto el archivo de transacciones");
 
-int main(int argc, char *argv[])
-{
-    pthread_t monitor;
-    pid_t pid_banco = atoi(argv[3]);
-    pthread_create(&monitor, NULL, vigilar_banco, &pid_banco);
+    time_t tiempo;
+    struct tm *tm_info;
+    char hora[26];
 
-    pthread_t hilo[4]; // ← CORREGIDO para permitir las 4 operaciones
+    time(&tiempo);
+    tm_info = localtime(&tiempo);
+    strftime(hora, 26, "%Y-%m-%d %H:%M:%S", tm_info);
 
-    int numeroCuenta = atoi(argv[1]); // Guardamos el numero de cuenta como entero para las operaciones
-
-    int opcion = 0;
-    while (1)
+    // Formato para transferencias (incluye ambos titulares)
+    if (strcmp(tipo_operacion, "TRANSFERENCIA") == 0)
     {
-        printf("\n🏦--------¡BIENVENIDO %s!--------🏦\n", argv[2]);
-        printf("    ┌──────────────────────────────┐\n");
-        printf("    │         MENÚ PRINCIPAL       │\n");
-        printf("    ├──────────────────────────────┤\n");
-        printf("    │ 1.  💸 Depósito              │\n");
-        printf("    │ 2.  💵 Retiro                │\n");
-        printf("    │ 3.  💰 Transferencia         │\n");
-        printf("    │ 4.  💼 Consultar saldo       │\n");
-        printf("    │ 5.  👋 Salir                 │\n");
-        printf("    └──────────────────────────────┘\n");
-
-        printf("\nOpción: ");
-        scanf("%d", &opcion);
-
-        while (getchar() != '\n')
-            ; // Limpiar buffer del stdin
-
-        switch (opcion)
-        {
-        case 1:
-            if (pthread_create(&hilo[0], NULL, realizar_deposito, &numeroCuenta) != 0)
-                perror("Error creando hilo de depósito.");
-            else
-                pthread_join(hilo[0], NULL);
-            break;
-        case 2:
-            if (pthread_create(&hilo[1], NULL, realizar_retiro, &numeroCuenta) != 0)
-                perror("Error creando hilo de retiro.");
-            else
-                pthread_join(hilo[1], NULL);
-            break;
-        case 3:
-            if (pthread_create(&hilo[2], NULL, realizar_transferencia, &numeroCuenta) != 0)
-                perror("Error creando hilo de transferencia.");
-            else
-                pthread_join(hilo[2], NULL);
-            break;
-        case 4:
-            if (pthread_create(&hilo[3], NULL, consultar_saldo, &numeroCuenta) != 0)
-                perror("Error creando hilo de consulta.");
-            else
-                pthread_join(hilo[3], NULL);
-            break;
-        case 5:
-            printf("Saliendo...\n");
-            EscribirLog("El usuario ha salido del menú de usuario");
-            exit(0);
-        }
+        fprintf(ficheroTransacciones,
+                "[%s] %s - Cuenta Origen: %d (%s), Cuenta Destino: %d (%s), Cantidad: %.2f\n",
+                hora, tipo_operacion,
+                cuentaOrigen, titularOrigen,
+                cuentaDestino, titularDestino,
+                cantidad);
+    }
+    // Formato para otras operaciones (depósito y retiro)
+    else
+    {
+        fprintf(ficheroTransacciones,
+                "[%s] %s - Cuenta: %d (%s), Cantidad: %.2f\n",
+                hora, tipo_operacion,
+                cuentaOrigen, titularOrigen,
+                cantidad);
     }
 
-    return 0;
+    fclose(ficheroTransacciones);
+
+    sem_post(semaforo_transacciones);
+
+    EscribirLog("Se ha cerrado el archivo de transacciones");
 }
+
+

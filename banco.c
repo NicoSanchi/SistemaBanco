@@ -6,13 +6,84 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <time.h>
+#include <semaphore.h>
+#include <fcntl.h>
 #include "comun.h"
+
+#define TAM_BUFFER 1024
+
+// Declaraciones de funciones
+void iniciar_sesion();
+void RegistrarUsuario();
+void iniciar_monitor();
+void detener_monitor();
+void verificar_alertas();
+
+// Variables globales para el monitor
+int pipe_monitor[2];  // pipe_monitor[0] lectura, pipe_monitor[1] escritura
+pid_t pid_monitor;    // PID del proceso monitor
+
+
+int main()
+{
+    // Configuración inicial de semáforos
+    inicializar_semaforos();
+    conectar_semaforos();
+
+    // Configuración inicial de monitor
+    iniciar_monitor();
+
+    // Bucle principal
+    int opcion;
+    while (opcion != 3)
+    {
+        printf("┌──────────────────────────────┐\n");
+        printf("│        🔐 MENÚ LOGIN         │\n");
+        printf("├──────────────────────────────┤\n");
+        printf("│ 1.  👤 Iniciar sesión        │\n");
+        printf("│ 2.  👥 Registrarse           │\n");
+        printf("│ 3.  👋 Salir                 │\n");
+        printf("└──────────────────────────────┘\n");
+        printf("\nOpción: ");
+        scanf("%d", &opcion);
+        while (getchar() != '\n');
+
+        // Verificar alertas de monitor en cada iteración
+        verificar_alertas();
+
+        switch (opcion)
+        {
+        case 1:
+            iniciar_sesion();
+            break;
+        case 2:
+            system("clear");
+            RegistrarUsuario();
+            break;
+        case 3:
+            printf("🔜¡HASTA LUEGO!🔜\n");
+            EscribirLog("El usuario ha salido del sistema");
+            detener_monitor();
+            destruir_semaforos();
+            break;
+
+        default:
+            printf("La opción seleccionada no es válida.\n");
+            printf("Presione una tecla para continuar...");
+            getchar();
+            system("clear");
+            break;
+        }
+    }
+    return 0;
+}
 
 void iniciar_sesion()
 {
     system("clear");
-    Config configuracion = leer_configuracion("config.txt");
-    // int fd[2];
+
+    inicializar_configuracion();
+
     bool encontrado = false;
     FILE *archivo;
     char linea[100];        // Buffer para leer cada línea
@@ -101,18 +172,17 @@ void iniciar_sesion()
         printf("Algunos de los datos son incorrectos.\n");
         EscribirLog("El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales");
     }
-    // char tecla;
-    // printf("Presione una tecla para continuar...");
-    // scanf("%c", &tecla);
+    char tecla;
+    printf("Presione una tecla para continuar...");
+    scanf("%c", &tecla);
     system("clear");
 }
 
 void RegistrarUsuario()
 {
-
     system("clear");
 
-    Config configuracion = leer_configuracion("config.txt");
+    inicializar_configuracion();
 
     // Inicializamos las varibales
     FILE *ficheroUsers;
@@ -122,11 +192,16 @@ void RegistrarUsuario()
 
     srand(time(NULL));
 
+    sem_wait(semaforo_cuentas);
+
     ficheroUsers = fopen(configuracion.archivo_cuentas, "a+"); // Abrimos el archivo en formato append
     if (ficheroUsers == NULL)
     {
         perror("Error a la hora de abrir el archivo");
         EscribirLog("Fallo al abrir el archivo de usuarios");
+
+        sem_post(semaforo_cuentas);
+
         return;
     }
     else
@@ -170,6 +245,9 @@ void RegistrarUsuario()
     fclose(ficheroUsers);
     EscribirLog("Se ha cerrado el archivo de cuentas");
 
+    sem_post(semaforo_cuentas);
+
+
     EscribirLog("El usuario se ha registrado correctamente");
 
     system("clear");
@@ -177,42 +255,81 @@ void RegistrarUsuario()
     return;
 }
 
-int main()
-{
-    int opcion;
-    while (opcion != 3)
-    {
-        printf("┌──────────────────────────────┐\n");
-        printf("│        🔐 MENÚ LOGIN         │\n");
-        printf("├──────────────────────────────┤\n");
-        printf("│ 1.  👤 Iniciar sesión        │\n");
-        printf("│ 2.  👥 Registrarse           │\n");
-        printf("│ 3.  👋 Salir                 │\n");
-        printf("└──────────────────────────────┘\n");
-        printf("\nOpción: ");
-        scanf("%d", &opcion);
-        while (getchar() != '\n');
-        switch (opcion)
-        {
-        case 1:
-            iniciar_sesion();
-            break;
-        case 2:
-            system("clear");
-            RegistrarUsuario();
-            break;
-        case 3:
-            printf("🔜¡HASTA LUEGO!🔜\n");
-            EscribirLog("El usuario ha salido del sistema");
-            break;
-
-        default:
-            printf("La opción seleccionada no es válida.\n");
-            printf("Presione una tecla para continuar...");
-            getchar();
-            system("clear");
-            break;
-        }
+// Inicia el proceso monitor y configura la tubería
+void iniciar_monitor() {
+    // Crear pipe para comunicación
+    if (pipe(pipe_monitor) == -1) {
+        perror("Error al crear pipe");
+        EscribirLog("Error al crear pipe entre monitor y banco");
+        exit(EXIT_FAILURE);
     }
-    return 0;
+    
+    // Crear proceso hijo
+    pid_monitor = fork();
+    if (pid_monitor == 0) { // Código del monitor
+        close(pipe_monitor[0]); // Cerrar extremo de lectura
+        
+        // Convertir descriptor a string para argumento
+        char fd_str[16];
+        snprintf(fd_str, sizeof(fd_str), "%d", pipe_monitor[1]);
+        
+        // Ejecutar monitor
+        execl("./monitor", "monitor", fd_str, NULL);
+        
+        // Solo llegamos aquí si hay error
+        EscribirLog("Error al ejecutar monitor");
+        exit(EXIT_FAILURE);
+    }
+    
+    // Código del banco (proceso padre)
+    close(pipe_monitor[1]); // Cerrar extremo de escritura no usado
+    EscribirLog("Monitor iniciado correctamente");
 }
+
+// Detiene el proceso monitor y cierra la tubería
+void detener_monitor() {
+    //kill(pid_monitor, SIGTERM);
+    close(pipe_monitor[0]);
+    EscribirLog("Monitor detenido");
+}
+
+// Verifica si hay alertas del monitor y las registra
+void verificar_alertas() {
+
+    inicializar_configuracion();
+
+    char alerta[TAM_BUFFER];
+    FILE *fichero_alertas;
+    
+    // Lectura no bloqueante
+    ssize_t bytes = read(pipe_monitor[0], alerta, sizeof(alerta)-1);
+    
+    if (bytes > 0) {
+        alerta[bytes] = '\0';
+
+        sem_wait(semaforo_alertas);
+
+        fichero_alertas = fopen(configuracion.archivo_alertas, "a");
+        if (fichero_alertas == NULL) {
+            perror("Error a la hora de abrir el archivo");
+            EscribirLog("Fallo al abrir el archivo de alertas");
+
+            sem_post(semaforo_alertas);
+
+            return;
+        }
+        else {
+            time_t ahora = time(NULL);
+            char timestamp[20];
+            strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", localtime(&ahora));
+            fprintf(fichero_alertas, "[%s] %s\n", timestamp, alerta);
+            fclose(fichero_alertas);
+            EscribirLog("Se ha cerrado el archivo de alertas");
+        }
+
+        sem_post(semaforo_alertas);
+    }
+}
+
+
+

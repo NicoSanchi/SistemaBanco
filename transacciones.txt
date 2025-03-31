@@ -9,3 +9,10 @@
 [2025-03-26 20:21:38] TRANSFERENCIA - Cuenta Origen: 1003 (Chuso), Cuenta Destino: 1001 (Gonzalo), Cantidad: 4.00
 [2025-03-30 18:31:42] DEPÓSITO - Cuenta: 1001 (Gonzalo), Cantidad: 1.00
 [2025-03-30 18:31:48] DEPÓSITO - Cuenta: 1001 (Gonzalo), Cantidad: 1.00
+[2025-03-31 17:04:36] DEPÓSITO - Cuenta: 1003 (Chuso), Cantidad: 2.00
+[2025-03-31 18:03:16] DEPÓSITO - Cuenta: 1001 (Gonzalo), Cantidad: 20.00
+[2025-03-31 21:40:29] DEPÓSITO - Cuenta: 1003 (Chuso), Cantidad: 2.00
+[2025-03-31 21:40:36] RETIRO - Cuenta: 1003 (Chuso), Cantidad: 3.00
+[2025-03-31 21:40:44] TRANSFERENCIA - Cuenta Origen: 1003 (Chuso), Cuenta Destino: 1001 (Gonzalo), Cantidad: 1.00
+[2025-03-31 21:41:08] DEPÓSITO - Cuenta: 1003 (Chuso), Cantidad: 2.00
+[2025-03-31 21:47:28] TRANSFERENCIA - Cuenta Origen: 1003 (Chuso), Cuenta Destino: 1001 (Gonzalo), Cantidad: 2.00

@@ -9,3 +9,4 @@ NUM_HILOS=4
 ARCHIVO_CUENTAS=cuentas.dat
 ARCHIVO_LOG=registro.log
 ARCHIVO_TRANSACCIONES=transacciones.txt
+ARCHIVO_ALERTAS=alertas.log
