@@ -38,7 +38,7 @@ int main()
     while (opcion != 3)
     {
         printf("┌──────────────────────────────┐\n");
-        printf("│        🔐 MENÚ LOGIN         │\n");
+        printf("│        🔐 SECURE BANK        │\n");
         printf("├──────────────────────────────┤\n");
         printf("│ 1.  👤 Iniciar sesión        │\n");
         printf("│ 2.  👥 Registrarse           │\n");
@@ -61,7 +61,7 @@ int main()
             RegistrarUsuario();
             break;
         case 3:
-            printf("🔜¡HASTA LUEGO!🔜\n");
+            printf("\n🔜¡HASTA LUEGO!🔜\n");
             EscribirLog("El usuario ha salido del sistema");
             detener_monitor();
             destruir_semaforos();
@@ -90,15 +90,25 @@ void iniciar_sesion()
     char numero_cuenta[10]; // Se recomienda mayor tamaño para seguridad
     char titular[50];
 
+    // Encabezado visual
+    printf("┌───────────────────────────────────────┐\n");
+    printf("│          INICIO DE SESIÓN             │\n");
+    printf("└───────────────────────────────────────┘\n\n");
+
     // Leer número de cuenta
-    printf("🔴 Ingrese el número de cuenta: ");
+    printf("🔴 Número de cuenta: ");
     fgets(numero_cuenta, sizeof(numero_cuenta), stdin);
     numero_cuenta[strcspn(numero_cuenta, "\n")] = 0; // Eliminar salto de línea
 
     // Leer titular de la cuenta
-    printf("🚹 Ingrese el titular de la cuenta: ");
+    printf("👤 Titular de la cuenta: ");
     fgets(titular, sizeof(titular), stdin);
     titular[strcspn(titular, "\n")] = 0; // Eliminar salto de línea
+
+    // Animación de carga
+    printf("\n🔍 Verificando credenciales...\n\n");
+    fflush(stdout);
+    sleep(2);
 
     // Abrir archivo
     archivo = fopen(configuracion.archivo_cuentas, "r");
@@ -147,34 +157,45 @@ void iniciar_sesion()
     // Mensaje de salida
     if (encontrado)
     {
-        pid_t pid_banco = getpid(); // guarda PID del padre real
-        // pipe(fd);
-        __pid_t pid = fork();
-        if (pid == -1)
-        {
-            perror("Ha ocurrido un fallo en el sistema");
-            EscribirLog("El usuario ha intentado iniciar sesión. Fallo en el sistema");
-            exit(EXIT_FAILURE);
-        }
+        printf("✅ Autenticación exitosa\n\n");
+        printf("🚀 Abriendo tu sesión bancaria...\n");
+        fflush(stdout);
+        sleep(2);  // Espera antes de abrir terminal
+        EscribirLog("El usuario ha iniciado sesión correctamente");
 
+        pid_t pid_banco = getpid(); // guarda PID del padre real
+
+        __pid_t pid = fork();
         if (pid == 0)
         {
             char comando[300];
             snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario && ./usuario '%s' '%s' %d", numero_cuenta, titular, pid_banco);
 
-            // Ejecutar gnome-terminal y correr el comando
-            EscribirLog("El usuario ha iniciado sesión correctamente");
+            // Ejecutar gnome-terminal y correr el comando           
             execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
+            exit(EXIT_FAILURE); // Si execlp falla
+        }
+        else if (pid > 0) // Proceso padre
+        {
+            // Espera breve no bloqueante para dar tiempo al hijo
+            usleep(550000); // 0.5 segundos
+        }
+        else if (pid == -1)
+        {
+            perror("Ha ocurrido un fallo en el sistema");
+            EscribirLog("El usuario ha intentado iniciar sesión. Fallo en el sistema");
+            exit(EXIT_FAILURE);
         }
     }
     else
     {
-        printf("Algunos de los datos son incorrectos.\n");
+        printf("❌ Error: Credenciales incorrectas\n");
         EscribirLog("El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales");
+        printf("\nPresione una tecla para continuar...");
+        getchar();
+        system("clear");
     }
-    char tecla;
-    printf("Presione una tecla para continuar...");
-    scanf("%c", &tecla);
+    
     system("clear");
 }
 
@@ -184,13 +205,16 @@ void RegistrarUsuario()
 
     inicializar_configuracion();
 
+    // Encabezado visual
+    printf("┌───────────────────────────────────────┐\n");
+    printf("│        ✍️  REGISTRO DE USUARIO         │\n");
+    printf("└───────────────────────────────────────┘\n\n");
+
     // Inicializamos las varibales
     FILE *ficheroUsers;
     char nombre[50], linea[100], esperar;
     int numeroCuentaCliente, numeroTransacciones = 0, saldo = 0;
     bool hayUsuarios = false;
-
-    srand(time(NULL));
 
     sem_wait(semaforo_cuentas);
 
@@ -223,10 +247,17 @@ void RegistrarUsuario()
     else
         numeroCuentaCliente = 1000; // Si no inicializa a 1000 el numero de cuenta
 
-    printf("Introduce el nombre del titular: ");
+    printf("👤 Introduce el nombre del titular: ");
     fgets(nombre, sizeof(nombre), stdin);
     nombre[strcspn(nombre, "\n")] = 0;
 
+    // Mensaje de progreso añadido
+    printf("\n🔄 Creando nueva cuenta...\n\n");
+    fflush(stdout);  // Asegurar que se muestre inmediatamente
+    sleep(2);  // Pequeña pausa para efecto visual
+
+    // Generar saldo aleatorio (1000-10000)
+    srand(time(NULL));
     saldo = rand() % (10000 - 1000 + 1) + 1000; // Generamos un numero entre 1000 y 10000 que sera su saldo
 
     fseek(ficheroUsers, -1, SEEK_END); // Nos movemos al final del archivo de usuarios
@@ -238,17 +269,23 @@ void RegistrarUsuario()
 
     fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); // Escribimos en el archivo de usaurio el nuevo usuario
 
-    printf("\n👋 Hola %s tu número de cuenta es %d\n", nombre, numeroCuentaCliente);
-    printf("\nPulsa una tecla para continuar...");
-    scanf("%c", &esperar);
-
     fclose(ficheroUsers);
     EscribirLog("Se ha cerrado el archivo de cuentas");
-
     sem_post(semaforo_cuentas);
 
+    // Confirmación visual
+    printf("\n┌───────────────────────────────────────┐\n");
+    printf("│          ✅ CUENTA CREADA            │\n");
+    printf("├───────────────────────────────────────┤\n");
+    printf("│  Titular:     %-23s │\n", nombre);
+    printf("│  N° Cuenta:   %-23d │\n", numeroCuentaCliente);
+    printf("│  Saldo:       €%-22d │\n", saldo);
+    printf("└───────────────────────────────────────┘\n");
 
-    EscribirLog("El usuario se ha registrado correctamente");
+    EscribirLog("Nuevo usuario registrado");
+
+    printf("\nPulsa una tecla para continuar...");
+    getchar();
 
     system("clear");
 

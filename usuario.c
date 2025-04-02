@@ -89,6 +89,7 @@ int main(int argc, char *argv[])
             break;
         case 5:
             printf("Saliendo...\n");
+            sleep(1);
             EscribirLog("El usuario ha salido del menú de usuario");
             exit(0);
         }
