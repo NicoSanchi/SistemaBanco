@@ -10,6 +10,8 @@
 #include <fcntl.h>
 #include "comun.h"
 
+pthread_t hilo[4];
+
 // Declaraciones de funciones
 void *vigilar_banco(void *arg);
 void *realizar_deposito(void *arg);
@@ -25,7 +27,7 @@ int main(int argc, char *argv[])
 
     conectar_semaforos();
 
-    pthread_t hilo[4];
+    //pthread_t hilo[4];
 
     pthread_t usuario;
     pid_t pid_banco = atoi(argv[3]);
@@ -50,8 +52,7 @@ int main(int argc, char *argv[])
         printf("\nOpción: ");
         scanf("%d", &opcion);
 
-        while (getchar() != '\n')
-            ; // Limpiar buffer del stdin
+        while (getchar() != '\n'); // Limpiar buffer del stdin
 
         switch (opcion)
         {
@@ -100,13 +101,16 @@ int main(int argc, char *argv[])
 
 void *vigilar_banco(void *arg)
 {
+    int i;
     pid_t banco = *(pid_t *)arg;
     char comando[100];
     while (1)
     {
         if (kill(banco, 0) == -1)
         {
-
+            for(i=0; i<=3; i++){
+                pthread_join(hilo[i], NULL);
+            }
             snprintf(comando, sizeof(comando), "kill -9 %d", getpid());
             system(comando);
         }
