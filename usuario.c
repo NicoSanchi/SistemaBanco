@@ -93,10 +93,16 @@ int main(int argc, char *argv[])
             sleep(1);
             EscribirLog("El usuario ha salido del menú de usuario");
             exit(0);
+        default:
+            printf("\nLa opción seleccionada no es válida.\n");
+            printf("\nPresione una tecla para continuar...");
+            getchar();
+            system("clear");
+            break;
         }
     }
 
-    return 0;
+    return (0);
 }
 
 void *vigilar_banco(void *arg)
@@ -116,7 +122,7 @@ void *vigilar_banco(void *arg)
         }
         sleep(1); // No saturar la CPU
     }
-    return NULL;
+    return (NULL);
 }
 
 void *realizar_deposito(void *arg)
@@ -183,7 +189,7 @@ void *realizar_deposito(void *arg)
     printf("Presione una tecla para continuar...");
     scanf("%c", &tecla);
     system("clear");
-    return NULL;
+    return (NULL);
 }
 
 void *realizar_retiro(void *arg)
@@ -267,7 +273,7 @@ void *realizar_retiro(void *arg)
                 printf("Presione una tecla para continuar");
                 scanf("%c", &tecla);
                 system("clear");
-                return NULL;
+                return (NULL);
             }
         }
     }
@@ -281,7 +287,7 @@ void *realizar_retiro(void *arg)
     printf("Presione una tecla para continuar...");
     scanf("%c", &tecla);
     system("clear");
-    return NULL;
+    return (NULL);
 }
 
 void *realizar_transferencia(void *arg)
@@ -310,7 +316,7 @@ void *realizar_transferencia(void *arg)
     if (cantidad > configuracion.limite_transferencia)
     {
         printf("Error: La cantidad excede el límite de transferencia permitido (%d)\n", configuracion.limite_transferencia);
-        return NULL;
+        return (NULL);
     }
 
     // Abrir el archivo de cuentas en modo lectura y escritura
@@ -319,7 +325,7 @@ void *realizar_transferencia(void *arg)
     {
         perror("Error al abrir el archivo de cuentas");
         EscribirLog("Fallo al abrir el archivo de cuentas");
-        return NULL;
+        return (NULL);
     }
     else
         EscribirLog("Se ha abierto el archivo de cuentas");
@@ -392,13 +398,13 @@ void *realizar_transferencia(void *arg)
     {
         printf("No se encontró la cuenta de origen con el número %d\n", numero_cuenta_origen);
         fclose(fichero);
-        return NULL;
+        return (NULL);
     }
     if (posicion_cuenta_destino == -1)
     {
         printf("No se encontró la cuenta de destino con el número %d\n", numero_cuenta_destino);
         fclose(fichero);
-        return NULL;
+        return (NULL);
     }
 
     // Verificar si hay fondos suficientes en la cuenta de origen
@@ -406,7 +412,7 @@ void *realizar_transferencia(void *arg)
     {
         printf("Error: Fondos insuficientes en la cuenta de origen. Saldo actual: %.2f\n", saldo_origen);
         fclose(fichero);
-        return NULL;
+        return (NULL);
     }
 
     // Calcular los nuevos saldos
@@ -433,7 +439,7 @@ void *realizar_transferencia(void *arg)
     printf("Presione una tecla para continuar...");
     scanf("%c", &tecla);
     system("clear");
-    return NULL;
+    return (NULL);
 }
 
 void *consultar_saldo(void *arg)
@@ -453,7 +459,7 @@ void *consultar_saldo(void *arg)
     {
         perror("Error al abrir el archivo de cuentas");
         EscribirLog("Fallo al abrir el archivo de cuentas");
-        return NULL;
+        return (NULL);
     }
     else
         EscribirLog("Se ha abierto el archivo de cuentas");
@@ -485,7 +491,7 @@ void *consultar_saldo(void *arg)
                 printf("Presione una tecla para continuar...");
                 scanf("%c", &tecla);
                 system("clear");
-                return NULL;
+                return (NULL);
             }
         }
     }
@@ -500,7 +506,7 @@ void *consultar_saldo(void *arg)
     printf("Presione una tecla para continuar...");
     scanf("%c", &tecla);
     system("clear");
-    return NULL;
+    return (NULL);
 }
 
 void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, const char *tipo_operacion, const char *titularOrigen, const char *titularDestino)

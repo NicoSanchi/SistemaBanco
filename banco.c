@@ -32,6 +32,7 @@ int main()
 
     // Configuración inicial de monitor
     iniciar_monitor();
+    system("clear");
 
     // Bucle principal
     int opcion;
@@ -68,8 +69,8 @@ int main()
             break;
 
         default:
-            printf("La opción seleccionada no es válida.\n");
-            printf("Presione una tecla para continuar...");
+            printf("\nLa opción seleccionada no es válida.\n");
+            printf("\nPresione una tecla para continuar...");
             getchar();
             system("clear");
             break;

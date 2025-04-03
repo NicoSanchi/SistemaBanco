@@ -17,3 +17,10 @@
 [2025-03-31 21:41:08] DEPÓSITO - Cuenta: 1003 (Chuso), Cantidad: 2.00
 [2025-03-31 21:47:28] TRANSFERENCIA - Cuenta Origen: 1003 (Chuso), Cuenta Destino: 1001 (Gonzalo), Cantidad: 2.00
 [2025-04-03 16:52:48] DEPÓSITO - Cuenta: 1001 (Gonzalo), Cantidad: 5.00
+[2025-04-03 18:18:47] DEPÓSITO - Cuenta: 1002 (Nico), Cantidad: 1000.00
+[2025-04-03 18:18:50] RETIRO - Cuenta: 1002 (Nico), Cantidad: 123.00
+[2025-04-03 18:18:52] RETIRO - Cuenta: 1002 (Nico), Cantidad: 123.00
+[2025-04-03 18:18:55] RETIRO - Cuenta: 1002 (Nico), Cantidad: 123.00
+[2025-04-03 18:18:56] RETIRO - Cuenta: 1002 (Nico), Cantidad: 123.00
+[2025-04-03 18:19:12] RETIRO - Cuenta: 1002 (Nico), Cantidad: 123.00
+[2025-04-03 18:22:34] DEPÓSITO - Cuenta: 1002 (Nico), Cantidad: 1000.00
