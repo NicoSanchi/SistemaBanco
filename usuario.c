@@ -19,10 +19,13 @@ void *realizar_retiro(void *arg);
 void *realizar_transferencia(void *arg);
 void *consultar_saldo(void *arg);
 void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, float cantidad, const char *tipo_operacion, const char *titularOrigen, const char *titularDestino);
+void ManejarSalida(int senial);
 
 
 int main(int argc, char *argv[])
 {
+    signal(SIGINT, ManejarSalida); // Si el programa captura que el usuario ha pulsado Ctrl C para terminar, notifica por pantalla
+
     inicializar_configuracion();
 
     conectar_semaforos();
@@ -103,6 +106,16 @@ int main(int argc, char *argv[])
     }
 
     return (0);
+}
+
+void ManejarSalida(int senial) { // Notifica que la sesion de usuario termino porque pulso Ctrl C
+
+    printf("\n👋 Saliendo del programa...\n");
+    sleep(2);
+
+    EscribirLog("El usuario cerró la sesión con Ctrl + C");
+
+    exit(0);
 }
 
 void *vigilar_banco(void *arg)

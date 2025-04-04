@@ -8,6 +8,7 @@
 #include <time.h>
 #include <semaphore.h>
 #include <fcntl.h>
+#include <signal.h>
 #include "comun.h"
 
 #define TAM_BUFFER 1024
@@ -18,6 +19,7 @@ void RegistrarUsuario();
 void iniciar_monitor();
 void detener_monitor();
 void verificar_alertas();
+void ManejarSenial(int senial);
 
 // Variables globales para el monitor
 int pipe_monitor[2];  // pipe_monitor[0] lectura, pipe_monitor[1] escritura
@@ -26,6 +28,8 @@ pid_t pid_monitor;    // PID del proceso monitor
 
 int main()
 {
+    signal(SIGINT, ManejarSenial); // Si recibe una señal de SIGINT que es de Ctrl C, libera los recursos 
+
     // Configuración inicial de semáforos
     inicializar_semaforos();
     conectar_semaforos();
@@ -77,6 +81,19 @@ int main()
         }
     }
     return 0;
+}
+
+void ManejarSenial(int senial) { // Funcion por si el banco se cierra con Ctrl C, que se liberen los recursos
+
+    destruir_semaforos();
+    detener_monitor();
+
+    EscribirLog("El proceso banco se ha cerrado con Ctrl + C");
+
+    printf("\n\n🚨 Programa terminado con Ctrl + C. Liberando recursos.\n");
+    sleep(2);
+
+    exit(EXIT_SUCCESS);
 }
 
 void iniciar_sesion()
@@ -226,6 +243,7 @@ void RegistrarUsuario()
         EscribirLog("Fallo al abrir el archivo de usuarios");
 
         sem_post(semaforo_cuentas);
+        fclose(ficheroUsers);
 
         return;
     }
@@ -271,8 +289,8 @@ void RegistrarUsuario()
     fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); // Escribimos en el archivo de usaurio el nuevo usuario
 
     fclose(ficheroUsers);
-    EscribirLog("Se ha cerrado el archivo de cuentas");
     sem_post(semaforo_cuentas);
+    EscribirLog("Se ha cerrado el archivo de cuentas");
 
     // Confirmación visual
     printf("\n┌───────────────────────────────────────┐\n");
