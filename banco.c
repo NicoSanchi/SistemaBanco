@@ -66,7 +66,7 @@ int main()
             RegistrarUsuario();
             break;
         case 3:
-            printf("\n🔜¡HASTA LUEGO!🔜\n");
+            printf("\n🔜¡HASTA LUEGO!🔜\n\n");
             EscribirLog("El usuario ha salido del sistema");
             detener_monitor();
             destruir_semaforos();
@@ -386,6 +386,3 @@ void verificar_alertas() {
         sem_post(semaforo_alertas);
     }
 }
-
-
-
