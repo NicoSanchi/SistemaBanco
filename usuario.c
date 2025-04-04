@@ -24,7 +24,8 @@ void ManejarSalida(int senial);
 
 int main(int argc, char *argv[])
 {
-    // signal(SIGINT, ManejarSalida); // Si el programa captura que el usuario ha pulsado Ctrl C para terminar, notifica por pantalla
+    signal(SIGINT, ManejarSalida); // Si el programa captura que el usuario ha pulsado Ctrl C para terminar, notifica por pantalla
+    
     inicializar_configuracion();
     conectar_semaforos();
 
@@ -88,7 +89,7 @@ int main(int argc, char *argv[])
                 pthread_join(hilo[3], NULL);
             break;
         case 5:
-            printf("\nSaliendo...\n");
+            printf("\n👋 Saliendo...\n");
             sleep(1);
             EscribirLog("El usuario ha salido del menú de usuario");
             exit(0);
@@ -105,13 +106,27 @@ int main(int argc, char *argv[])
 }
 
 void ManejarSalida(int senial) { // Notifica que la sesion de usuario termino porque pulso Ctrl C
+    int cuenta;
+    int transaccion;
+
+    sem_getvalue(semaforo_cuentas, &cuenta);
+    while(cuenta<1) {
+        sem_post(semaforo_cuentas);
+        sem_getvalue(semaforo_cuentas, &cuenta);
+    }
+    sem_getvalue(semaforo_transacciones, &transaccion);
+    while(transaccion<1) {
+        sem_post(semaforo_transacciones);
+        sem_getvalue(semaforo_transacciones, &transaccion);
+    }
 
     printf("\n👋 Saliendo del programa...\n");
-    sleep(2);
+    sleep(1);
     EscribirLog("El usuario cerró la sesión con Ctrl + C");
     exit(EXIT_SUCCESS);
 }
 
+//COMENTAR
 void *vigilar_banco(void *arg)
 {
     int i;
@@ -121,9 +136,9 @@ void *vigilar_banco(void *arg)
     {
         if (kill(banco, 0) == -1)
         {
-            for(i=0; i<=3; i++){
-                pthread_join(hilo[i], NULL);
-            }
+            //for(i=0; i<=3; i++){
+              //  pthread_join(hilo[i], NULL);
+            //}
             snprintf(comando, sizeof(comando), "kill -9 %d", getpid());
             system(comando);
         }
@@ -140,6 +155,8 @@ void *realizar_deposito(void *arg)
     char linea_aux[100];
     FILE *fichero;
 
+    sem_wait(semaforo_cuentas);
+
     // Solicitar la cantidad a ingresar.
     printf("\n💵 Introduzca la cantidad a ingresar: ");
     scanf("%d", &cantidad);
@@ -151,6 +168,7 @@ void *realizar_deposito(void *arg)
     {
         perror("Error al abrir el archivo de cuentas.");
         EscribirLog("Fallo al abrir el archivo de cuentas");
+        sem_post(semaforo_cuentas);
         return NULL;
     }
     else
@@ -188,6 +206,7 @@ void *realizar_deposito(void *arg)
         }
     }
     fclose(fichero);
+    sem_post(semaforo_cuentas);
     EscribirLog("Se ha cerrado el archivo de cuentas");
     printf("\nPresione una tecla para continuar...");
     getchar();
@@ -218,12 +237,15 @@ void *realizar_retiro(void *arg)
         return NULL;
     }
 
+    sem_wait(semaforo_cuentas);
+
     // Abrir el archivo de cuentas en modo lectura y escritura
     fichero = fopen(configuracion.archivo_cuentas, "r+");
     if (fichero == NULL)
     {
         perror("Error al abrir el archivo de cuentas");
         EscribirLog("Fallo al abrir el archivo de cuentas");
+        sem_post(semaforo_cuentas);
         return NULL;
     }
     else
@@ -260,6 +282,7 @@ void *realizar_retiro(void *arg)
                     printf("\nPresione una tecla para continuar...");
                     getchar();
                     fclose(fichero);
+                    sem_post(semaforo_cuentas);
                     EscribirLog("Se ha cerrado el archivo de cuentas");
                     system("clear");
                     return NULL;
@@ -282,6 +305,7 @@ void *realizar_retiro(void *arg)
     }
 
     fclose(fichero);
+    sem_post(semaforo_cuentas);
     EscribirLog("Se ha cerrado el archivo de cuentas");
     printf("\nPresione una tecla para continuar...");
     getchar();
@@ -306,12 +330,15 @@ void *realizar_transferencia(void *arg)
     scanf("%d", &cantidad);
     while (getchar() != '\n');
 
+    sem_wait(semaforo_cuentas);
+
     // Abrir el archivo de cuentas en modo lectura y escritura
     fichero = fopen(configuracion.archivo_cuentas, "r+");
     if (fichero == NULL)
     {
         perror("Error al abrir el archivo de cuentas");
         EscribirLog("Fallo al abrir el archivo de cuentas");
+        sem_post(semaforo_cuentas);
         return (NULL);
     }
     else
@@ -382,6 +409,7 @@ void *realizar_transferencia(void *arg)
         printf("\nPresione una tecla para continuar...");
         getchar();
         fclose(fichero);
+        sem_post(semaforo_cuentas);
         EscribirLog("Se ha cerrado el archivo de cuentas");
         system("clear");
         return NULL;
@@ -391,6 +419,7 @@ void *realizar_transferencia(void *arg)
         printf("\nPresione una tecla para continuar...");
         getchar();
         fclose(fichero);
+        sem_post(semaforo_cuentas);
         EscribirLog("Se ha cerrado el archivo de cuentas");
         system("clear");
         return NULL;
@@ -402,6 +431,7 @@ void *realizar_transferencia(void *arg)
         printf("\nPresione una tecla para continuar...");
         getchar();
         fclose(fichero);
+        sem_post(semaforo_cuentas);
         EscribirLog("Se ha cerrado el archivo de cuentas");
         system("clear");
         return NULL;
@@ -425,6 +455,7 @@ void *realizar_transferencia(void *arg)
     RegistrarTransacciones(numero_cuenta_origen, numero_cuenta_destino, cantidad, "TRANSFERENCIA");
 
     fclose(fichero);
+    sem_post(semaforo_cuentas);
     EscribirLog("Se ha cerrado el archivo de cuentas");
     printf("\nPresione una tecla para continuar...");
     getchar();
@@ -442,12 +473,15 @@ void *consultar_saldo(void *arg)
     printf("\n📊 Consultando saldo...\n");
     sleep(1);
 
+    sem_wait(semaforo_cuentas);
+
     // Abrir el archivo de cuentas
     fichero = fopen(configuracion.archivo_cuentas, "r");
     if (fichero == NULL)
     {
         perror("Error al abrir el archivo de cuentas");
         EscribirLog("Fallo al abrir el archivo de cuentas");
+        sem_post(semaforo_cuentas);
         return (NULL);
     }
     else
@@ -482,6 +516,7 @@ void *consultar_saldo(void *arg)
     }
 
     fclose(fichero);
+    sem_post(semaforo_cuentas);
     EscribirLog("Se ha cerrado el archivo de cuentas");
     printf("\nPresione una tecla para continuar...");
     getchar();

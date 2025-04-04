@@ -90,8 +90,8 @@ void ManejarSenial(int senial) { // Funcion por si el banco se cierra con Ctrl C
 
     EscribirLog("El proceso banco se ha cerrado con Ctrl + C");
 
-    printf("\n\n🚨 Programa terminado con Ctrl + C. Liberando recursos.\n");
-    sleep(2);
+    printf("\n\n🚨 Programa terminado con Ctrl + C. Liberando recursos.\n\n");
+    sleep(1);
 
     exit(EXIT_SUCCESS);
 }
