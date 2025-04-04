@@ -69,6 +69,8 @@ int main()
             printf("\n🔜¡HASTA LUEGO!🔜\n\n");
             EscribirLog("El usuario ha salido del sistema");
             detener_monitor();
+            sem_wait(semaforo_cuentas);
+            sem_post(semaforo_cuentas);
             destruir_semaforos();
             break;
 
@@ -84,6 +86,9 @@ int main()
 }
 
 void ManejarSenial(int senial) { // Funcion por si el banco se cierra con Ctrl C, que se liberen los recursos
+
+    sem_wait(semaforo_cuentas);
+    sem_post(semaforo_cuentas);
 
     destruir_semaforos();
     detener_monitor();

@@ -106,8 +106,10 @@ int main(int argc, char *argv[])
 }
 
 void ManejarSalida(int senial) { // Notifica que la sesion de usuario termino porque pulso Ctrl C
+    int i;
     int cuenta;
     int transaccion;
+    char comando[100];
 
     sem_getvalue(semaforo_cuentas, &cuenta);
     while(cuenta<1) {
@@ -123,6 +125,8 @@ void ManejarSalida(int senial) { // Notifica que la sesion de usuario termino po
     printf("\n👋 Saliendo del programa...\n");
     sleep(1);
     EscribirLog("El usuario cerró la sesión con Ctrl + C");
+    snprintf(comando, sizeof(comando), "kill -9 %d", getpid());
+    system(comando);
     exit(EXIT_SUCCESS);
 }
 
@@ -155,12 +159,15 @@ void *realizar_deposito(void *arg)
     char linea_aux[100];
     FILE *fichero;
 
-    sem_wait(semaforo_cuentas);
+    
 
     // Solicitar la cantidad a ingresar.
     printf("\n💵 Introduzca la cantidad a ingresar: ");
     scanf("%d", &cantidad);
     while (getchar() != '\n');
+
+    sem_wait(semaforo_cuentas);
+    sleep(10);
 
     // Abrir el archivo de cuentas en modo lectura y escritura.
     fichero = fopen(configuracion.archivo_cuentas, "r+");
