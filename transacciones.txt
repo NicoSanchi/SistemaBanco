@@ -24,3 +24,4 @@
 [2025-04-03 18:18:56] RETIRO - Cuenta: 1002 (Nico), Cantidad: 123.00
 [2025-04-03 18:19:12] RETIRO - Cuenta: 1002 (Nico), Cantidad: 123.00
 [2025-04-03 18:22:34] DEPÓSITO - Cuenta: 1002 (Nico), Cantidad: 1000.00
+[2025-04-04 14:57:07] DEPÓSITO - Cuenta: 1002 (Nico), Cantidad: 100.00

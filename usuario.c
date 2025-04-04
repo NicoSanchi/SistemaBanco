@@ -24,7 +24,7 @@ void ManejarSalida(int senial);
 
 int main(int argc, char *argv[])
 {
-    signal(SIGINT, ManejarSalida); // Si el programa captura que el usuario ha pulsado Ctrl C para terminar, notifica por pantalla
+    // signal(SIGINT, ManejarSalida); // Si el programa captura que el usuario ha pulsado Ctrl C para terminar, notifica por pantalla
 
     inicializar_configuracion();
 
@@ -115,7 +115,7 @@ void ManejarSalida(int senial) { // Notifica que la sesion de usuario termino po
 
     EscribirLog("El usuario cerró la sesión con Ctrl + C");
 
-    exit(0);
+    exit(EXIT_SUCCESS);
 }
 
 void *vigilar_banco(void *arg)
