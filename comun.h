@@ -2,6 +2,18 @@
 #define COMUN_H
 
 #include <semaphore.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+
+// Definición de la clave para la cola de mensajes 
+#define CLAVE_COLA_MENSAJES 1234
+#define TIPO_ALERTA 1
+
+// Estructura del mensaje de alerta
+typedef struct {
+    long tipo;          // Tipo de mensaje (debe ser long)
+    char texto[1024];   // Contenido de la alerta
+} MensajeAlerta;
 
 typedef struct Config
 {
@@ -30,6 +42,7 @@ extern sem_t *semaforo_cuentas;
 extern sem_t *semaforo_log;
 extern sem_t *semaforo_transacciones;
 extern sem_t *semaforo_alertas;
+extern int id_cola;
 
 // Declaraciones de funciones
 void inicializar_configuracion(); 
@@ -37,5 +50,8 @@ void EscribirLog(const char *mensaje);
 void inicializar_semaforos();
 void destruir_semaforos();
 void conectar_semaforos();
+void CrearColaMensajes();
+void ConectarColaMensajes();
+void DestruirColaMensajes();
 
 #endif

@@ -9,35 +9,40 @@
 #include <semaphore.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <sys/stat.h>
 #include "comun.h"
 
 #define TAM_BUFFER 1024
 
 // Declaraciones de funciones
+void MenuInicio();
+void ManejarSenial(int senial);
 void iniciar_sesion();
 void RegistrarUsuario();
-void iniciar_monitor();
+void IniciarMonitor();
 void detener_monitor();
-void verificar_alertas();
-void ManejarSenial(int senial);
-
-// Variables globales para el monitor
-int pipe_monitor[2];  // pipe_monitor[0] lectura, pipe_monitor[1] escritura
-pid_t pid_monitor;    // PID del proceso monitor
-
+void LeerAlertas();
 
 int main()
 {
-    signal(SIGINT, ManejarSenial); // Si recibe una señal de SIGINT que es de Ctrl C, libera los recursos 
-
     // Configuración inicial de semáforos
     inicializar_semaforos();
     conectar_semaforos();
+    CrearColaMensajes();
 
-    // Configuración inicial de monitor
-    iniciar_monitor();
+    signal(SIGUSR1, LeerAlertas);  // Manejar señal del monitor
+    signal(SIGINT, ManejarSenial); // Si recibe una señal de SIGINT que es de Ctrl C, libera los recursos
+
+    IniciarMonitor();
+
+    MenuInicio();
+
+    return 0;
+}
+
+void MenuInicio()
+{
     system("clear");
-
     // Bucle principal
     int opcion;
     while (opcion != 3)
@@ -51,10 +56,8 @@ int main()
         printf("└──────────────────────────────┘\n");
         printf("\nOpción: ");
         scanf("%d", &opcion);
-        while (getchar() != '\n');
-
-        // Verificar alertas de monitor en cada iteración
-        verificar_alertas();
+        while (getchar() != '\n')
+            ;
 
         switch (opcion)
         {
@@ -72,6 +75,7 @@ int main()
             sem_wait(semaforo_cuentas);
             sem_post(semaforo_cuentas);
             destruir_semaforos();
+            // unlink(PIPE_ALERTAS);
             break;
 
         default:
@@ -82,22 +86,18 @@ int main()
             break;
         }
     }
-    return 0;
 }
 
-void ManejarSenial(int senial) { // Funcion por si el banco se cierra con Ctrl C, que se liberen los recursos
-
+void ManejarSenial(int senial)
+{ // Funcion por si el banco se cierra con Ctrl C, que se liberen los recursos
     sem_wait(semaforo_cuentas);
     sem_post(semaforo_cuentas);
-
     destruir_semaforos();
     detener_monitor();
-
+    // unlink(PIPE_ALERTAS);
     EscribirLog("El proceso banco se ha cerrado con Ctrl + C");
-
     printf("\n\n🚨 Programa terminado con Ctrl + C. Liberando recursos.\n\n");
     sleep(1);
-
     exit(EXIT_SUCCESS);
 }
 
@@ -183,7 +183,7 @@ void iniciar_sesion()
         printf("✅ Autenticación exitosa\n\n");
         printf("🚀 Abriendo tu sesión bancaria...\n");
         fflush(stdout);
-        sleep(2);  // Espera antes de abrir terminal
+        sleep(2); // Espera antes de abrir terminal
         EscribirLog("El usuario ha iniciado sesión correctamente");
 
         pid_t pid_banco = getpid(); // guarda PID del padre real
@@ -192,9 +192,9 @@ void iniciar_sesion()
         if (pid == 0)
         {
             char comando[300];
-            snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario && ./usuario '%s' '%s' %d", numero_cuenta, titular, pid_banco);
+            snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario -lpthread && ./usuario '%s' '%s' %d", numero_cuenta, titular, pid_banco);
 
-            // Ejecutar gnome-terminal y correr el comando           
+            // Ejecutar gnome-terminal y correr el comando
             execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
             exit(EXIT_FAILURE); // Si execlp falla
         }
@@ -218,7 +218,7 @@ void iniciar_sesion()
         getchar();
         system("clear");
     }
-    
+
     system("clear");
 }
 
@@ -277,8 +277,8 @@ void RegistrarUsuario()
 
     // Mensaje de progreso añadido
     printf("\n🔄 Creando nueva cuenta...\n\n");
-    fflush(stdout);  // Asegurar que se muestre inmediatamente
-    sleep(2);  // Pequeña pausa para efecto visual
+    fflush(stdout); // Asegurar que se muestre inmediatamente
+    sleep(2);       // Pequeña pausa para efecto visual
 
     // Generar saldo aleatorio (1000-10000)
     srand(time(NULL));
@@ -316,78 +316,62 @@ void RegistrarUsuario()
     return;
 }
 
-// Inicia el proceso monitor y configura la tubería
-void iniciar_monitor() {
-    // Crear pipe para comunicación
-    if (pipe(pipe_monitor) == -1) {
-        perror("Error al crear pipe");
-        EscribirLog("Error al crear pipe entre monitor y banco");
+// Función para crear el proceso monitor
+void IniciarMonitor()
+{
+
+    pid_t pid = fork();
+
+    if (pid < 0)
+    {
+        perror("Error en fork");
+        EscribirLog("Error en fork para crear monitor");
         exit(EXIT_FAILURE);
     }
-    
-    // Crear proceso hijo
-    pid_monitor = fork();
-    if (pid_monitor == 0) { // Código del monitor
-        close(pipe_monitor[0]); // Cerrar extremo de lectura
-        
-        // Convertir descriptor a string para argumento
-        char fd_str[16];
-        snprintf(fd_str, sizeof(fd_str), "%d", pipe_monitor[1]);
-        
-        // Ejecutar monitor
-        execl("./monitor", "monitor", fd_str, NULL);
-        
-        // Solo llegamos aquí si hay error
+
+    if (pid == 0)
+    {
+        // Proceso hijo
+        execlp("./monitor", "monitor", NULL); // Ejecuta el proceso monitor
+
+        // Si falla:
+        perror("Error ejecutando monitor");
         EscribirLog("Error al ejecutar monitor");
         exit(EXIT_FAILURE);
     }
-    
-    // Código del banco (proceso padre)
-    close(pipe_monitor[1]); // Cerrar extremo de escritura no usado
-    EscribirLog("Monitor iniciado correctamente");
+    else
+        EscribirLog("Monitor iniciado en segundo plano");
 }
 
-// Detiene el proceso monitor y cierra la tubería
-void detener_monitor() {
-    //kill(pid_monitor, SIGTERM);
-    close(pipe_monitor[0]);
+void detener_monitor()
+{
+    DestruirColaMensajes();
     EscribirLog("Monitor detenido");
 }
 
-// Verifica si hay alertas del monitor y las registra
-void verificar_alertas() {
+void LeerAlertas(int sig)
+{
+    MensajeAlerta msg;
+    ConectarColaMensajes();
 
-    inicializar_configuracion();
-
-    char alerta[TAM_BUFFER];
-    FILE *fichero_alertas;
-    
-    // Lectura no bloqueante
-    ssize_t bytes = read(pipe_monitor[0], alerta, sizeof(alerta)-1);
-    
-    if (bytes > 0) {
-        alerta[bytes] = '\0';
-
-        sem_wait(semaforo_alertas);
-
-        fichero_alertas = fopen(configuracion.archivo_alertas, "a");
-        if (fichero_alertas == NULL) {
-            perror("Error a la hora de abrir el archivo");
-            EscribirLog("Fallo al abrir el archivo de alertas");
-
-            sem_post(semaforo_alertas);
-
-            return;
-        }
-        else {
-            time_t ahora = time(NULL);
-            char timestamp[20];
-            strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", localtime(&ahora));
-            fprintf(fichero_alertas, "[%s] %s\n", timestamp, alerta);
-            fclose(fichero_alertas);
-            EscribirLog("Se ha cerrado el archivo de alertas");
-        }
-
-        sem_post(semaforo_alertas);
+    if (msgrcv(id_cola, &msg, sizeof(msg.texto), TIPO_ALERTA, IPC_NOWAIT) == -1)
+    {
+        perror("No se pudo leer alerta de la cola");
+        return;
     }
+    else
+        EscribirLog("Alerta recibida");
+
+    FILE *fichero_alertas = fopen("alertas.log", "a");
+    if (!fichero_alertas)
+    {
+        perror("No se pudo abrir alertas.log");
+        EscribirLog("Error al abrir el archvio de alertas");
+        return;
+    }
+
+    // Escribir la alerta en el archivo
+    fprintf(fichero_alertas, "🚨 ALERTA DEL MONITOR 🚨\n%s\n", msg.texto);
+    fclose(fichero_alertas);
+    //printf("\n\n🚨 Se ha registrado una nueva alerta\n");
 }

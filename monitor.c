@@ -1,107 +1,193 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
 #include <unistd.h>
 #include <time.h>
-#include <semaphore.h>
-#include <fcntl.h>
+#include <signal.h>
 #include "comun.h"
 
-#define TAM_BUFFER 1024
+// Estructuras
+typedef struct {
+    char fecha[11]; // YYYY-MM-DD
+    char tipo[20];  // TRANSFERENCIA, DEPOSITO, RETIRO
+    int origen;
+    int destino; // -1 si no aplica
+    int cantidad;
+} Transaccion;
+
+#define MAX_TRANSACCIONES 1000
+Transaccion transacciones[MAX_TRANSACCIONES];
+int num_transacciones = 0;
 
 
-// Función principal que analiza las transacciones en busca de anomalías. El parámetro es el descriptor de escritura del pipe para enviar alertas
-void analizar_transacciones(int pipe_monitor) {
-    
-    inicializar_configuracion();
+// -------------------- FUNCIONES ---------------------
 
-    // Abrir archivo de transacciones en modo lectura
-    FILE *archivo = fopen(configuracion.archivo_transacciones, "r");
-    if (archivo == NULL) {
-        perror("Error al abrir el archivo de transacciones");
-        EscribirLog("Fallo al abrir el archivo de transacciones");
-        return;
+void cargar_transacciones() {
+
+    EscribirLog("cargando transacciones");
+
+    FILE *f = fopen(configuracion.archivo_transacciones, "r");
+    if (!f) {
+        perror("Error abriendo transacciones.txt");
+        exit(EXIT_FAILURE);
     }
-    else
-        EscribirLog("Monitor ha abierto el archivo de transacciones");
 
-    char linea[TAM_BUFFER];
-    int contador_retiros[TAM_BUFFER] = {0}; // Contador de retiros por cuenta
-    int transferencias_consecutivas = 0;
-    int ultima_cuenta_origen = -1;
-    int ultima_cuenta_destino = -1;
+    char linea[256];
+    while (fgets(linea, sizeof(linea), f)) {
+        Transaccion t;
+        char tipo[20];
+        int campos = sscanf(linea, "%10[^,],%19[^,],%d,%d,%d", t.fecha, tipo, &t.origen, &t.destino, &t.cantidad);
+        
+        strcpy(t.tipo, tipo);
 
-    // Leer archivo línea por línea
-    while (fgets(linea, sizeof(linea), archivo)) {
-        // Extraer tipo de operación (RETIRO/TRANSFERENCIA)
-        char *tipo = strstr(linea, "] ");
-        if (!tipo) continue;
-        tipo += 2;
-
-        // Detección de retiros sospechosos
-        if (strstr(tipo, "RETIRO")) {
-            int cuenta;
-            char *token = strstr(linea, "Cuenta: ");
-            if (token && sscanf(token, "Cuenta: %d", &cuenta) == 1) {
-                contador_retiros[cuenta % TAM_BUFFER]++;
-                
-                // Verificar si supera el umbral configurado
-                if (contador_retiros[cuenta % TAM_BUFFER] > configuracion.umbral_retiros) {
-                    char alerta[TAM_BUFFER];
-                    snprintf(alerta, sizeof(alerta), "ALERTA: Demasiados retiros consecutivos en cuenta %d", cuenta);
-                    write(pipe_monitor, alerta, strlen(alerta) + 1); // Enviar alerta por el pipe
-                    contador_retiros[cuenta % TAM_BUFFER] = 0; // Resetear contador
-
-                    EscribirLog("Monitor ha detectado una anomalía en transacciones.txt (retiros consecutivos)");
-                }
-            }
+        if (strcmp(tipo, "TRANSFERENCIA") == 0 && campos == 5) {
+            // ok
+        } else if ((strcmp(tipo, "RETIRO") == 0 || strcmp(tipo, "DEPOSITO") == 0) && campos == 4) {
+            t.destino = -1;
+            t.cantidad = t.destino;
+            sscanf(linea, "%10[^,],%19[^,],%d,%d", t.fecha, tipo, &t.origen, &t.cantidad);
+        } else {
+            continue; // línea malformada
         }
-        // Detección de transferencias sospechosas
-        else if (strstr(tipo, "TRANSFERENCIA")) {
-            int cuenta_origen, cuenta_destino;
-            char *token = strstr(linea, "Cuenta Origen: ");
-            if (token && sscanf(token, "Cuenta Origen: %d", &cuenta_origen) == 1) {
-                token = strstr(token, "Cuenta Destino: ");
-                if (token && sscanf(token, "Cuenta Destino: %d", &cuenta_destino) == 1) {
-                    // Verificar si es entre las mismas cuentas
-                    if (cuenta_origen == ultima_cuenta_origen && cuenta_destino == ultima_cuenta_destino) {
-                        transferencias_consecutivas++;
-                        if (transferencias_consecutivas > configuracion.umbral_transferencias) {
-                            char alerta[TAM_BUFFER];
-                            snprintf(alerta, sizeof(alerta), "ALERTA: Transferencias consecutivas entre cuentas %d %d", 
-                                    cuenta_origen, cuenta_destino);
-                            write(pipe_monitor, alerta, strlen(alerta) + 1);
-                            transferencias_consecutivas = 0;
 
-                            EscribirLog("Monitor ha detectado una anomalía en transacciones.txt (transferencias consecutivas entre cuentas)");
-                        }
-                    } else {
-                        // Actualizar cuentas para la próxima comparación
-                        transferencias_consecutivas = 1;
-                        ultima_cuenta_origen = cuenta_origen;
-                        ultima_cuenta_destino = cuenta_destino;
-                    }
-                }
-            }
-        }
+        if (num_transacciones < MAX_TRANSACCIONES)
+            transacciones[num_transacciones++] = t;
     }
-    fclose(archivo);
-    EscribirLog("Monitor ha cerrado el archivo de transacciones");
+
+    fclose(f);
 }
 
-// Punto de entrada del monitor. argv[1]: Descriptor del pipe pasado como argumento
+// Enviar alerta por cola de mensajes
+void enviar_alerta(const char *mensaje) {
+    ConectarColaMensajes();
+
+    // Preparar el mensaje
+    MensajeAlerta msg;
+    msg.tipo = TIPO_ALERTA;
+    strncpy(msg.texto, mensaje, sizeof(msg.texto));
+
+    // Enviar el mensaje
+    if (msgsnd(id_cola, &msg, sizeof(msg.texto), 0) == -1) {
+        perror("Error al enviar alerta");
+        EscribirLog("Fallo al enviar la alerta");
+    } 
+    else
+        EscribirLog("Alerta enviada a banco");
+    
+    kill(getppid(), SIGUSR1);
+}
+
+// Anomalía 1: Transferencias de ≥ 20000
+void *detectar_transferencias_grandes(void *arg) {
+
+    EscribirLog("Buscando anomalia de transferencia sospechosa...");
+
+    for (int i = 0; i < num_transacciones; i++) {
+        if (strcmp(transacciones[i].tipo, "TRANSFERENCIA") == 0 &&
+            transacciones[i].cantidad >= configuracion.limite_transferencia) {
+            
+            char alerta[256];
+            snprintf(alerta, sizeof(alerta),
+                     "TRANSFERENCIA GRANDE: %d€ de %d a %d el %s\n",
+                     transacciones[i].cantidad,
+                     transacciones[i].origen,
+                     transacciones[i].destino,
+                     transacciones[i].fecha);
+            enviar_alerta(alerta);
+            EscribirLog("Anomalia de transferencia sospechosa encontrada");
+        }
+    }
+    return NULL;
+}
+
+// Anomalía 2: Tres retiros consecutivos en un mismo día
+void *detectar_retiros_consecutivos(void *arg) {
+
+    EscribirLog("Buscando anomalia de retiros consecutivos...");
+
+
+    for (int i = 0; i < num_transacciones; i++) {
+        if (strcmp(transacciones[i].tipo, "RETIRO") != 0) continue;
+
+        int cuenta = transacciones[i].origen;
+        char *fecha = transacciones[i].fecha;
+        int contador = 1;
+
+        for (int j = i + 1; j < num_transacciones; j++) {
+            if (strcmp(transacciones[j].fecha, fecha) == 0 &&
+                strcmp(transacciones[j].tipo, "RETIRO") == 0 &&
+                transacciones[j].origen == cuenta) {
+                contador++;
+                if (contador >= configuracion.umbral_retiros) {
+                    char alerta[256];
+                    snprintf(alerta, sizeof(alerta), "RETIROS CONSECUTIVOS: %d retiros el %s por la cuenta %d\n", contador, fecha, cuenta);
+                    enviar_alerta(alerta);
+                    EscribirLog("Anomalia de retiros consecutivos encontrada");
+                    break;
+                }
+            }
+        }
+    }
+    return NULL;
+}
+
+// Anomalía 3: Tres transferencias entre mismas cuentas en un día
+void *detectar_transferencias_repetidas(void *arg) {
+
+    EscribirLog("Buscando anomalia de transferencias consecutivas...");
+
+    for (int i = 0; i < num_transacciones; i++) {
+        if (strcmp(transacciones[i].tipo, "TRANSFERENCIA") != 0) continue;
+
+        int cuenta_origen = transacciones[i].origen;
+        int cuenta_destino = transacciones[i].destino;
+        char *fecha = transacciones[i].fecha;
+        int contador = 1;
+
+        for (int j = i + 1; j < num_transacciones; j++) {
+            if (strcmp(transacciones[j].tipo, "TRANSFERENCIA") == 0 &&
+                strcmp(transacciones[j].fecha, fecha) == 0 &&
+                transacciones[j].origen == cuenta_origen &&
+                transacciones[j].destino == cuenta_destino) {
+                contador++;
+                if (contador >= configuracion.umbral_transferencias) {
+                    char alerta[256];
+                    snprintf(alerta, sizeof(alerta),
+                             "TRANSFERENCIAS CONSECUTIVAS: %d transferencias de %d a %d el %s\n",
+                             contador, cuenta_origen, cuenta_destino, fecha);
+                    enviar_alerta(alerta);
+                    EscribirLog("Anomalia de transferencias consecutivas encontrada");
+                    break;
+                }
+            }
+        }
+    }
+    return NULL;
+}
+
+// -------------------- MAIN ---------------------
 int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        exit(EXIT_FAILURE); // Salir si no se proporcionó el descriptor
+    
+    inicializar_configuracion();
+    inicializar_semaforos();
+    conectar_semaforos();
+
+    while(1) {
+        cargar_transacciones();
+
+        pthread_t hilos[3];
+        pthread_create(&hilos[0], NULL, detectar_transferencias_grandes, NULL);
+        pthread_create(&hilos[1], NULL, detectar_retiros_consecutivos, NULL);
+        pthread_create(&hilos[2], NULL, detectar_transferencias_repetidas, NULL);
+
+        for (int i = 0; i < 3; i++)
+            pthread_join(hilos[i], NULL);
+
+        sleep(200);
     }
     
-    // Convertir argumento a descriptor de archivo
-    int pipe_monitor = atoi(argv[1]);
-    
-    // Bucle de análisis continuo
-    while (1) {
-        analizar_transacciones(pipe_monitor);
-        sleep(5); // Esperar 5 segundos entre análisis
-    }
+    destruir_semaforos();
+
     return 0;
 }

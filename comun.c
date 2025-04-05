@@ -4,6 +4,8 @@
 #include <time.h>
 #include <semaphore.h>
 #include <fcntl.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
 #include "comun.h"
 
 // Definiciones de los semáforos
@@ -14,6 +16,9 @@ sem_t *semaforo_alertas = NULL;
 
 // Definición global para configuración
 Config configuracion;
+
+// Definición de la variable global
+int id_cola = -1;  // -1 indica que no está conectada
 
 
 void inicializar_semaforos(){
@@ -117,4 +122,35 @@ void EscribirLog(const char *mensaje) { // Recibe un mensaje que será el que ap
 
     fclose(fichero);
     sem_post(semaforo_log);
+}
+
+void CrearColaMensajes() {
+    id_cola = msgget(CLAVE_COLA_MENSAJES, IPC_CREAT | 0666);  // Crea o conecta
+    if (id_cola == -1) {
+        perror("Error al crear/conectar la cola de mensajes");
+        EscribirLog("Error al crear/conectar la cola de mensajes");
+        exit(EXIT_FAILURE);
+    }
+    EscribirLog("Cola de mensajes creada/conectada correctamente");
+}
+
+void ConectarColaMensajes() {
+    id_cola = msgget(CLAVE_COLA_MENSAJES, 0666);  // Solo conecta (sin IPC_CREAT)
+    if (id_cola == -1) {
+        perror("Error al conectar a la cola de mensajes existente");
+        EscribirLog("Error al conectar a la cola de mensajes");
+        exit(EXIT_FAILURE);
+    }
+}
+
+void DestruirColaMensajes() {
+    if (id_cola != -1) {
+        if (msgctl(id_cola, IPC_RMID, NULL) == -1) {  // Elimina la cola
+            perror("Error al destruir la cola de mensajes");
+            EscribirLog("Error al destruir la cola de mensajes");
+        } else {
+            EscribirLog("Cola de mensajes destruida correctamente");
+            id_cola = -1;  // Marca como no válida
+        }
+    }
 }
