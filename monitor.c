@@ -46,8 +46,9 @@ int main(int argc, char *argv[]) {
         pthread_create(&hilos[1], NULL, detectar_retiros_consecutivos, NULL);
         pthread_create(&hilos[2], NULL, detectar_transferencias_repetidas, NULL);
 
-        for (int i = 0; i < 3; i++)
-            pthread_join(hilos[i], NULL);
+        pthread_join(hilos[0], NULL);
+        pthread_join(hilos[1], NULL);
+        pthread_join(hilos[2], NULL);
 
         sleep(300);
     }

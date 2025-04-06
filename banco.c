@@ -21,7 +21,7 @@ void iniciar_sesion();
 void RegistrarUsuario();
 void IniciarMonitor();
 void detener_monitor();
-void LeerAlertas();
+void LeerAlertas(int sig);
 
 int main()
 {
