@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
         pthread_join(hilos[1], NULL);
         pthread_join(hilos[2], NULL);
 
-        sleep(300);
+        sleep(200);
     }
     
     destruir_semaforos();

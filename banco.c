@@ -299,7 +299,7 @@ void RegistrarUsuario()
 
     // Confirmación visual
     printf("\n┌───────────────────────────────────────┐\n");
-    printf("│          ✅ CUENTA CREADA            │\n");
+    printf("│          ✅ CUENTA CREADA             │\n");
     printf("├───────────────────────────────────────┤\n");
     printf("│  Titular:     %-23s │\n", nombre);
     printf("│  N° Cuenta:   %-23d │\n", numeroCuentaCliente);

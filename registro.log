@@ -9098,3 +9098,19 @@
 [2025-04-06 08:55:38] Cola de mensajes destruida correctamente
 [2025-04-06 08:55:38] Monitor detenido
 [2025-04-06 08:55:38] El proceso banco se ha cerrado con Ctrl + C
+[2025-04-06 13:31:32] Cola de mensajes creada/conectada correctamente
+[2025-04-06 13:31:32] Monitor iniciado en segundo plano
+[2025-04-06 13:31:32] cargando transacciones
+[2025-04-06 13:31:32] Buscando anomalia de transferencia sospechosa...
+[2025-04-06 13:31:32] Buscando anomalia de transferencias consecutivas...
+[2025-04-06 13:31:32] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 13:31:32] Anomalia de transferencia sospechosa encontrada
+[2025-04-06 13:31:32] Buscando anomalia de retiros consecutivos...
+[2025-04-06 13:31:32] Anomalia de retiros consecutivos encontrada
+[2025-04-06 13:31:34] Se ha abierto el archivo de cuentas
+[2025-04-06 13:31:39] Se ha cerrado el archivo de cuentas
+[2025-04-06 13:31:39] Nuevo usuario registrado
+[2025-04-06 13:32:09] Los semáforos han sido destruidos
+[2025-04-06 13:32:09] Cola de mensajes destruida correctamente
+[2025-04-06 13:32:09] Monitor detenido
+[2025-04-06 13:32:09] El proceso banco se ha cerrado con Ctrl + C
