@@ -8958,3 +8958,143 @@
 [2025-04-05 17:56:01] Cola de mensajes destruida correctamente
 [2025-04-05 17:56:01] Monitor detenido
 [2025-04-05 17:56:01] El proceso banco se ha cerrado con Ctrl + C
+[2025-04-06 08:48:47] Cola de mensajes creada/conectada correctamente
+[2025-04-06 08:48:47] Monitor iniciado en segundo plano
+[2025-04-06 08:48:47] cargando transacciones
+[2025-04-06 08:48:47] Buscando anomalia de transferencia sospechosa...
+[2025-04-06 08:48:47] Alerta enviada a banco
+[2025-04-06 08:48:47] Alerta recibida
+[2025-04-06 08:48:47] Anomalia de transferencia sospechosa encontrada
+[2025-04-06 08:48:47] Alerta enviada a banco
+[2025-04-06 08:48:47] Anomalia de transferencia sospechosa encontrada
+[2025-04-06 08:48:47] Alerta recibida
+[2025-04-06 08:48:47] Buscando anomalia de retiros consecutivos...
+[2025-04-06 08:48:47] Alerta enviada a banco
+[2025-04-06 08:48:47] Alerta recibida
+[2025-04-06 08:48:47] Buscando anomalia de transferencias consecutivas...
+[2025-04-06 08:48:47] Alerta enviada a banco
+[2025-04-06 08:48:47] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 08:48:47] Alerta enviada a banco
+[2025-04-06 08:48:47] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 08:48:47] Alerta recibida
+[2025-04-06 08:48:47] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:48:47] Alerta enviada a banco
+[2025-04-06 08:48:47] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:48:47] Alerta enviada a banco
+[2025-04-06 08:48:47] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:48:47] Alerta enviada a banco
+[2025-04-06 08:48:47] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:48:47] Alerta enviada a banco
+[2025-04-06 08:48:47] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:48:47] Alerta enviada a banco
+[2025-04-06 08:48:47] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:48:47] Alerta recibida
+[2025-04-06 08:49:14] Se ha abierto el archivo de cuentas
+[2025-04-06 08:49:14] Se ha cerrado el archivo de cuentas
+[2025-04-06 08:49:16] El usuario ha iniciado sesión correctamente
+[2025-04-06 08:49:20] Se ha abierto el archivo de cuentas
+[2025-04-06 08:49:20] El usuario ha consultado el saldo exitosamente
+[2025-04-06 08:49:20] Se ha cerrado el archivo de cuentas
+[2025-04-06 08:49:31] Se ha abierto el archivo de cuentas
+[2025-04-06 08:49:31] Se ha cerrado el archivo de cuentas
+[2025-04-06 08:49:31] El usuario ha realizado una transferencia exitosa
+[2025-04-06 08:49:31] Se ha cerrado el archivo de transacciones
+[2025-04-06 08:49:38] Se ha abierto el archivo de cuentas
+[2025-04-06 08:49:38] Se ha cerrado el archivo de cuentas
+[2025-04-06 08:49:38] El usuario ha realizado una transferencia exitosa
+[2025-04-06 08:49:38] Se ha cerrado el archivo de transacciones
+[2025-04-06 08:49:44] Se ha abierto el archivo de cuentas
+[2025-04-06 08:49:44] Se ha cerrado el archivo de cuentas
+[2025-04-06 08:49:44] El usuario ha realizado una transferencia exitosa
+[2025-04-06 08:49:44] Se ha cerrado el archivo de transacciones
+[2025-04-06 08:49:50] Se ha abierto el archivo de cuentas
+[2025-04-06 08:49:50] Se ha cerrado el archivo de cuentas
+[2025-04-06 08:49:50] El usuario ha realizado una transferencia exitosa
+[2025-04-06 08:49:50] Se ha cerrado el archivo de transacciones
+[2025-04-06 08:49:54] El usuario ha salido del menú de usuario
+[2025-04-06 08:51:15] Se ha abierto el archivo de cuentas
+[2025-04-06 08:51:15] Se ha cerrado el archivo de cuentas
+[2025-04-06 08:51:17] El usuario ha iniciado sesión correctamente
+[2025-04-06 08:51:20] Los semáforos han sido destruidos
+[2025-04-06 08:51:20] Cola de mensajes destruida correctamente
+[2025-04-06 08:51:20] Monitor detenido
+[2025-04-06 08:51:20] El proceso banco se ha cerrado con Ctrl + C
+[2025-04-06 08:54:04] Cola de mensajes creada/conectada correctamente
+[2025-04-06 08:54:04] Monitor iniciado en segundo plano
+[2025-04-06 08:54:04] cargando transacciones
+[2025-04-06 08:54:04] Buscando anomalia de transferencia sospechosa...
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Buscando anomalia de retiros consecutivos...
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Anomalia de transferencia sospechosa encontrada
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Anomalia de transferencia sospechosa encontrada
+[2025-04-06 08:54:04] Alerta recibida
+[2025-04-06 08:54:04] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Buscando anomalia de transferencias consecutivas...
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 08:54:04] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:54:04] Alerta enviada a banco
+[2025-04-06 08:54:04] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:54:04] Alerta recibida
+[2025-04-06 08:54:12] Se ha abierto el archivo de cuentas
+[2025-04-06 08:54:12] Se ha cerrado el archivo de cuentas
+[2025-04-06 08:54:14] El usuario ha iniciado sesión correctamente
+[2025-04-06 08:54:21] Los semáforos han sido destruidos
+[2025-04-06 08:54:21] Cola de mensajes destruida correctamente
+[2025-04-06 08:54:21] Monitor detenido
+[2025-04-06 08:54:21] El proceso banco se ha cerrado con Ctrl + C
+[2025-04-06 08:55:23] Cola de mensajes creada/conectada correctamente
+[2025-04-06 08:55:23] Monitor iniciado en segundo plano
+[2025-04-06 08:55:23] cargando transacciones
+[2025-04-06 08:55:24] Buscando anomalia de transferencia sospechosa...
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de transferencia sospechosa encontrada
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de transferencia sospechosa encontrada
+[2025-04-06 08:55:24] Alerta recibida
+[2025-04-06 08:55:24] Buscando anomalia de retiros consecutivos...
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Buscando anomalia de transferencias consecutivas...
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de retiros consecutivos encontrada
+[2025-04-06 08:55:24] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 08:55:24] Alerta enviada a banco
+[2025-04-06 08:55:24] Anomalia de transferencias consecutivas encontrada
+[2025-04-06 08:55:24] Alerta recibida
+[2025-04-06 08:55:24] Alerta recibida
+[2025-04-06 08:55:31] Se ha abierto el archivo de cuentas
+[2025-04-06 08:55:31] Se ha cerrado el archivo de cuentas
+[2025-04-06 08:55:33] El usuario ha iniciado sesión correctamente
+[2025-04-06 08:55:38] Los semáforos han sido destruidos
+[2025-04-06 08:55:38] Cola de mensajes destruida correctamente
+[2025-04-06 08:55:38] Monitor detenido
+[2025-04-06 08:55:38] El proceso banco se ha cerrado con Ctrl + C

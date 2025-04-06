@@ -352,15 +352,18 @@ void detener_monitor()
 void LeerAlertas(int sig)
 {
     MensajeAlerta msg;
+
+    sem_wait(semaforo_alertas); // Bloqueo para acceder a la cola y alertas.log
     ConectarColaMensajes();
 
     if (msgrcv(id_cola, &msg, sizeof(msg.texto), TIPO_ALERTA, IPC_NOWAIT) == -1)
     {
         perror("No se pudo leer alerta de la cola");
+        sem_post(semaforo_alertas);  // No olvidar liberar
         return;
     }
-    else
-        EscribirLog("Alerta recibida");
+
+    EscribirLog("Alerta recibida");
 
     FILE *fichero_alertas = fopen("alertas.log", "a");
     if (!fichero_alertas)
@@ -374,4 +377,6 @@ void LeerAlertas(int sig)
     fprintf(fichero_alertas, "🚨 ALERTA DEL MONITOR 🚨\n%s\n", msg.texto);
     fclose(fichero_alertas);
     //printf("\n\n🚨 Se ha registrado una nueva alerta\n");
+
+    sem_post(semaforo_alertas);
 }

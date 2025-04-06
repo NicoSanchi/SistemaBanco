@@ -16,22 +16,65 @@ typedef struct {
     int cantidad;
 } Transaccion;
 
+
 #define MAX_TRANSACCIONES 1000
+
+// Variables globales
 Transaccion transacciones[MAX_TRANSACCIONES];
 int num_transacciones = 0;
 
+// Declaración de prototipos de funciones
+void cargar_transacciones();
+void enviar_alerta(const char *mensaje);
+void *detectar_transferencias_grandes(void *arg);
+void *detectar_retiros_consecutivos(void *arg);
+void *detectar_transferencias_repetidas(void *arg);
 
-// -------------------- FUNCIONES ---------------------
 
+// Función principal que inicializa configuración y semáforos, y ejecuta continuamente la detección de anomalías cada 5 minutos.
+int main(int argc, char *argv[]) {
+    
+    inicializar_configuracion();
+    inicializar_semaforos();
+    conectar_semaforos();
+
+    while(1) {
+        cargar_transacciones();
+
+        pthread_t hilos[3];
+        pthread_create(&hilos[0], NULL, detectar_transferencias_grandes, NULL);
+        pthread_create(&hilos[1], NULL, detectar_retiros_consecutivos, NULL);
+        pthread_create(&hilos[2], NULL, detectar_transferencias_repetidas, NULL);
+
+        for (int i = 0; i < 3; i++)
+            pthread_join(hilos[i], NULL);
+
+        sleep(300);
+    }
+    
+    destruir_semaforos();
+
+    return 0;
+}
+
+
+// Carga las transacciones desde el archivo especificado en la configuración.
+// Valida el formato de cada línea y almacena las transacciones válidas en el arreglo global, para que los hilos las analicen.
 void cargar_transacciones() {
 
     EscribirLog("cargando transacciones");
 
+    sem_wait(semaforo_transacciones);  // Protección para lectura segura
+
     FILE *f = fopen(configuracion.archivo_transacciones, "r");
     if (!f) {
         perror("Error abriendo transacciones.txt");
+        EscribirLog("Error abriendo transacciones.txt");
+        sem_post(semaforo_transacciones);  // Liberar antes de salir
         exit(EXIT_FAILURE);
     }
+
+    num_transacciones = 0;  // Reiniciar el contador
 
     char linea[256];
     while (fgets(linea, sizeof(linea), f)) {
@@ -56,10 +99,14 @@ void cargar_transacciones() {
     }
 
     fclose(f);
+    sem_post(semaforo_transacciones);  // Liberar
 }
 
-// Enviar alerta por cola de mensajes
+
+// Envía una alerta al proceso banco mediante una cola de mensajes.
+// Luego, lanza una señal para notificar que hay una alerta disponible.
 void enviar_alerta(const char *mensaje) {
+    sem_wait(semaforo_alertas);
     ConectarColaMensajes();
 
     // Preparar el mensaje
@@ -75,10 +122,14 @@ void enviar_alerta(const char *mensaje) {
     else
         EscribirLog("Alerta enviada a banco");
     
+    sem_post(semaforo_alertas);  // SIEMPRE se hace, ocurra o no error
+    
     kill(getppid(), SIGUSR1);
 }
 
+
 // Anomalía 1: Transferencias de ≥ 20000
+// Si ocurre, genera y envía una alerta al proceso banco
 void *detectar_transferencias_grandes(void *arg) {
 
     EscribirLog("Buscando anomalia de transferencia sospechosa...");
@@ -88,20 +139,17 @@ void *detectar_transferencias_grandes(void *arg) {
             transacciones[i].cantidad >= configuracion.limite_transferencia) {
             
             char alerta[256];
-            snprintf(alerta, sizeof(alerta),
-                     "TRANSFERENCIA GRANDE: %d€ de %d a %d el %s\n",
-                     transacciones[i].cantidad,
-                     transacciones[i].origen,
-                     transacciones[i].destino,
-                     transacciones[i].fecha);
-            enviar_alerta(alerta);
+            snprintf(alerta, sizeof(alerta), "TRANSFERENCIA GRANDE: %d€ de %d a %d el %s\n", transacciones[i].cantidad, transacciones[i].origen, transacciones[i].destino, transacciones[i].fecha);
             EscribirLog("Anomalia de transferencia sospechosa encontrada");
+            enviar_alerta(alerta);
         }
     }
     return NULL;
 }
 
+
 // Anomalía 2: Tres retiros consecutivos en un mismo día
+// Si ocurre, genera y envía una alerta al proceso banco
 void *detectar_retiros_consecutivos(void *arg) {
 
     EscribirLog("Buscando anomalia de retiros consecutivos...");
@@ -122,8 +170,8 @@ void *detectar_retiros_consecutivos(void *arg) {
                 if (contador >= configuracion.umbral_retiros) {
                     char alerta[256];
                     snprintf(alerta, sizeof(alerta), "RETIROS CONSECUTIVOS: %d retiros el %s por la cuenta %d\n", contador, fecha, cuenta);
-                    enviar_alerta(alerta);
                     EscribirLog("Anomalia de retiros consecutivos encontrada");
+                    enviar_alerta(alerta);
                     break;
                 }
             }
@@ -132,7 +180,9 @@ void *detectar_retiros_consecutivos(void *arg) {
     return NULL;
 }
 
+
 // Anomalía 3: Tres transferencias entre mismas cuentas en un día
+// Si ocurre, genera y envía una alerta al proceso banco
 void *detectar_transferencias_repetidas(void *arg) {
 
     EscribirLog("Buscando anomalia de transferencias consecutivas...");
@@ -153,11 +203,9 @@ void *detectar_transferencias_repetidas(void *arg) {
                 contador++;
                 if (contador >= configuracion.umbral_transferencias) {
                     char alerta[256];
-                    snprintf(alerta, sizeof(alerta),
-                             "TRANSFERENCIAS CONSECUTIVAS: %d transferencias de %d a %d el %s\n",
-                             contador, cuenta_origen, cuenta_destino, fecha);
-                    enviar_alerta(alerta);
+                    snprintf(alerta, sizeof(alerta), "TRANSFERENCIAS CONSECUTIVAS: %d transferencias de %d a %d el %s\n", contador, cuenta_origen, cuenta_destino, fecha);
                     EscribirLog("Anomalia de transferencias consecutivas encontrada");
+                    enviar_alerta(alerta);
                     break;
                 }
             }
@@ -166,28 +214,4 @@ void *detectar_transferencias_repetidas(void *arg) {
     return NULL;
 }
 
-// -------------------- MAIN ---------------------
-int main(int argc, char *argv[]) {
-    
-    inicializar_configuracion();
-    inicializar_semaforos();
-    conectar_semaforos();
 
-    while(1) {
-        cargar_transacciones();
-
-        pthread_t hilos[3];
-        pthread_create(&hilos[0], NULL, detectar_transferencias_grandes, NULL);
-        pthread_create(&hilos[1], NULL, detectar_retiros_consecutivos, NULL);
-        pthread_create(&hilos[2], NULL, detectar_transferencias_repetidas, NULL);
-
-        for (int i = 0; i < 3; i++)
-            pthread_join(hilos[i], NULL);
-
-        sleep(200);
-    }
-    
-    destruir_semaforos();
-
-    return 0;
-}
