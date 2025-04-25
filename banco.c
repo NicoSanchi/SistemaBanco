@@ -14,6 +14,8 @@
 
 #define TAM_BUFFER 1024
 
+pid_t pid_monitor = -1;
+
 // Declaraciones de funciones
 void MenuInicio();
 void ManejarSenial(int senial);
@@ -319,17 +321,16 @@ void RegistrarUsuario()
 // Función para crear el proceso monitor
 void IniciarMonitor()
 {
+    pid_monitor = fork();
 
-    pid_t pid = fork();
-
-    if (pid < 0)
+    if (pid_monitor < 0)
     {
         perror("Error en fork");
         EscribirLog("Error en fork para crear monitor");
         exit(EXIT_FAILURE);
     }
 
-    if (pid == 0)
+    if (pid_monitor == 0)
     {
         // Proceso hijo
         execlp("./monitor", "monitor", NULL); // Ejecuta el proceso monitor
@@ -345,6 +346,10 @@ void IniciarMonitor()
 
 void detener_monitor()
 {
+    if (pid_monitor > 0) {
+        kill(pid_monitor, SIGTERM);  // Envía señal
+        waitpid(pid_monitor, NULL, 0);  // Opcional: elimínalo si no es necesario
+    }
     DestruirColaMensajes();
     EscribirLog("Monitor detenido");
 }
