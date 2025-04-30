@@ -6,6 +6,8 @@
 #include <fcntl.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
+#include <sys/types.h>
+#include <sys/shm.h>
 #include "comun.h"
 
 // Definiciones de los semáforos
@@ -16,6 +18,12 @@ sem_t *semaforo_alertas = NULL;
 
 // Definición global para configuración
 Config configuracion;
+
+// Definición para la tabla de cuentas
+TablaCuentas *tabla = NULL;
+
+//Definición de la variable
+int shm_id;
 
 // Definición de la variable global
 int id_cola = -1;  // -1 indica que no está conectada
@@ -158,4 +166,40 @@ void DestruirColaMensajes() {
             id_cola = -1;  // Marca como no válida
         }
     }
+}
+
+void CrearMemoriaCompartida() {
+    FILE *archivo;
+    int i = 0;
+    shm_id = shmget(IPC_PRIVATE, sizeof(TablaCuentas), IPC_CREAT | 0666);
+    if (shm_id == -1) {
+        perror("Error a la hora de crear la memoria compartida.");
+        EscribirLog("Ha ocurrido un error a la hora de crear la memoria compartida.");
+        exit(EXIT_FAILURE);
+    }
+    TablaCuentas *tabla = (TablaCuentas *)shmat(shm_id, NULL, 0);
+    if(tabla== (void *)-1) { 
+        perror("Error al asociar la memoria compartida al proceso");
+        EscribirLog("Error al asociar la memoria compartida al proceso");
+        exit(EXIT_FAILURE);
+    }
+    // Inicializamos en 0.
+    memset(tabla, 0, sizeof(TablaCuentas));
+
+    archivo = fopen(configuracion.archivo_cuentas, "r");
+    if(archivo == NULL){
+        perror("Error a la hora de abrir el archivo de cuentas.");
+        EscribirLog("Ha ocurrido un error a la hora de abrir el archivo de cuentas.");
+        exit(EXIT_FAILURE);
+    }
+
+    while(i < CUENTAS_TOTALES && fscanf(archivo, "%d,%49[^,],%f,%d", &tabla->cuentas[i].numero_cuenta, tabla->cuentas[i].titular, &tabla->cuentas[i].saldo, &tabla->cuentas[i].num_transacciones))
+    {
+        i++;
+    }
+
+    fclose(archivo);
+
+    return;
+
 }

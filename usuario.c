@@ -8,6 +8,9 @@
 #include <signal.h>
 #include <errno.h>
 #include <semaphore.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #include <fcntl.h>
 #include "comun.h"
 

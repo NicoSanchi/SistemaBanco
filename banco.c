@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 #include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #include <time.h>
 #include <semaphore.h>
 #include <fcntl.h>
@@ -31,6 +33,11 @@ int main()
     inicializar_semaforos();
     conectar_semaforos();
     CrearColaMensajes();
+
+    inicializar_configuracion();
+
+    // Creamos la memoria compartida
+    CrearMemoriaCompartida();
 
     signal(SIGUSR1, LeerAlertas);  // Manejar señal del monitor
     signal(SIGINT, ManejarSenial); // Si recibe una señal de SIGINT que es de Ctrl C, libera los recursos
@@ -107,7 +114,7 @@ void iniciar_sesion()
 {
     system("clear");
 
-    inicializar_configuracion();
+    //inicializar_configuracion();
 
     bool encontrado = false;
     FILE *archivo;
@@ -228,7 +235,7 @@ void RegistrarUsuario()
 {
     system("clear");
 
-    inicializar_configuracion();
+    //inicializar_configuracion();
 
     // Encabezado visual
     printf("┌───────────────────────────────────────┐\n");

@@ -8,6 +8,7 @@
 // Definición de la clave para la cola de mensajes 
 #define CLAVE_COLA_MENSAJES 1234
 #define TIPO_ALERTA 1
+#define CUENTAS_TOTALES 100
 
 // Estructura del mensaje de alerta
 typedef struct {
@@ -36,8 +37,15 @@ typedef struct Cuenta
     int num_transacciones;
 } Cuenta;
 
+typedef struct TablaCuentas
+{
+    Cuenta cuentas[CUENTAS_TOTALES];
+    int num_cuentas;
+} TablaCuentas;
+
 // Declaraciones de variables globales (definidas en comun.c)
-extern Config configuracion;  
+extern Config configuracion;
+
 extern sem_t *semaforo_cuentas;
 extern sem_t *semaforo_log;
 extern sem_t *semaforo_transacciones;
@@ -53,5 +61,6 @@ void conectar_semaforos();
 void CrearColaMensajes();
 void ConectarColaMensajes();
 void DestruirColaMensajes();
+void CrearMemoriaCompartida();
 
 #endif
