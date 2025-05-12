@@ -104,6 +104,7 @@ void ManejarSenial(int senial)
     sem_post(semaforo_cuentas);
     destruir_semaforos();
     detener_monitor();
+    LiberarMemoriaCompartida();
     // unlink(PIPE_ALERTAS);
     EscribirLog("El proceso banco se ha cerrado con Ctrl + C");
     printf("\n\n🚨 Programa terminado con Ctrl + C. Liberando recursos.\n\n");
