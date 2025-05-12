@@ -45,7 +45,7 @@ typedef struct TablaCuentas
 
 // Declaraciones de variables globales (definidas en comun.c)
 extern Config configuracion;
-
+extern TablaCuentas *tabla;
 extern sem_t *semaforo_cuentas;
 extern sem_t *semaforo_log;
 extern sem_t *semaforo_transacciones;
@@ -62,5 +62,5 @@ void CrearColaMensajes();
 void ConectarColaMensajes();
 void DestruirColaMensajes();
 void CrearMemoriaCompartida();
-
+void LiberarMemoriaCompartida();
 #endif

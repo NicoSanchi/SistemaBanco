@@ -84,6 +84,7 @@ void MenuInicio()
             sem_wait(semaforo_cuentas);
             sem_post(semaforo_cuentas);
             destruir_semaforos();
+            LiberarMemoriaCompartida();
             // unlink(PIPE_ALERTAS);
             break;
 
@@ -115,11 +116,12 @@ void iniciar_sesion()
     system("clear");
 
     //inicializar_configuracion();
-
+    int i;
     bool encontrado = false;
     FILE *archivo;
     char linea[100];        // Buffer para leer cada línea
     char numero_cuenta[10]; // Se recomienda mayor tamaño para seguridad
+    int numero_cuenta_en_int;
     char titular[50];
 
     // Encabezado visual
@@ -131,7 +133,7 @@ void iniciar_sesion()
     printf("🔴 Número de cuenta: ");
     fgets(numero_cuenta, sizeof(numero_cuenta), stdin);
     numero_cuenta[strcspn(numero_cuenta, "\n")] = 0; // Eliminar salto de línea
-
+    numero_cuenta_en_int = atoi(numero_cuenta);
     // Leer titular de la cuenta
     printf("👤 Titular de la cuenta: ");
     fgets(titular, sizeof(titular), stdin);
@@ -142,51 +144,12 @@ void iniciar_sesion()
     fflush(stdout);
     sleep(2);
 
-    // Abrir archivo
-    archivo = fopen(configuracion.archivo_cuentas, "r");
-    if (archivo == NULL)
-    {
-        perror("Error a la hora de abrir el archivo");
-        EscribirLog("Fallo al abrir el archivo de usuarios");
-        return;
-    }
-    else
-        EscribirLog("Se ha abierto el archivo de cuentas");
-
-    // Leer línea por línea
-    while (fgets(linea, sizeof(linea), archivo))
-    {
-        // Obtener número de cuenta
-        char *token = strtok(linea, ",");
-        if (token != NULL)
-        {
-            char numero_cuenta_archivo[10];
-            strncpy(numero_cuenta_archivo, token, sizeof(numero_cuenta_archivo) - 1);
-            numero_cuenta_archivo[sizeof(numero_cuenta_archivo) - 1] = '\0';
-
-            // Obtener titular
-            token = strtok(NULL, ",");
-            if (token != NULL)
-            {
-                char titular_archivo[50];
-                strncpy(titular_archivo, token, sizeof(titular_archivo) - 1);
-                titular_archivo[sizeof(titular_archivo) - 1] = '\0';
-
-                // Comparar sin saltos de línea
-                if (strcmp(numero_cuenta_archivo, numero_cuenta) == 0 &&
-                    strcmp(titular_archivo, titular) == 0)
-                {
-                    encontrado = true;
-                    break;
-                }
-            }
+    for(i=0; i<CUENTAS_TOTALES; i++){
+        if(tabla->cuentas[i].numero_cuenta == numero_cuenta_en_int && strcmp(tabla->cuentas[i].titular, titular) == 0){
+            encontrado = true;
+            break;
         }
     }
-
-    fclose(archivo); // Cerrar el archivo
-    EscribirLog("Se ha cerrado el archivo de cuentas");
-
-    // Mensaje de salida
     if (encontrado)
     {
         printf("✅ Autenticación exitosa\n\n");

@@ -177,8 +177,8 @@ void CrearMemoriaCompartida() {
         EscribirLog("Ha ocurrido un error a la hora de crear la memoria compartida.");
         exit(EXIT_FAILURE);
     }
-    TablaCuentas *tabla = (TablaCuentas *)shmat(shm_id, NULL, 0);
-    if(tabla== (void *)-1) { 
+    tabla = (TablaCuentas *)shmat(shm_id, NULL, 0);
+    if(tabla == (void *)-1) { 
         perror("Error al asociar la memoria compartida al proceso");
         EscribirLog("Error al asociar la memoria compartida al proceso");
         exit(EXIT_FAILURE);
@@ -202,4 +202,10 @@ void CrearMemoriaCompartida() {
 
     return;
 
+}
+
+void LiberarMemoriaCompartida(){
+    shmdt(tabla); // Separamos la región del espacio de direccionamiento del proceso.
+    shmctl(shm_id, IPC_RMID, 0); // Eliminamos la región de memoria compartida.
+    return;
 }
