@@ -26,7 +26,6 @@ void RegistrarUsuario();
 void IniciarMonitor();
 void detener_monitor();
 void LeerAlertas(int sig);
-void GuardarEnArchivo();
 
 int main()
 {
@@ -81,7 +80,6 @@ void MenuInicio()
         case 3:
             printf("\n🔜¡HASTA LUEGO!🔜\n\n");
             EscribirLog("El usuario ha salido del sistema");
-            GuardarEnArchivo();
             detener_monitor();
             sem_wait(semaforo_cuentas);
             sem_post(semaforo_cuentas);
@@ -102,7 +100,6 @@ void MenuInicio()
 
 void ManejarSenial(int senial)
 { // Funcion por si el banco se cierra con Ctrl C, que se liberen los recursos
-    GuardarEnArchivo();
     sem_wait(semaforo_cuentas);
     sem_post(semaforo_cuentas);
     destruir_semaforos();
@@ -202,7 +199,7 @@ void RegistrarUsuario()
 {
     system("clear");
 
-    //inicializar_configuracion();
+    inicializar_configuracion();
 
     // Encabezado visual
     printf("┌───────────────────────────────────────┐\n");
@@ -210,49 +207,68 @@ void RegistrarUsuario()
     printf("└───────────────────────────────────────┘\n\n");
 
     // Inicializamos las varibales
-    char nombre[50];
+    FILE *ficheroUsers;
+    char nombre[50], linea[100], esperar;
     int numeroCuentaCliente, numeroTransacciones = 0, saldo = 0;
+    bool hayUsuarios = false;
 
     sem_wait(semaforo_cuentas);
 
-    if (tabla->num_cuentas >= CUENTAS_TOTALES) { // aqui hay que implementar que desaloje a usuarios
-        printf("❌ Límite de cuentas alcanzado. No se pueden registrar más usuarios.\n");
+    ficheroUsers = fopen(configuracion.archivo_cuentas, "a+"); // Abrimos el archivo en formato append
+    if (ficheroUsers == NULL)
+    {
+        perror("Error a la hora de abrir el archivo");
+        EscribirLog("Fallo al abrir el archivo de usuarios");
+
         sem_post(semaforo_cuentas);
-        EscribirLog("Intento de registrar usuario fallido: límite alcanzado");
-        printf("\nPulsa una tecla para continuar...");
-        getchar();
-        system("clear");
+        fclose(ficheroUsers);
+
         return;
     }
-
-    // Asignamos el número de cuenta
-    if (tabla->num_cuentas > 0)
-        numeroCuentaCliente = tabla->cuentas[tabla->num_cuentas - 1].numero_cuenta + 1;
     else
-        numeroCuentaCliente = 1000; // Si el primer usuario lo inicializamos a 1000
+        EscribirLog("Se ha abierto el archivo de cuentas");
+
+    while (fgets(linea, sizeof(linea), ficheroUsers)) // Leemos el archivo linea por linea
+    {
+        char *token = strtok(linea, ","); // Tomamos el numero de cuenta de la linea
+
+        if (token != NULL)
+        { // Si el archivo no esta vacio, asignamos al numero de cuenta el numero de cuenta del ultimo cliente
+            numeroCuentaCliente = atoi(token);
+            hayUsuarios = true;
+        }
+    }
+
+    if (hayUsuarios) // Si habia usuarios existentes, asigna el nuevo numero de cuenta siguiente
+        numeroCuentaCliente++;
+    else
+        numeroCuentaCliente = 1000; // Si no inicializa a 1000 el numero de cuenta
 
     printf("👤 Introduce el nombre del titular: ");
     fgets(nombre, sizeof(nombre), stdin);
     nombre[strcspn(nombre, "\n")] = 0;
-    
+
     // Mensaje de progreso añadido
     printf("\n🔄 Creando nueva cuenta...\n\n");
     fflush(stdout); // Asegurar que se muestre inmediatamente
-    sleep(2); // Pequeña pausa para efecto visual
+    sleep(2);       // Pequeña pausa para efecto visual
 
-    // Generar saldo aleatorio entre 1000 y 10000
+    // Generar saldo aleatorio (1000-10000)
     srand(time(NULL));
-    saldo = rand() % (10000 - 1000 + 1) + 1000;
+    saldo = rand() % (10000 - 1000 + 1) + 1000; // Generamos un numero entre 1000 y 10000 que sera su saldo
 
-    // Guardamos en la memoria compartida la cuenta
-    Cuenta nueva;
-    nueva.numero_cuenta = numeroCuentaCliente;
-    strcpy(nueva.titular, nombre);
-    nueva.saldo = saldo;
-    nueva.num_transacciones = numeroTransacciones;
+    fseek(ficheroUsers, -1, SEEK_END); // Nos movemos al final del archivo de usuarios
+    char ultimoCaracter = fgetc(ficheroUsers);
 
-    tabla->cuentas[tabla->num_cuentas] = nueva; // Guardamos al nuevo usuario en la posición libre
-    tabla->num_cuentas++; // Incrementados el contador de cuentas
+    if (ultimoCaracter != '\n' && hayUsuarios) // Y comprobamos si hay usuarios y si el ultimo caracter no es un salto de linea
+        fprintf(ficheroUsers, "\n");           // En el caso de que haya usuarios y el utlimo caracter no es un salto de linea, lo añadimos manualmente
+    // De modo que se escriba en el archivo de usuarios linea por linea
+
+    fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); // Escribimos en el archivo de usaurio el nuevo usuario
+
+    fclose(ficheroUsers);
+    sem_post(semaforo_cuentas);
+    EscribirLog("Se ha cerrado el archivo de cuentas");
 
     // Confirmación visual
     printf("\n┌───────────────────────────────────────┐\n");
@@ -263,9 +279,7 @@ void RegistrarUsuario()
     printf("│  Saldo:       €%-22d │\n", saldo);
     printf("└───────────────────────────────────────┘\n");
 
-    EscribirLog("Nuevo usuario registrado en mc correctamente");
-
-    sem_post(semaforo_cuentas); 
+    EscribirLog("Nuevo usuario registrado");
 
     printf("\nPulsa una tecla para continuar...");
     getchar();
@@ -343,24 +357,3 @@ void LeerAlertas(int sig)
     sem_post(semaforo_alertas);
 }
 
-
-void GuardarEnArchivo() {
-    sem_wait(semaforo_cuentas); // Asegura exclusión mutua
-
-    FILE *archivo = fopen(configuracion.archivo_cuentas, "w");
-    if (!archivo) {
-        perror("Error al abrir el archivo de cuentas para guardar");
-        sem_post(semaforo_cuentas);
-        EscribirLog("Error al intentar guardar las cuentas de mc a cuentas.dat");
-        return;
-    }
-
-    for (int i = 0; i < tabla->num_cuentas; i++) {
-        Cuenta c = tabla->cuentas[i];
-        fprintf(archivo, "%d,%s,%.2f,%d\n", c.numero_cuenta, c.titular, c.saldo, c.num_transacciones);
-    }
-
-    fclose(archivo);
-    sem_post(semaforo_cuentas);
-    EscribirLog("Cuentas guardadas en archivo correctamente");
-}
