@@ -198,6 +198,9 @@ void CrearMemoriaCompartida() {
         i++;
     }
 
+    // Actualizamos el número de cuentas cargadas.
+    tabla->num_cuentas = i;
+
     fclose(archivo);
 
     return;
