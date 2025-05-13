@@ -205,7 +205,7 @@ void CrearMemoriaCompartida() {
         exit(EXIT_FAILURE);
     }
 
-    while(i < CUENTAS_TOTALES && fscanf(archivo, "%d,%49[^,],%f,%d", &tabla->cuentas[i].numero_cuenta, tabla->cuentas[i].titular, &tabla->cuentas[i].saldo, &tabla->cuentas[i].num_transacciones))
+    while(i < CUENTAS_TOTALES && fscanf(archivo, "%d,%49[^,],%f,%d,%ld", &tabla->cuentas[i].numero_cuenta, tabla->cuentas[i].titular, &tabla->cuentas[i].saldo, &tabla->cuentas[i].num_transacciones, &tabla->cuentas[i].ultimoAcceso))
     {
         i++;
     }

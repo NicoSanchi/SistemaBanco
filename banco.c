@@ -26,6 +26,7 @@ void RegistrarUsuario();
 void IniciarMonitor();
 void detener_monitor();
 void LeerAlertas(int sig);
+int EncontrarLRU();
 
 int main()
 {
@@ -117,8 +118,8 @@ void iniciar_sesion()
     system("clear");
 
     //inicializar_configuracion();
-    int i;
-    bool encontrado = false;
+    int i, indiceLRU;
+    bool encontrado = false, usuarioEnMemoria = false;
     FILE *archivo;
     char linea[100];        // Buffer para leer cada línea
     char numero_cuenta[10]; // Se recomienda mayor tamaño para seguridad
@@ -144,54 +145,114 @@ void iniciar_sesion()
     printf("\n🔍 Verificando credenciales...\n\n");
     fflush(stdout);
     sleep(2);
+    //-----------------------------------------------------------------------------------------
+    archivo = fopen(configuracion.archivo_cuentas, "r");
+    
+    if (archivo == NULL) {
+        perror("Error al abrir el archivo de cuentas");
+        EscribirLog("Error al abrir el archivo cuentas intentando iniciar sesión");
+        exit(EXIT_FAILURE);
+    }
 
-    for(i=0; i<CUENTAS_TOTALES; i++){
-        if(tabla->cuentas[i].numero_cuenta == numero_cuenta_en_int && strcmp(tabla->cuentas[i].titular, titular) == 0){
-            encontrado = true;
-            break;
+    EscribirLog("Archivo de cuentas abierto correctamente intentando iniciar sesión");
+
+    Cuenta cuentaEncontrada;
+
+    while (fgets(linea, sizeof(linea), archivo))
+    {
+        // Obtener número de cuenta
+        char *token = strtok(linea, ",");
+        if (token != NULL)
+        {
+            char numero_cuenta_archivo[10];
+            strncpy(numero_cuenta_archivo, token, sizeof(numero_cuenta_archivo) - 1);
+            numero_cuenta_archivo[sizeof(numero_cuenta_archivo) - 1] = '\0';
+
+            // Obtener titular
+            token = strtok(NULL, ",");
+            if (token != NULL)
+            {
+                char titular_archivo[50];
+                strncpy(titular_archivo, token, sizeof(titular_archivo) - 1);
+                titular_archivo[sizeof(titular_archivo) - 1] = '\0';
+
+                // Comparar sin saltos de línea
+                if (strcmp(numero_cuenta_archivo, numero_cuenta) == 0 &&
+                    strcmp(titular_archivo, titular) == 0)
+                {
+                    // Guardamos los datos de la cuenta
+                    cuentaEncontrada.numero_cuenta = atoi(numero_cuenta_archivo);
+                    strncpy(cuentaEncontrada.titular, titular_archivo, sizeof(cuentaEncontrada.titular) - 1);
+                    cuentaEncontrada.saldo = atof(strtok(NULL, ","));
+                    cuentaEncontrada.num_transacciones = atoi(strtok(NULL, ","));
+
+                    encontrado = true;
+                    break;
+                }
+            }
         }
     }
-    if (encontrado)
-    {
-        printf("✅ Autenticación exitosa\n\n");
-        printf("🚀 Abriendo tu sesión bancaria...\n");
-        fflush(stdout);
-        sleep(2); // Espera antes de abrir terminal
-        EscribirLog("El usuario ha iniciado sesión correctamente");
 
-        pid_t pid_banco = getpid(); // guarda PID del padre real
+    fclose(archivo); // Cerrar el archivo
+    EscribirLog("Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión");
 
-        __pid_t pid = fork();
-        if (pid == 0)
-        {
-            char comando[300];
-            snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario -lpthread && ./usuario '%s' '%s' %d", numero_cuenta, titular, pid_banco);
-
-            // Ejecutar gnome-terminal y correr el comando
-            execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
-            exit(EXIT_FAILURE); // Si execlp falla
-        }
-        else if (pid > 0) // Proceso padre
-        {
-            // Espera breve no bloqueante para dar tiempo al hijo
-            usleep(550000); // 0.5 segundos
-        }
-        else if (pid == -1)
-        {
-            perror("Ha ocurrido un fallo en el sistema");
-            EscribirLog("El usuario ha intentado iniciar sesión. Fallo en el sistema");
-            exit(EXIT_FAILURE);
-        }
-    }
-    else
-    {
+    if (!encontrado) {
         printf("❌ Error: Credenciales incorrectas\n");
         EscribirLog("El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales");
         printf("\nPresione una tecla para continuar...");
         getchar();
         system("clear");
+        return;
     }
 
+    // Si las credenciales son correctas buscamos en memoria si el usuario ya está conectado
+    printf("✅ Autenticación exitosa\n\n");
+    printf("🚀 Abriendo tu sesión bancaria...\n");
+
+    EscribirLog("El usuario ha iniciado sesión correctamente");
+
+    for(i=0; i<CUENTAS_TOTALES; i++){
+
+        if(tabla->cuentas[i].numero_cuenta == numero_cuenta_en_int && strcmp(tabla->cuentas[i].titular, titular) == 0){
+            usuarioEnMemoria = true;
+            break;
+        }
+
+    }
+
+    if (!usuarioEnMemoria) {
+
+        indiceLRU = EncontrarLRU();
+        tabla->cuentas[indiceLRU] = cuentaEncontrada;
+        
+    }
+
+    tabla->cuentas[i].ultimoAcceso = time(NULL);
+
+    pid_t pid_banco = getpid(); // guarda PID del padre real
+
+     __pid_t pid = fork();
+    if (pid == 0)
+    {
+        char comando[300];
+        snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario -lpthread && ./usuario '%s' '%s' %d", numero_cuenta, titular, pid_banco);
+
+        // Ejecutar gnome-terminal y correr el comando
+        execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
+        exit(EXIT_FAILURE); // Si execlp falla
+    }
+    else if (pid > 0) // Proceso padre
+    {
+        // Espera breve no bloqueante para dar tiempo al hijo
+        usleep(550000); // 0.5 segundos
+    }
+    else if (pid == -1)
+    {
+        perror("Ha ocurrido un fallo en el sistema");
+        EscribirLog("El usuario ha intentado iniciar sesión. Fallo en el sistema");
+        exit(EXIT_FAILURE);
+    }
+     
     system("clear");
 }
 
@@ -357,3 +418,18 @@ void LeerAlertas(int sig)
     sem_post(semaforo_alertas);
 }
 
+int EncontrarLRU() {
+
+    time_t min = time(NULL); 
+    int indiceLRU = -1;
+
+    for (int i = 0; i < tabla->num_cuentas; i++) {
+
+        if (tabla->cuentas[i].ultimoAcceso < min) {
+            min = tabla->cuentas[i].ultimoAcceso;
+            indiceLRU = i;
+        }
+    }
+
+    return indiceLRU;
+}

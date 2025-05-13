@@ -4,6 +4,7 @@
 #include <semaphore.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
+#include <time.h>
 
 // Definición de la clave para la cola de mensajes 
 #define CLAVE_COLA_MENSAJES 1234
@@ -35,6 +36,7 @@ typedef struct Cuenta
     char titular[50];
     float saldo;
     int num_transacciones;
+    time_t ultimoAcceso;
 } Cuenta;
 
 typedef struct TablaCuentas
