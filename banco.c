@@ -215,6 +215,7 @@ void iniciar_sesion()
 
         if(tabla->cuentas[i].numero_cuenta == numero_cuenta_en_int && strcmp(tabla->cuentas[i].titular, titular) == 0){
             usuarioEnMemoria = true;
+            EscribirLog("Usuario existente en memoria compartida");
             break;
         }
 
@@ -224,6 +225,7 @@ void iniciar_sesion()
 
         indiceLRU = EncontrarLRU();
         tabla->cuentas[indiceLRU] = cuentaEncontrada;
+        EscribirLog("Cuenta introducida en memoria compartida");
         
     }
 

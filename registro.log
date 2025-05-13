@@ -10316,3 +10316,15 @@
 [2025-05-13 22:14:13] Archivo de cuentas abierto correctamente intentando iniciar sesión
 [2025-05-13 22:14:13] Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión
 [2025-05-13 22:14:13] El usuario ha iniciado sesión correctamente
+[2025-05-13 22:15:06] Cola de mensajes creada/conectada correctamente
+[2025-05-13 22:15:06] Memoria compartida creada e inicializada correctamente
+[2025-05-13 22:15:06] Monitor iniciado en segundo plano
+[2025-05-13 22:15:06] cargando transacciones
+[2025-05-13 22:15:06] Buscando anomalia de transferencia sospechosa...
+[2025-05-13 22:15:06] Anomalia de transferencia sospechosa encontrada
+[2025-05-13 22:15:06] Alerta enviada a banco
+[2025-05-13 22:15:06] Anomalia de transferencia sospechosa encontrada
+[2025-05-13 22:15:06] Buscando anomalia de retiros consecutivos...
+[2025-05-13 22:15:06] Anomalia de retiros consecutivos encontrada
+[2025-05-13 22:15:06] Buscando anomalia de transferencias consecutivas...
+[2025-05-13 22:15:06] Anomalia de transferencias consecutivas encontrada
