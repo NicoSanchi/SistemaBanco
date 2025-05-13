@@ -169,21 +169,33 @@ void DestruirColaMensajes() {
 }
 
 void CrearMemoriaCompartida() {
+
     FILE *archivo;
     int i = 0;
-    shm_id = shmget(IPC_PRIVATE, sizeof(TablaCuentas), IPC_CREAT | 0666);
-    if (shm_id == -1) {
-        perror("Error a la hora de crear la memoria compartida.");
-        EscribirLog("Ha ocurrido un error a la hora de crear la memoria compartida.");
+
+    key_t clave_memoria = ftok("comun.h", 'M'); // Aseguramos que 2 procesos en el sistema tengan la misma clave
+    if (clave_memoria == -1) {
+        perror("Error al generar la clave de memoria compartida con ftok");
+        EscribirLog("Error al generar clave de memoria compartida con ftok");
         exit(EXIT_FAILURE);
     }
+
+    shm_id = shmget(clave_memoria, sizeof(TablaCuentas), IPC_CREAT | 0666);
+    if (shm_id == -1) {
+        perror("Error al crear la memoria compartida");
+        EscribirLog("Error al crear la memoria compartida");
+        exit(EXIT_FAILURE);
+    }
+
     tabla = (TablaCuentas *)shmat(shm_id, NULL, 0);
+
     if(tabla == (void *)-1) { 
         perror("Error al asociar la memoria compartida al proceso");
         EscribirLog("Error al asociar la memoria compartida al proceso");
         exit(EXIT_FAILURE);
     }
-    // Inicializamos en 0.
+
+    // Inicializamos en 0
     memset(tabla, 0, sizeof(TablaCuentas));
 
     archivo = fopen(configuracion.archivo_cuentas, "r");
@@ -202,6 +214,7 @@ void CrearMemoriaCompartida() {
     tabla->num_cuentas = i;
 
     fclose(archivo);
+    EscribirLog("Memoria compartida creada e inicializada correctamente");
 
     return;
 
@@ -210,5 +223,38 @@ void CrearMemoriaCompartida() {
 void LiberarMemoriaCompartida(){
     shmdt(tabla); // Separamos la región del espacio de direccionamiento del proceso.
     shmctl(shm_id, IPC_RMID, 0); // Eliminamos la región de memoria compartida.
+    EscribirLog("Memoria compartida liberada");
     return;
+}
+
+void ConectarMemoriaCompartida() {
+
+    key_t clave_memoria = ftok("comun.h", 'M');
+
+    if (clave_memoria == -1) {
+        perror("Error al generar la clave de memoria compartida con ftok");
+        EscribirLog("Error al generar clave de memoria compartida con ftok");
+        exit(EXIT_FAILURE);
+    }
+
+    shm_id = shmget(clave_memoria, sizeof(TablaCuentas), 0666);
+    if (shm_id == -1) {
+        perror("Error al conectar con la memoria compartida");
+        EscribirLog("Error al conectar con la memoria compartida");
+        exit(EXIT_FAILURE);
+    }
+
+    tabla = (TablaCuentas *)shmat(shm_id, NULL, 0);
+
+    if (tabla == (void *)-1) {
+        perror("Error al asociar la memoria compartida al proceso");
+        EscribirLog("Error al asociar la memoria compartida al proceso");
+        exit(EXIT_FAILURE);
+    }
+
+    EscribirLog("Memoria compartida conectada correctamente");
+}
+
+void DesconectarMC() {
+    shmdt(tabla); // Solo desconecta
 }

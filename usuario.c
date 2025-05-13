@@ -31,6 +31,7 @@ int main(int argc, char *argv[])
 
     inicializar_configuracion();
     conectar_semaforos();
+    ConectarMemoriaCompartida();
 
     pthread_t usuario;
     pid_t pid_banco = atoi(argv[3]);
@@ -100,6 +101,7 @@ int main(int argc, char *argv[])
             printf("\n👋 Saliendo...\n");
             sleep(1);
             EscribirLog("El usuario ha salido del menú de usuario");
+            DesconectarMC();
             exit(0);
         default:
             printf("\n❌ La opción seleccionada no es válida.\n");
@@ -136,6 +138,7 @@ void ManejarSalida(int senial)
     printf("\n👋 Saliendo del programa...\n");
     sleep(1);
     EscribirLog("El usuario cerró la sesión con Ctrl + C");
+    DesconectarMC();
     snprintf(comando, sizeof(comando), "kill -9 %d", getpid());
     system(comando);
     exit(EXIT_SUCCESS);
@@ -164,91 +167,65 @@ void *vigilar_banco(void *arg)
 
 void *realizar_deposito(void *arg)
 {
-    int numero_cuenta = *(int *)arg; // Obtener el número de la cuenta desde el argumento.
+    int numero_cuenta = *(int *)arg; // Obtener el número de la cuenta desde el argumento
     int cantidad;
-    int saldo;
-    char linea[100];
-    FILE *fichero;
+    float nuevoSaldo;
+    bool exito = false;
+
+    sem_wait(semaforo_cuentas);
 
     // Solicitar la cantidad a ingresar.
     printf("\n💵 Introduzca la cantidad a ingresar: ");
     scanf("%d", &cantidad);
-    while (getchar() != '\n')
-        ;
+    while (getchar() != '\n');
 
-    sem_wait(semaforo_cuentas);
-
-    // Sistema de archivo temporal
-    fichero = fopen(configuracion.archivo_cuentas, "r");
-    FILE *temp = fopen("temp_cuentas.dat", "w");
-    if (!fichero || !temp)
+    // Buscamos en la tabla
+    for (int i = 0; i < tabla->num_cuentas; i++)
     {
-        perror("Error al abrir el archivo de cuentas.");
-        EscribirLog("Fallo al abrir el archivo de cuentas");
-        sem_post(semaforo_cuentas);
-        return NULL;
-    }
-    else
-        EscribirLog("Se ha abierto el archivo de cuentas");
-
-    // Leer línea por línea y buscar la cuenta.
-    while (fgets(linea, sizeof(linea), fichero))
-    {
-        char linea_aux[100];
-        strcpy(linea_aux, linea);
-
-        char *token = strtok(linea, ",");
-        if (token && atoi(token) == numero_cuenta) // Comparar el número de cuenta buscado
+        if (tabla->cuentas[i].numero_cuenta == numero_cuenta)
         {
-            char *titular = strtok(NULL, ",");   // Obtenemos el titular.
-            char *saldo_str = strtok(NULL, ","); // Obtenemos el saldo.
-            saldo = atoi(saldo_str);
-            char *num_transacciones_str = strtok(NULL, ","); // Obtener el número de transacciones.
-            int num_transacciones = atoi(num_transacciones_str);
-
-            saldo += cantidad; // Calcular el nuevo saldo.
-
-            // Actualizar el archivo
-            fprintf(temp, "%d,%s,%d,%d\n", numero_cuenta, titular, saldo, num_transacciones + 1);
+            // Actualizar el saldo y transacciones
+            tabla->cuentas[i].saldo += cantidad;
+            tabla->cuentas[i].num_transacciones += 1;
+            nuevoSaldo = tabla->cuentas[i].saldo;
+            exito = true;
+            break;
         }
-        else
-            fputs(linea_aux, temp);
     }
 
-    fclose(fichero);
-    fclose(temp);
-    EscribirLog("Se ha cerrado el archivo de cuentas");
-
-    // Reemplazar archivos
-    remove(configuracion.archivo_cuentas);
-    rename("temp_cuentas.dat", configuracion.archivo_cuentas);
-
-    sem_post(semaforo_cuentas);
 
     // Mostrar el resultado
-    printf("\n✅ Ingreso realizado con éxito. Nuevo saldo: %d €\n", saldo);
-    EscribirLog("El usuario ha realizado un ingreso exitosamente");
-    RegistrarTransacciones(numero_cuenta, 0, cantidad, "DEPÓSITO");
+    if (exito) {
+        printf("\n✅ Ingreso realizado con éxito. Nuevo saldo: %.2f €\n", nuevoSaldo);
+        EscribirLog("El usuario ha realizado un ingreso exitosamente");
+        RegistrarTransacciones(numero_cuenta, 0, cantidad, "DEPÓSITO");
+    }
+    else {
+        EscribirLog("Erro al realizar el deposito");
+    }
+    
 
     printf("\nPresione una tecla para continuar...");
     getchar();
     system("clear");
+
+    sem_post(semaforo_cuentas);
+
     return (NULL);
 }
 
 void *realizar_retiro(void *arg)
 {
     int numero_cuenta = *(int *)arg; // Recuperar el número de cuenta desde el argumento
-    int cantidad, saldo;
-    char linea[100], linea_aux[100];
+    int cantidad;
     bool exito = false;
-    FILE *fichero;
+    float nuevoSaldo = 0;
 
+    sem_wait(semaforo_cuentas);
     // Solicitar la cantidad a retirar
     printf("\n💵 Introduzca la cantidad a retirar: ");
     scanf("%d", &cantidad);
-    while (getchar() != '\n')
-        ;
+    while (getchar() != '\n');
 
     // Verificar el límite de retiro
     if (cantidad > configuracion.limite_retiro)
@@ -256,88 +233,51 @@ void *realizar_retiro(void *arg)
         printf("\n❌ Error: La cantidad excede el límite de retiro permitido (%d €)\n", configuracion.limite_retiro);
         printf("\nPresione una tecla para continuar...");
         getchar();
+        sem_post(semaforo_cuentas);
         system("clear");
         return NULL;
     }
 
-    sem_wait(semaforo_cuentas);
 
-    // Sistema de archivo temporal
-    fichero = fopen(configuracion.archivo_cuentas, "r");
-    FILE *temp = fopen("temp_cuentas.dat", "w");
-    if (!fichero || !temp)
+    // Buscamos en la tabla
+    for (int i = 0; i < tabla->num_cuentas; i++)
     {
-        perror("Error al abrir el archivo de cuentas");
-        EscribirLog("Fallo al abrir el archivo de cuentas");
-        sem_post(semaforo_cuentas);
-        return NULL;
-    }
-    else
-        EscribirLog("Se ha abierto el archivo de cuentas");
-
-    // Leer línea por línea y buscar la cuenta
-    while (fgets(linea, sizeof(linea), fichero))
-    {
-        strcpy(linea_aux, linea);
-        char *token = strtok(linea, ",");
-
-        if (token && atoi(token) == numero_cuenta) // Comparar con el número de cuenta buscado
+        if (tabla->cuentas[i].numero_cuenta == numero_cuenta)
         {
-            // Obtener el titular
-            char *titular = strtok(NULL, ",");
-
-            // Obtener el saldo actual
-            char *saldo_str = strtok(NULL, ",");
-            saldo = atoi(saldo_str);
-
-            // Obtener el número de transacciones
-            char *num_transacciones_str = strtok(NULL, ",");
-            int num_transacciones = atoi(num_transacciones_str);
-
             // Verificar si hay fondos suficientes
-            if (saldo >= cantidad) // Actualizar el saldo en archivo
+            if (tabla->cuentas[i].saldo >= cantidad)
             {
-                saldo -= cantidad;
-                fprintf(temp, "%d,%s,%d,%d\n", numero_cuenta, titular, saldo, num_transacciones + 1);
+                // Actualizar el saldo y transacciones
+                tabla->cuentas[i].saldo -= cantidad;
+                tabla->cuentas[i].num_transacciones += 1;
+                nuevoSaldo = tabla->cuentas[i].saldo;
                 exito = true;
                 EscribirLog("El usuario ha realizado un retiro exitosamente");
             }
             else
             {
-                fputs(linea_aux, temp);
-                printf("\n❌ Error: Fondos insuficientes. Saldo actual: %d €\n", saldo);
+                printf("\n❌ Error: Fondos insuficientes. Saldo actual: %.2f €\n", tabla->cuentas[i].saldo);
                 EscribirLog("Fondos insuficientes al intentar retiro");
-                break;
             }
+            break;
         }
-        else
-            fputs(linea_aux, temp);
     }
 
-    fclose(fichero);
-    fclose(temp);
-    EscribirLog("Se ha cerrado el archivo de cuentas");
-
+    // Mostrar el resultado
     if (exito)
     {
-        // Reemplazar archivo solo si fue exitoso
-        remove(configuracion.archivo_cuentas);
-        rename("temp_cuentas.dat", configuracion.archivo_cuentas);
-
-        // Mostrar el resultado
-        printf("\n✅ Retiro realizado con éxito. Nuevo saldo: %d €\n", saldo);
+        sleep(2);
+        printf("\n✅ Retiro realizado con éxito. Nuevo saldo: %.2f €\n", nuevoSaldo);
         RegistrarTransacciones(numero_cuenta, 0, cantidad, "RETIRO");
     }
-    else
-        // Eliminar archivo temporal si hubo error
-        remove("temp_cuentas.dat");
 
     printf("\nPresione una tecla para continuar...");
     getchar();
-    system("clear");
 
+    system("clear");
     sem_post(semaforo_cuentas);
-    return NULL;
+
+    return (NULL);
 }
 
 void *realizar_transferencia(void *arg)
@@ -345,157 +285,79 @@ void *realizar_transferencia(void *arg)
     int numero_cuenta_origen = *(int *)arg; // Recuperar el número de cuenta de origen desde el argumento
     int cantidad;
     int numero_cuenta_destino;
-    char linea[100], linea_aux[100];
-    FILE *fichero;
     bool error = false;
+    int iPrueba;
 
     // Solicitar datos de la transferencia
     printf("\n🔀 Introduzca el número de cuenta de destino: ");
     scanf("%d", &numero_cuenta_destino);
-    while (getchar() != '\n')
-        ;
+    while (getchar() != '\n');
 
     printf("💵 Introduzca la cantidad a transferir: ");
     scanf("%d", &cantidad);
-    while (getchar() != '\n')
-        ;
+    while (getchar() != '\n');
 
     sem_wait(semaforo_cuentas);
 
-    // Sistema de archivo temporal
-    fichero = fopen(configuracion.archivo_cuentas, "r");
-    FILE *temp = fopen("temp_cuentas.dat", "w");
-    if (!fichero || !temp)
+    // Variables para almacenar punteros a las cuentas
+    Cuenta *cuenta_origen = NULL;
+    Cuenta *cuenta_destino = NULL;
+
+    // Buscar las cuentas en memoria compartida
+    for (int i = 0; i < tabla->num_cuentas; i++)
     {
-        perror("Error al abrir el archivo de cuentas");
-        EscribirLog("Fallo al abrir el archivo de cuentas");
-        sem_post(semaforo_cuentas);
-        return (NULL);
-    }
-    else
-        EscribirLog("Se ha abierto el archivo de cuentas");
+        if (tabla->cuentas[i].numero_cuenta == numero_cuenta_origen)
+            cuenta_origen = &tabla->cuentas[i];
 
-    // Variables para almacenar los datos de las cuentas
-    char titular_origen[50], titular_destino[50];
-    int transacciones_origen = 0, transacciones_destino = 0;
-    int saldo_origen = -1, saldo_destino = -1;
-    bool encontrada_origen = false, encontrada_destino = false;
-
-    // Primera pasada: buscar las cuentas
-    while (fgets(linea, sizeof(linea), fichero))
-    {
-        //strcpy(linea_aux, linea);
-
-        linea[strcspn(linea, "\n")] = 0; // Limpiar línea
-
-        char *token = strtok(linea, ",");
-        if (!token) continue;
-
-        int cuenta = atoi(token);
-
-        // Comparar con el número de cuenta de origen
-        if (cuenta == numero_cuenta_origen)
-        {
-            // Obtener el titular
-            char *titular = strtok(NULL, ",");
-            strcpy(titular_origen, titular);
-
-            // Obtener el saldo
-            char *saldo_str = strtok(NULL, ",");
-            saldo_origen = atoi(saldo_str);
-
-            // Obtener el número de transacciones
-            char *num_transacciones_str = strtok(NULL, ",");
-            transacciones_origen = atoi(num_transacciones_str);
-
-            encontrada_origen = true;
-        } 
-        else if (cuenta== numero_cuenta_destino)     // Comparar con el número de cuenta de destino
-        {
-            // Obtener el titular
-            char *titular = strtok(NULL, ",");
-            strcpy(titular_destino, titular);
-
-            // Obtener el saldo actual
-            char *saldo_str = strtok(NULL, ",");
-            saldo_destino = atoi(saldo_str);
-
-            // Obtener el número de transacciones
-            char *num_transacciones_str = strtok(NULL, ",");
-            transacciones_destino= atoi(num_transacciones_str);
-
-            encontrada_destino = true;
+        if (tabla->cuentas[i].numero_cuenta == numero_cuenta_destino) {
+            cuenta_destino = &tabla->cuentas[i];
+            iPrueba = i;
         }
     }
 
     // Verificar cuentas
-    if (!encontrada_origen)
+    if (!cuenta_origen)
     {
         printf("\n❌ No se encontró la cuenta de origen %d\n", numero_cuenta_origen);
         error = true;
     }
-    else if (!encontrada_destino)
+    else if (!cuenta_destino)
     {
         printf("\n❌ No se encontró la cuenta de destino %d\n", numero_cuenta_destino);
+        EscribirLog("Numero de cuenta de destino no encontrado al intentar transferir");
         error = true;
     }
     // Verificar si hay fondos suficientes
-    else if (saldo_origen < cantidad)
+    else if (cuenta_origen->saldo < cantidad)
     {
-        printf("\n❌ Fondos insuficientes. Saldo actual: %d €\n", saldo_origen);
+        printf("\n❌ Fondos insuficientes. Saldo actual: %.2f €\n", cuenta_origen->saldo);
+        EscribirLog("Fondos insuficientes al intentar transferencia");
         error = true;
     }
 
-    if (error) {
-        fclose(fichero);
-        fclose(temp);
-        EscribirLog("Se ha cerrado el archivo de cuentas");
-        remove("temp_cuentas.dat");
+    if (error)
+    {
+        sem_post(semaforo_cuentas);
         printf("\nPresione una tecla para continuar...");
         getchar();
         system("clear");
-        sem_post(semaforo_cuentas);
         return NULL;
     }
 
-    // Calcular los nuevos saldos
-    int nuevo_saldo_origen = saldo_origen - cantidad;
-    int nuevo_saldo_destino = saldo_destino + cantidad;
+    // Realizar la transferencia
+    cuenta_origen->saldo -= cantidad;
+    cuenta_origen->num_transacciones += 1;
 
-    // Segunda pasada: procesar archivo
-    rewind(fichero);
-    while (fgets(linea, sizeof(linea), fichero)) {
-        strcpy(linea_aux, linea);
+    // cuenta_destino->saldo += cantidad;
+    // cuenta_destino->num_transacciones += 1;
 
-        linea[strcspn(linea, "\n")] = 0; // Limpiar línea
-
-        char *token = strtok(linea, ",");
-        if (!token) continue;
-        
-        int cuenta = atoi(token);
-        
-        if (cuenta == numero_cuenta_origen) {
-            fprintf(temp, "%d,%s,%d,%d\n", numero_cuenta_origen, titular_origen, nuevo_saldo_origen, transacciones_origen + 1);  // Actualizar la cuenta de origen
-        } 
-        else if (cuenta == numero_cuenta_destino) {
-            fprintf(temp, "%d,%s,%d,%d\n", numero_cuenta_destino, titular_destino, nuevo_saldo_destino, transacciones_destino + 1);  // Actualizar la cuenta de destino
-        } 
-        else {
-            fprintf(temp, "%s", linea_aux); // Mantener línea original
-        }
-    }
-
-    fclose(fichero);
-    fclose(temp);
-    EscribirLog("Se ha cerrado el archivo de cuentas");
-
-    // Reemplazar archivos
-    remove(configuracion.archivo_cuentas);
-    rename("temp_cuentas.dat", configuracion.archivo_cuentas);
+    tabla->cuentas[iPrueba].saldo += cantidad; 
 
     // Mostrar el resultado
-    printf("\n✅ Transferencia exitosa. Nuevo saldo: %d €\n", nuevo_saldo_origen);
+    printf("\n✅ Transferencia exitosa. Nuevo saldo: %.2f €\n", cuenta_origen->saldo);
     EscribirLog("El usuario ha realizado una transferencia exitosa");
+
+    // Registrar en el historial
     RegistrarTransacciones(numero_cuenta_origen, numero_cuenta_destino, cantidad, "TRANSFERENCIA");
 
     printf("\nPresione una tecla para continuar...");
@@ -503,68 +365,46 @@ void *realizar_transferencia(void *arg)
     system("clear");
 
     sem_post(semaforo_cuentas);
+
     return (NULL);
+
 }
 
 void *consultar_saldo(void *arg)
 {
     int numero_cuenta = *(int *)arg; // Recuperar el número de cuenta desde el argumento
-    char linea[100];
-    FILE *fichero;
 
-    // Mostrar el mensaje
     printf("\n📊 Consultando saldo...\n");
     sleep(1);
 
-    sem_wait(semaforo_cuentas);
+    sem_wait(semaforo_cuentas);  
 
-    // Abrir el archivo de cuentas
-    fichero = fopen(configuracion.archivo_cuentas, "r");
-    if (fichero == NULL)
-    {
-        perror("Error al abrir el archivo de cuentas");
-        EscribirLog("Fallo al abrir el archivo de cuentas");
-        sem_post(semaforo_cuentas);
-        return (NULL);
-    }
-    else
-        EscribirLog("Se ha abierto el archivo de cuentas");
+    bool encontrado = false;
 
-    // Leer línea por línea
-    while (fgets(linea, sizeof(linea), fichero))
-    {
-        char *token = strtok(linea, ",");
-        if (token != NULL)
-        {
-            int cuenta_actual = atoi(token);
-
-            // Comparar con el número de cuenta buscado
-            if (cuenta_actual == numero_cuenta)
-            {
-                // Obtener el titular
-                char *titular = strtok(NULL, ",");
-
-                // Obtener el saldo
-                char *saldo_str = strtok(NULL, ",");
-                int saldo = atoi(saldo_str);
-
-                // Mostrar el saldo
-                printf("\n📋 Número de cuenta: %d\n", numero_cuenta);
-                printf("👤 Titular: %s\n", titular);
-                printf("💰 Saldo actual: %d €\n", saldo);
-                EscribirLog("El usuario ha consultado el saldo exitosamente");
-                break;
-            }
+    for (int i = 0; i < tabla->num_cuentas; i++) {
+        if (tabla->cuentas[i].numero_cuenta == numero_cuenta) {
+            printf("\n📋 Número de cuenta: %d\n", tabla->cuentas[i].numero_cuenta);
+            printf("👤 Titular: %s\n", tabla->cuentas[i].titular);
+            printf("💰 Saldo actual: %.2f €\n", tabla->cuentas[i].saldo);
+            EscribirLog("El usuario ha consultado el saldo exitosamente");
+            encontrado = true;
+            break;
         }
     }
 
-    fclose(fichero);
-    sem_post(semaforo_cuentas);
-    EscribirLog("Se ha cerrado el archivo de cuentas");
+    if (!encontrado) {
+        printf("\n Cuenta no encontrada.\n");
+        EscribirLog("Consulta fallida: número de cuenta no encontrado");
+    }
+
+    sem_post(semaforo_cuentas); // Liberar semáforo
+
     printf("\nPresione una tecla para continuar...");
     getchar();
     system("clear");
-    return (NULL);
+
+    return NULL;
+
 }
 
 void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, int cantidad, const char *tipo_operacion)

@@ -63,4 +63,6 @@ void ConectarColaMensajes();
 void DestruirColaMensajes();
 void CrearMemoriaCompartida();
 void LiberarMemoriaCompartida();
+void ConectarMemoriaCompartida();
+void DesconectarMC();
 #endif
