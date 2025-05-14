@@ -54,6 +54,7 @@ extern sem_t *semaforo_cuentas;
 extern sem_t *semaforo_log;
 extern sem_t *semaforo_transacciones;
 extern sem_t *semaforo_alertas;
+extern sem_t *semaforo_memoria_compartida;
 extern int id_cola;
 
 // Declaraciones de funciones

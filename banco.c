@@ -555,7 +555,9 @@ void CrearDirectorioUsuario(int numero_cuenta) {
 
 void *llamar_trasladar_datos(void *arg){
     while(1){
+        sem_wait(semaforo_memoria_compartida);
         trasladar_datos();
+        sem_post(semaforo_memoria_compartida);
         sleep(10);
     }
     return NULL;

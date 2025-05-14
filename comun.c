@@ -15,6 +15,7 @@ sem_t *semaforo_cuentas = NULL;
 sem_t *semaforo_log = NULL;
 sem_t *semaforo_transacciones = NULL;
 sem_t *semaforo_alertas = NULL;
+sem_t *semaforo_memoria_compartida = NULL;
 
 // Definición global para configuración
 Config configuracion;
@@ -33,10 +34,11 @@ void inicializar_semaforos(){
     semaforo_cuentas = sem_open("/semaforo_cuentas", O_CREAT, 0644, 1); // Inicializa un semaforo para cuentas en 1
     semaforo_log = sem_open("/semaforo_log", O_CREAT, 0644, 1); // Inicializa un semaforo para log en 1
     semaforo_transacciones = sem_open("/semaforo_transacciones", O_CREAT, 0644, 1); // Inicializa un semaforo para transacciones en 1
-    semaforo_alertas = sem_open("/semaforo_alertas", O_CREAT, 0644, 1);
+    semaforo_alertas = sem_open("/semaforo_alertas", O_CREAT, 0644, 1); // Inicializa un semáforo para las alertas en 1.
+    semaforo_memoria_compartida = sem_open("/semaforo_memoria_compartida", O_CREAT, 0644, 1); // Inicializa un semáforo para la memoria compartida en 1.
 
     // Comprueba que no falle ni un semaforo
-    if(semaforo_cuentas== SEM_FAILED || semaforo_log == SEM_FAILED || semaforo_transacciones == SEM_FAILED || semaforo_alertas == SEM_FAILED){
+    if(semaforo_cuentas== SEM_FAILED || semaforo_log == SEM_FAILED || semaforo_transacciones == SEM_FAILED || semaforo_alertas == SEM_FAILED || semaforo_memoria_compartida == SEM_FAILED){
         perror("⚠Ha ocurrido un error a la hora de crear los semáforos");
         EscribirLog("Error al crear los semáforos");
         exit(EXIT_FAILURE);
@@ -49,9 +51,10 @@ void conectar_semaforos(){
     semaforo_log = sem_open("/semaforo_log", 0);
     semaforo_transacciones = sem_open("/semaforo_transacciones", 0);
     semaforo_alertas = sem_open("/semaforo_alertas", 0);
+    semaforo_memoria_compartida = sem_open("/semaforo_memoria_compartida", 0);
 
     // Comprueba que no falle ni un semaforo
-    if(semaforo_cuentas == SEM_FAILED || semaforo_log == SEM_FAILED || semaforo_transacciones == SEM_FAILED  || semaforo_alertas == SEM_FAILED){
+    if(semaforo_cuentas == SEM_FAILED || semaforo_log == SEM_FAILED || semaforo_transacciones == SEM_FAILED  || semaforo_alertas == SEM_FAILED || semaforo_memoria_compartida == SEM_FAILED){
         perror("⚠ Error al conectar con los semáforos existentes");
         EscribirLog("Error al conectar los semáforos");
         exit(EXIT_FAILURE);
@@ -64,11 +67,13 @@ void destruir_semaforos(){
     sem_close(semaforo_log);
     sem_close(semaforo_transacciones);
     sem_close(semaforo_alertas);
+    sem_close(semaforo_memoria_compartida);
     // Elimina los semaforos
     sem_unlink("/semaforo_cuentas");
     sem_unlink("/semaforo_log");
     sem_unlink("/semaforo_transacciones");
     sem_unlink("/semaforo_alertas");
+    sem_unlink("/semaforo_memoria_compartida");
 
     EscribirLog("Los semáforos han sido destruidos");
 }
