@@ -224,12 +224,20 @@ void iniciar_sesion()
     if (!usuarioEnMemoria) {
 
         indiceLRU = EncontrarLRU();
-        tabla->cuentas[indiceLRU] = cuentaEncontrada;
+        tabla->cuentas[indiceLRU].numero_cuenta = cuentaEncontrada.numero_cuenta;
+        tabla->cuentas[indiceLRU].num_transacciones = cuentaEncontrada.num_transacciones;
+        tabla->cuentas[indiceLRU].saldo = cuentaEncontrada.saldo;
+        strncpy(tabla->cuentas[indiceLRU].titular, cuentaEncontrada.titular, sizeof(tabla->cuentas[indiceLRU].titular) - 1);
+        //tabla->cuentas[indiceLRU] = cuentaEncontrada;
+        tabla->cuentas[indiceLRU].ultimoAcceso = time(NULL);
         EscribirLog("Cuenta introducida en memoria compartida");
         
     }
+    else {
+        tabla->cuentas[i].ultimoAcceso = time(NULL);
+    }
 
-    tabla->cuentas[i].ultimoAcceso = time(NULL);
+    
 
     pid_t pid_banco = getpid(); // guarda PID del padre real
 
@@ -347,6 +355,27 @@ void RegistrarUsuario()
     printf("\nPulsa una tecla para continuar...");
     getchar();
 
+
+    if (tabla->num_cuentas < CUENTAS_TOTALES) {
+        sem_wait(semaforo_cuentas);
+
+        Cuenta nuevaCuenta;
+
+        nuevaCuenta.numero_cuenta = numeroCuentaCliente;
+        strncpy(nuevaCuenta.titular, nombre, sizeof(nuevaCuenta.titular));
+        nuevaCuenta.saldo = saldo;
+        nuevaCuenta.num_transacciones = numeroTransacciones;
+        nuevaCuenta.ultimoAcceso = time(NULL);
+    
+        tabla->cuentas[tabla->num_cuentas] = nuevaCuenta;
+        tabla->num_cuentas++;
+        
+        EscribirLog("Nuevo usuario añadido también a memoria compartida");
+
+        sem_post(semaforo_cuentas);
+    }
+    
+
     system("clear");
 
     return;
@@ -423,7 +452,7 @@ void LeerAlertas(int sig)
 int EncontrarLRU() {
 
     time_t min = time(NULL); 
-    int indiceLRU = -1;
+    int indiceLRU = 0;
 
     for (int i = 0; i < tabla->num_cuentas; i++) {
 
@@ -431,6 +460,10 @@ int EncontrarLRU() {
             min = tabla->cuentas[i].ultimoAcceso;
             indiceLRU = i;
         }
+    }
+
+    if (tabla->num_cuentas == 0) {
+        return 0;
     }
 
     return indiceLRU;
