@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <pthread.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -30,6 +31,8 @@ void LeerAlertas(int sig);
 int EncontrarLRU();
 void InicializarDirectoriosTransacciones();
 void CrearDirectorioUsuario(int numero_cuenta);
+void *llamar_trasladar_datos(void *arg);
+void trasladar_datos();
 
 int main()
 {
@@ -50,6 +53,9 @@ int main()
     signal(SIGINT, ManejarSenial); // Si recibe una señal de SIGINT que es de Ctrl C, libera los recursos
 
     IniciarMonitor();
+
+    pthread_t volcar_datos;
+    pthread_create(&volcar_datos, NULL, llamar_trasladar_datos, NULL);
 
     MenuInicio();
 
@@ -545,4 +551,55 @@ void CrearDirectorioUsuario(int numero_cuenta) {
         perror(error_msg);
         EscribirLog(error_msg);
     }
+}
+
+void *llamar_trasladar_datos(void *arg){
+    while(1){
+        trasladar_datos();
+        sleep(10);
+    }
+    return NULL;
+}
+
+void trasladar_datos(){
+    FILE *fichero_original;
+    fichero_original = fopen(configuracion.archivo_cuentas, "r");
+    if(!fichero_original){
+        perror("Error a la hora de abrir el archivo de cuentas.");
+        EscribirLog("Error a la hora de abrir el archivo de cuentas.");
+        return;
+    }
+    FILE *fichero_temporal;
+    fichero_temporal = fopen("archivo_temporal.txt", "w");
+    if(!fichero_temporal){
+        perror("Error a la hora de crear el archivo temporal.");
+        EscribirLog("Error a la hora de crear el archivo temporal.");
+        fclose(fichero_original);
+        return;
+    }
+    char linea[256];
+    while(fgets(linea, sizeof(linea), fichero_original)){
+        int num_cuenta_archivo;
+        sscanf(linea, "%d", &num_cuenta_archivo);
+
+        int encontrado = 0;
+        int i;
+        for(i=0; i<=tabla->num_cuentas; i++){
+            if(tabla->cuentas[i].numero_cuenta == num_cuenta_archivo){
+                // Escribimos la cuenta desde memoria compartida
+                fprintf(fichero_temporal, "%d,%s,%f,%d,%ld", tabla->cuentas[i].numero_cuenta, tabla->cuentas[i].titular, tabla->cuentas[i].saldo, tabla->cuentas[i].num_transacciones, tabla->cuentas[i].ultimoAcceso);
+                encontrado = 1;
+                break;
+            }
+        }
+        if(!encontrado)
+            fputs(linea, fichero_temporal);
+    }
+    fclose(fichero_original);
+    fclose(fichero_temporal);
+
+    remove(configuracion.archivo_cuentas);
+    rename("archivo_temporal.txt", configuracion.archivo_cuentas);
+
+    return;
 }
