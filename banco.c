@@ -584,7 +584,7 @@ void trasladar_datos(){
 
         int encontrado = 0;
         int i;
-        for(i=0; i<=tabla->num_cuentas; i++){
+        for(i=0; i<tabla->num_cuentas; i++){
             if(tabla->cuentas[i].numero_cuenta == num_cuenta_archivo){
                 // Escribimos la cuenta desde memoria compartida
                 fprintf(fichero_temporal, "%d,%s,%f,%d,%ld\n", tabla->cuentas[i].numero_cuenta, tabla->cuentas[i].titular, tabla->cuentas[i].saldo, tabla->cuentas[i].num_transacciones, tabla->cuentas[i].ultimoAcceso);

@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
     inicializar_configuracion();
     conectar_semaforos();
-    //ConectarMemoriaCompartida();
+    ConectarMemoriaCompartida();
 
     pthread_t usuario;
     pid_t pid_banco = atoi(argv[3]);
@@ -39,6 +39,16 @@ int main(int argc, char *argv[])
 
     int numeroCuenta = atoi(argv[1]); // Guardamos el numero de cuenta como entero para las operaciones
     int opcion = 0;
+
+    for(int i=0; i<tabla->num_cuentas; i++){
+        printf("%d,%s,%.2f,%d,%ld\n",
+            tabla->cuentas[i].numero_cuenta,
+            tabla->cuentas[i].titular,
+            tabla->cuentas[i].saldo,
+            tabla->cuentas[i].num_transacciones,
+            tabla->cuentas[i].ultimoAcceso);
+     
+    }
 
     while (1)
     {
