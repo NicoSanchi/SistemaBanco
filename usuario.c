@@ -182,8 +182,8 @@ void *realizar_deposito(void *arg)
     float nuevoSaldo;
     bool exito = false;
 
-    sem_wait(semaforo_cuentas);
-
+    //sem_wait(semaforo_cuentas);
+    sem_wait(semaforo_memoria_compartida);
     // Solicitar la cantidad a ingresar.
     printf("\n💵 Introduzca la cantidad a ingresar: ");
     scanf("%d", &cantidad);
@@ -218,8 +218,8 @@ void *realizar_deposito(void *arg)
     printf("\nPresione una tecla para continuar...");
     getchar();
     system("clear");
-
-    sem_post(semaforo_cuentas);
+    sem_post(semaforo_memoria_compartida);
+    //sem_post(semaforo_cuentas);
 
     return (NULL);
 }
@@ -231,7 +231,8 @@ void *realizar_retiro(void *arg)
     bool exito = false;
     float nuevoSaldo = 0;
 
-    sem_wait(semaforo_cuentas);
+    //sem_wait(semaforo_cuentas);
+    sem_wait(semaforo_memoria_compartida);
     // Solicitar la cantidad a retirar
     printf("\n💵 Introduzca la cantidad a retirar: ");
     scanf("%d", &cantidad);
@@ -285,7 +286,8 @@ void *realizar_retiro(void *arg)
     getchar();
 
     system("clear");
-    sem_post(semaforo_cuentas);
+    //sem_post(semaforo_cuentas);
+    sem_post(semaforo_memoria_compartida);
 
     return (NULL);
 }
@@ -387,7 +389,8 @@ void *consultar_saldo(void *arg)
     printf("\n📊 Consultando saldo...\n");
     sleep(1);
 
-    sem_wait(semaforo_cuentas);  
+    //sem_wait(semaforo_cuentas); 
+    sem_wait(semaforo_memoria_compartida); 
 
     bool encontrado = false;
 
@@ -407,7 +410,8 @@ void *consultar_saldo(void *arg)
         EscribirLog("Consulta fallida: número de cuenta no encontrado");
     }
 
-    sem_post(semaforo_cuentas); // Liberar semáforo
+    //sem_post(semaforo_cuentas); // Liberar semáforo
+    sem_post(semaforo_memoria_compartida);
 
     printf("\nPresione una tecla para continuar...");
     getchar();
