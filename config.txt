@@ -6,6 +6,9 @@ UMBRAL_RETIROS=3
 UMBRAL_TRANSFERENCIAS=3
 # Parámetros de Ejecución
 NUM_HILOS=4
+# Número maximo de cuentas en memoria
+MAX_CUENTAS=100
+# Nombres de archivos
 ARCHIVO_CUENTAS=cuentas.dat
 ARCHIVO_LOG=registro.log
 ARCHIVO_TRANSACCIONES=transacciones.txt

@@ -9,6 +9,7 @@
 // Definición de la clave para la cola de mensajes 
 #define CLAVE_COLA_MENSAJES 1234
 #define TIPO_ALERTA 1
+
 #define CUENTAS_TOTALES 100
 
 // Estructura del mensaje de alerta
@@ -24,6 +25,7 @@ typedef struct Config
     int umbral_retiros;
     int umbral_transferencias;
     int num_hilos;
+    int max_cuentas;
     char archivo_cuentas[50];
     char archivo_log[50];
     char archivo_transacciones[50];

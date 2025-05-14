@@ -10774,3 +10774,651 @@
 [2025-05-14 08:31:43] Monitor detenido
 [2025-05-14 08:31:43] Memoria compartida liberada
 [2025-05-14 08:31:43] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-14 15:11:23] El usuario ha salido del sistema
+[2025-05-14 15:11:23] Cola de mensajes destruida correctamente
+[2025-05-14 15:11:23] Monitor detenido
+[2025-05-14 15:11:23] Los semáforos han sido destruidos
+[2025-05-14 15:11:23] Memoria compartida liberada
+[2025-05-14 15:54:16] Cola de mensajes creada/conectada correctamente
+[2025-05-14 15:54:16] Memoria compartida creada e inicializada correctamente
+[2025-05-14 15:54:16] Monitor iniciado en segundo plano
+[2025-05-14 15:54:16] cargando transacciones
+[2025-05-14 15:54:16] Buscando anomalia de retiros consecutivos...
+[2025-05-14 15:54:16] Anomalia de retiros consecutivos encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de retiros consecutivos encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de retiros consecutivos encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 15:54:16] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 15:54:16] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 15:54:16] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:16] Anomalia de retiros consecutivos encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de retiros consecutivos encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de retiros consecutivos encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:16] Alerta recibida
+[2025-05-14 15:54:16] Alerta recibida
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:16] Alerta recibida
+[2025-05-14 15:54:16] Alerta recibida
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:16] Alerta enviada a banco
+[2025-05-14 15:54:16] Alerta recibida
+[2025-05-14 15:54:55] Cola de mensajes creada/conectada correctamente
+[2025-05-14 15:54:55] Memoria compartida creada e inicializada correctamente
+[2025-05-14 15:54:55] Monitor iniciado en segundo plano
+[2025-05-14 15:54:55] cargando transacciones
+[2025-05-14 15:54:55] Buscando anomalia de retiros consecutivos...
+[2025-05-14 15:54:55] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 15:54:55] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 15:54:55] Alerta enviada a banco
+[2025-05-14 15:54:55] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 15:54:55] Alerta enviada a banco
+[2025-05-14 15:54:55] Anomalia de retiros consecutivos encontrada
+[2025-05-14 15:54:55] Alerta recibida
+[2025-05-14 15:54:55] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 15:54:55] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:55] Alerta enviada a banco
+[2025-05-14 15:54:55] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:55] Alerta enviada a banco
+[2025-05-14 15:54:55] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:54:55] Alerta enviada a banco
+[2025-05-14 15:54:55] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:55:08] Cola de mensajes creada/conectada correctamente
+[2025-05-14 15:55:08] Memoria compartida creada e inicializada correctamente
+[2025-05-14 15:55:08] Monitor iniciado en segundo plano
+[2025-05-14 15:55:08] cargando transacciones
+[2025-05-14 15:55:08] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 15:55:08] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 15:55:08] Buscando anomalia de retiros consecutivos...
+[2025-05-14 15:55:08] Anomalia de retiros consecutivos encontrada
+[2025-05-14 15:55:08] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 15:55:08] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:56:07] Cola de mensajes creada/conectada correctamente
+[2025-05-14 15:56:07] Memoria compartida creada e inicializada correctamente
+[2025-05-14 15:56:07] Monitor iniciado en segundo plano
+[2025-05-14 15:56:07] cargando transacciones
+[2025-05-14 15:56:07] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 15:56:07] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 15:56:07] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 15:56:07] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:56:07] Buscando anomalia de retiros consecutivos...
+[2025-05-14 15:56:07] Anomalia de retiros consecutivos encontrada
+[2025-05-14 15:57:36] cargando transacciones
+[2025-05-14 15:57:36] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 15:57:36] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 15:57:36] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 15:57:36] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 15:57:36] Buscando anomalia de retiros consecutivos...
+[2025-05-14 15:57:36] Anomalia de retiros consecutivos encontrada
+[2025-05-14 16:52:47] Cola de mensajes creada/conectada correctamente
+[2025-05-14 16:52:47] Memoria compartida creada e inicializada correctamente
+[2025-05-14 16:52:47] Monitor iniciado en segundo plano
+[2025-05-14 16:52:47] cargando transacciones
+[2025-05-14 16:52:47] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 16:52:47] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 16:52:47] Buscando anomalia de retiros consecutivos...
+[2025-05-14 16:52:47] Anomalia de retiros consecutivos encontrada
+[2025-05-14 16:52:47] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 16:52:47] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 16:52:53] Archivo de cuentas abierto correctamente intentando iniciar sesión
+[2025-05-14 16:52:53] Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión
+[2025-05-14 16:52:53] El usuario ha iniciado sesión correctamente
+[2025-05-14 16:52:53] Cuenta cargada en memoria compartida, desalojando al que lleva mayor tiempo sin acceder
+[2025-05-14 16:52:54] Memoria compartida conectada correctamente
+[2025-05-14 16:54:41] Cola de mensajes creada/conectada correctamente
+[2025-05-14 16:54:41] Memoria compartida creada e inicializada correctamente
+[2025-05-14 16:54:41] Monitor iniciado en segundo plano
+[2025-05-14 16:54:41] cargando transacciones
+[2025-05-14 16:54:41] Buscando anomalia de retiros consecutivos...
+[2025-05-14 16:54:41] Anomalia de retiros consecutivos encontrada
+[2025-05-14 16:54:41] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 16:54:41] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 16:54:41] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 16:54:41] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 16:57:14] Cola de mensajes creada/conectada correctamente
+[2025-05-14 16:57:14] Memoria compartida creada e inicializada correctamente
+[2025-05-14 16:57:14] Monitor iniciado en segundo plano
+[2025-05-14 16:57:14] cargando transacciones
+[2025-05-14 16:57:14] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 16:57:14] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 16:57:14] Buscando anomalia de retiros consecutivos...
+[2025-05-14 16:57:14] Anomalia de retiros consecutivos encontrada
+[2025-05-14 16:57:14] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 16:57:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 16:57:20] Archivo de cuentas abierto correctamente intentando iniciar sesión
+[2025-05-14 16:57:20] Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión
+[2025-05-14 16:57:21] El usuario ha iniciado sesión correctamente
+[2025-05-14 16:57:21] Cuenta cargada en memoria compartida, desalojando al que lleva mayor tiempo sin acceder
+[2025-05-14 16:57:21] Memoria compartida conectada correctamente
+[2025-05-14 17:01:44] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:01:44] Memoria compartida creada e inicializada correctamente
+[2025-05-14 17:01:44] Monitor iniciado en segundo plano
+[2025-05-14 17:01:44] cargando transacciones
+[2025-05-14 17:01:44] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:01:44] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:01:44] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:01:44] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:01:44] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:01:44] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:19:49] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:19:49] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-14 17:19:49] Monitor iniciado en segundo plano
+[2025-05-14 17:19:49] cargando transacciones
+[2025-05-14 17:19:49] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:19:49] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:19:49] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:19:49] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:19:49] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:19:49] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:30:04] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:30:04] Monitor iniciado en segundo plano
+[2025-05-14 17:30:04] cargando transacciones
+[2025-05-14 17:30:04] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:30:04] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:30:04] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:30:04] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:30:04] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:30:04] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:30:10] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:30:10] Monitor iniciado en segundo plano
+[2025-05-14 17:30:10] cargando transacciones
+[2025-05-14 17:30:10] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:30:10] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:30:10] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:30:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:30:10] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:30:10] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:30:15] Archivo de cuentas abierto correctamente intentando iniciar sesión
+[2025-05-14 17:30:15] Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión
+[2025-05-14 17:30:16] El usuario ha iniciado sesión correctamente
+[2025-05-14 17:30:16] Cuenta cargada en memoria compartida, desalojando al que lleva mayor tiempo sin acceder
+[2025-05-14 17:30:17] Memoria compartida conectada correctamente
+[2025-05-14 17:32:16] El usuario ha salido del sistema
+[2025-05-14 17:32:16] Cola de mensajes destruida correctamente
+[2025-05-14 17:32:16] Monitor detenido
+[2025-05-14 17:32:16] Los semáforos han sido destruidos
+[2025-05-14 17:32:16] Memoria compartida liberada
+[2025-05-14 17:32:18] El usuario ha salido del sistema
+[2025-05-14 17:32:18] Monitor detenido
+[2025-05-14 17:32:34] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:32:34] Monitor iniciado en segundo plano
+[2025-05-14 17:32:34] cargando transacciones
+[2025-05-14 17:32:34] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:32:34] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:32:34] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:32:34] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:32:34] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:32:34] Alerta recibida
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Alerta recibida
+[2025-05-14 17:32:34] Alerta recibida
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:32:34] Alerta recibida
+[2025-05-14 17:32:34] Alerta recibida
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:32:34] Alerta enviada a banco
+[2025-05-14 17:32:34] Alerta recibida
+[2025-05-14 17:32:40] Archivo de cuentas abierto correctamente intentando iniciar sesión
+[2025-05-14 17:32:40] Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión
+[2025-05-14 17:32:41] El usuario ha iniciado sesión correctamente
+[2025-05-14 17:32:41] Cuenta cargada en memoria compartida, desalojando al que lleva mayor tiempo sin acceder
+[2025-05-14 17:32:42] Memoria compartida conectada correctamente
+[2025-05-14 17:33:58] El usuario ha salido del sistema
+[2025-05-14 17:33:58] Cola de mensajes destruida correctamente
+[2025-05-14 17:33:58] Monitor detenido
+[2025-05-14 17:33:58] Los semáforos han sido destruidos
+[2025-05-14 17:33:58] Memoria compartida liberada
+[2025-05-14 17:34:10] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:34:10] Monitor iniciado en segundo plano
+[2025-05-14 17:34:10] cargando transacciones
+[2025-05-14 17:34:10] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:34:10] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:34:10] Alerta recibida
+[2025-05-14 17:34:10] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:34:10] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Alerta recibida
+[2025-05-14 17:34:10] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:34:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Alerta recibida
+[2025-05-14 17:34:10] Alerta recibida
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:34:10] Alerta recibida
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:34:10] Alerta enviada a banco
+[2025-05-14 17:34:10] Alerta recibida
+[2025-05-14 17:34:17] El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales
+[2025-05-14 17:34:58] El usuario ha salido del sistema
+[2025-05-14 17:34:58] Cola de mensajes destruida correctamente
+[2025-05-14 17:34:58] Monitor detenido
+[2025-05-14 17:34:58] Los semáforos han sido destruidos
+[2025-05-14 17:34:58] Memoria compartida liberada
+[2025-05-14 17:35:36] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:35:36] Monitor iniciado en segundo plano
+[2025-05-14 17:35:36] cargando transacciones
+[2025-05-14 17:35:36] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:35:36] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:35:36] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:35:36] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:35:36] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:35:36] Alerta recibida
+[2025-05-14 17:35:36] Alerta recibida
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:35:36] Alerta enviada a banco
+[2025-05-14 17:35:36] Alerta recibida
+[2025-05-14 17:36:40] El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales
+[2025-05-14 17:38:46] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:38:46] Monitor iniciado en segundo plano
+[2025-05-14 17:38:46] cargando transacciones
+[2025-05-14 17:38:46] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:38:46] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:38:46] Alerta enviada a banco
+[2025-05-14 17:38:46] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:38:46] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:38:46] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:38:46] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:38:46] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:38:46] Alerta enviada a banco
+[2025-05-14 17:39:10] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:39:10] Monitor iniciado en segundo plano
+[2025-05-14 17:39:10] cargando transacciones
+[2025-05-14 17:39:10] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:39:10] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:39:10] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:39:10] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:39:10] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:39:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:39:17] El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales
+[2025-05-14 17:41:27] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:41:27] Monitor iniciado en segundo plano
+[2025-05-14 17:41:27] cargando transacciones
+[2025-05-14 17:41:27] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:41:27] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:41:27] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:41:27] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:41:27] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:41:27] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:41:35] El usuario ha iniciado sesión correctamente
+[2025-05-14 17:41:36] Memoria compartida conectada correctamente
+[2025-05-14 17:48:46] El usuario cerró la sesión con Ctrl + C
+[2025-05-14 17:49:10] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:49:10] Monitor iniciado en segundo plano
+[2025-05-14 17:49:10] cargando transacciones
+[2025-05-14 17:49:10] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:49:10] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:49:10] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:49:10] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:49:10] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:49:10] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:49:22] Se ha abierto el archivo de cuentas
+[2025-05-14 17:49:29] Se ha cerrado el archivo de cuentas
+[2025-05-14 17:49:29] Nuevo usuario registrado
+[2025-05-14 17:49:31] Nuevo usuario añadido también a memoria compartida
+[2025-05-14 17:49:53] El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales
+[2025-05-14 17:50:32] Los semáforos han sido destruidos
+[2025-05-14 17:50:32] Cola de mensajes destruida correctamente
+[2025-05-14 17:50:32] Monitor detenido
+[2025-05-14 17:50:32] Memoria compartida liberada
+[2025-05-14 17:50:32] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-14 17:50:42] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:50:42] Monitor iniciado en segundo plano
+[2025-05-14 17:50:42] cargando transacciones
+[2025-05-14 17:50:42] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:50:42] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:50:42] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:50:42] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:50:42] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Alerta recibida
+[2025-05-14 17:50:42] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Alerta recibida
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:50:42] Alerta enviada a banco
+[2025-05-14 17:50:42] Alerta recibida
+[2025-05-14 17:50:50] El usuario ha iniciado sesión correctamente
+[2025-05-14 17:50:51] Error al conectar con la memoria compartida
+[2025-05-14 17:51:07] El usuario ha iniciado sesión correctamente
+[2025-05-14 17:51:08] Error al conectar con la memoria compartida
+[2025-05-14 17:51:59] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:51:59] Monitor iniciado en segundo plano
+[2025-05-14 17:51:59] cargando transacciones
+[2025-05-14 17:51:59] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:51:59] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:51:59] Alerta enviada a banco
+[2025-05-14 17:51:59] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:51:59] Alerta enviada a banco
+[2025-05-14 17:51:59] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:51:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:51:59] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:51:59] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:53:50] Cola de mensajes creada/conectada correctamente
+[2025-05-14 17:53:50] Monitor iniciado en segundo plano
+[2025-05-14 17:53:50] cargando transacciones
+[2025-05-14 17:53:50] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 17:53:50] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 17:53:50] Buscando anomalia de retiros consecutivos...
+[2025-05-14 17:53:50] Anomalia de retiros consecutivos encontrada
+[2025-05-14 17:53:50] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 17:53:50] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 17:54:02] El usuario ha iniciado sesión correctamente
+[2025-05-14 18:06:12] Cola de mensajes creada/conectada correctamente
+[2025-05-14 18:06:12] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-14 18:06:12] Monitor iniciado en segundo plano
+[2025-05-14 18:06:12] cargando transacciones
+[2025-05-14 18:06:12] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 18:06:12] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 18:06:12] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 18:06:12] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:06:12] Buscando anomalia de retiros consecutivos...
+[2025-05-14 18:06:12] Anomalia de retiros consecutivos encontrada
+[2025-05-14 18:06:26] El usuario ha iniciado sesión correctamente
+[2025-05-14 18:07:56] Los semáforos han sido destruidos
+[2025-05-14 18:07:56] Cola de mensajes destruida correctamente
+[2025-05-14 18:07:56] Monitor detenido
+[2025-05-14 18:07:56] Memoria compartida liberada
+[2025-05-14 18:07:56] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-14 18:08:14] Cola de mensajes creada/conectada correctamente
+[2025-05-14 18:08:14] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-14 18:08:14] Monitor iniciado en segundo plano
+[2025-05-14 18:08:14] cargando transacciones
+[2025-05-14 18:08:14] Buscando anomalia de retiros consecutivos...
+[2025-05-14 18:08:14] Anomalia de retiros consecutivos encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 18:08:14] Alerta recibida
+[2025-05-14 18:08:14] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 18:08:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:08:14] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 18:08:14] Anomalia de retiros consecutivos encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de retiros consecutivos encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de retiros consecutivos encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de retiros consecutivos encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de retiros consecutivos encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Alerta enviada a banco
+[2025-05-14 18:08:14] Alerta recibida
+[2025-05-14 18:08:14] Alerta recibida
+[2025-05-14 18:08:22] Usuario encontrado en memoria compartida
+[2025-05-14 18:08:23] El usuario ha iniciado sesión correctamente
+[2025-05-14 18:09:32] El usuario ha salido del menú de usuario
+[2025-05-14 18:09:34] Se ha abierto el archivo de cuentas
+[2025-05-14 18:09:39] Se ha cerrado el archivo de cuentas
+[2025-05-14 18:09:39] Nuevo usuario registrado
+[2025-05-14 18:09:51] Archivo de cuentas abierto correctamente intentando iniciar sesión
+[2025-05-14 18:09:51] Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión
+[2025-05-14 18:09:52] El usuario ha iniciado sesión correctamente
+[2025-05-14 18:09:52] Cuenta cargada en memoria compartida, desalojando al que lleva mayor tiempo sin acceder
+[2025-05-14 18:09:56] El usuario ha salido del menú de usuario
+[2025-05-14 18:10:06] Usuario encontrado en memoria compartida
+[2025-05-14 18:10:07] El usuario ha iniciado sesión correctamente
+[2025-05-14 18:25:04] Cola de mensajes creada/conectada correctamente
+[2025-05-14 18:25:04] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-14 18:25:04] Monitor iniciado en segundo plano
+[2025-05-14 18:25:04] cargando transacciones
+[2025-05-14 18:25:04] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 18:25:04] Buscando anomalia de retiros consecutivos...
+[2025-05-14 18:25:04] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 18:25:04] Alerta enviada a banco
+[2025-05-14 18:25:04] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 18:25:04] Alerta enviada a banco
+[2025-05-14 18:25:04] Anomalia de retiros consecutivos encontrada
+[2025-05-14 18:25:04] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 18:25:04] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:25:27] Cola de mensajes creada/conectada correctamente
+[2025-05-14 18:25:27] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-14 18:25:27] Monitor iniciado en segundo plano
+[2025-05-14 18:25:27] cargando transacciones
+[2025-05-14 18:25:27] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 18:25:27] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 18:25:27] Buscando anomalia de retiros consecutivos...
+[2025-05-14 18:25:27] Anomalia de retiros consecutivos encontrada
+[2025-05-14 18:25:27] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 18:25:27] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:25:33] Usuario encontrado en memoria compartida
+[2025-05-14 18:25:34] El usuario ha iniciado sesión correctamente
+[2025-05-14 18:48:33] Cola de mensajes creada/conectada correctamente
+[2025-05-14 18:48:33] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-14 18:48:33] Monitor iniciado en segundo plano
+[2025-05-14 18:48:33] cargando transacciones
+[2025-05-14 18:48:33] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 18:48:33] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 18:48:33] Buscando anomalia de retiros consecutivos...
+[2025-05-14 18:48:33] Anomalia de retiros consecutivos encontrada
+[2025-05-14 18:48:33] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 18:48:33] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 18:48:38] Usuario encontrado en memoria compartida
+[2025-05-14 18:48:39] El usuario ha iniciado sesión correctamente
+[2025-05-14 18:48:42] Se ha abierto el archivo de cuentas
+[2025-05-14 18:48:45] Nuevo usuario registrado
+[2025-05-14 18:48:45] No hay espacio en memoria compartida para el nuevo usuario. Solo se guardará en el archivo.
+[2025-05-14 18:48:45] Se ha cerrado el archivo de cuentas
+[2025-05-14 18:48:54] Archivo de cuentas abierto correctamente intentando iniciar sesión
+[2025-05-14 18:48:54] Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión
+[2025-05-14 18:48:55] El usuario ha iniciado sesión correctamente
+[2025-05-14 18:48:55] Cuenta cargada en memoria compartida, desalojando al que lleva mayor tiempo sin acceder
+[2025-05-14 18:48:58] El usuario ha salido del menú de usuario
+[2025-05-14 18:49:05] Usuario encontrado en memoria compartida
+[2025-05-14 18:49:06] El usuario ha iniciado sesión correctamente
+[2025-05-14 18:49:14] El usuario ha salido del menú de usuario
+[2025-05-14 18:49:20] Archivo de cuentas abierto correctamente intentando iniciar sesión
+[2025-05-14 18:49:20] Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión
+[2025-05-14 18:49:20] El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales
+[2025-05-14 18:49:28] Usuario encontrado en memoria compartida
+[2025-05-14 18:49:29] El usuario ha iniciado sesión correctamente
+[2025-05-14 18:49:33] El usuario cerró la sesión con Ctrl + C
+[2025-05-14 18:49:34] Los semáforos han sido destruidos
+[2025-05-14 18:49:34] Cola de mensajes destruida correctamente
+[2025-05-14 18:49:34] Monitor detenido
+[2025-05-14 18:49:34] Memoria compartida liberada
+[2025-05-14 18:49:34] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-14 19:10:59] Cola de mensajes creada/conectada correctamente
+[2025-05-14 19:10:59] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-14 19:10:59] Monitor iniciado en segundo plano
+[2025-05-14 19:10:59] cargando transacciones
+[2025-05-14 19:10:59] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 19:10:59] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 19:10:59] Buscando anomalia de retiros consecutivos...
+[2025-05-14 19:10:59] Anomalia de retiros consecutivos encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de retiros consecutivos encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de retiros consecutivos encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de retiros consecutivos encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de retiros consecutivos encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de retiros consecutivos encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 19:10:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 19:10:59] Alerta enviada a banco
+[2025-05-14 19:10:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 19:11:31] Cola de mensajes creada/conectada correctamente
+[2025-05-14 19:11:31] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-14 19:11:31] Monitor iniciado en segundo plano
+[2025-05-14 19:11:31] cargando transacciones
+[2025-05-14 19:11:31] Buscando anomalia de transferencia sospechosa...
+[2025-05-14 19:11:31] Anomalia de transferencia sospechosa encontrada
+[2025-05-14 19:11:31] Buscando anomalia de retiros consecutivos...
+[2025-05-14 19:11:31] Anomalia de retiros consecutivos encontrada
+[2025-05-14 19:11:31] Buscando anomalia de transferencias consecutivas...
+[2025-05-14 19:11:31] Anomalia de transferencias consecutivas encontrada
+[2025-05-14 19:11:39] Usuario encontrado en memoria compartida
+[2025-05-14 19:11:40] El usuario ha iniciado sesión correctamente
+[2025-05-14 19:11:44] El usuario ha salido del menú de usuario

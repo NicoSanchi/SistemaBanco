@@ -97,6 +97,8 @@ Config leer_configuracion(const char *ruta)
             sscanf(linea, "UMBRAL_TRANSFERENCIAS=%d", &config.umbral_transferencias);
         else if (strstr(linea, "NUM_HILOS"))
             sscanf(linea, "NUM_HILOS=%d", &config.num_hilos);
+        else if (strstr(linea, "MAX_CUENTAS"))
+            sscanf(linea, "MAX_CUENTAS=%d", &config.max_cuentas);
         else if (strstr(linea, "ARCHIVO_CUENTAS"))
             sscanf(linea, "ARCHIVO_CUENTAS=%s", config.archivo_cuentas);
         else if (strstr(linea, "ARCHIVO_LOG"))
@@ -169,17 +171,18 @@ void DestruirColaMensajes() {
 }
 
 void CrearMemoriaCompartida() {
-
     FILE *archivo;
     int i = 0;
 
-    key_t clave_memoria = ftok("comun.h", 'M'); // Aseguramos que 2 procesos en el sistema tengan la misma clave
+    // Generar la clave para la memoria compartida
+    key_t clave_memoria = ftok("comun.h", 'M');
     if (clave_memoria == -1) {
         perror("Error al generar la clave de memoria compartida con ftok");
         EscribirLog("Error al generar clave de memoria compartida con ftok");
         exit(EXIT_FAILURE);
     }
 
+    // Crear segmento de memoria compartida
     shm_id = shmget(clave_memoria, sizeof(TablaCuentas), IPC_CREAT | 0666);
     if (shm_id == -1) {
         perror("Error al crear la memoria compartida");
@@ -187,37 +190,43 @@ void CrearMemoriaCompartida() {
         exit(EXIT_FAILURE);
     }
 
+    // Asociar la memoria compartida al proceso
     tabla = (TablaCuentas *)shmat(shm_id, NULL, 0);
-
-    if(tabla == (void *)-1) { 
+    if (tabla == (void *)-1) {
         perror("Error al asociar la memoria compartida al proceso");
         EscribirLog("Error al asociar la memoria compartida al proceso");
         exit(EXIT_FAILURE);
     }
 
-    // Inicializamos en 0
+    // Inicializar la tabla de cuentas en memoria compartida
     memset(tabla, 0, sizeof(TablaCuentas));
 
+    // Abrir el archivo cuentas.dat para cargar los datos
     archivo = fopen(configuracion.archivo_cuentas, "r");
-    if(archivo == NULL){
-        perror("Error a la hora de abrir el archivo de cuentas.");
-        EscribirLog("Ha ocurrido un error a la hora de abrir el archivo de cuentas.");
+    if (archivo == NULL) {
+        perror("Error al abrir el archivo de cuentas");
+        EscribirLog("Error al abrir el archivo de cuentas");
         exit(EXIT_FAILURE);
     }
 
-    while(i < CUENTAS_TOTALES && fscanf(archivo, "%d,%49[^,],%f,%d,%ld", &tabla->cuentas[i].numero_cuenta, tabla->cuentas[i].titular, &tabla->cuentas[i].saldo, &tabla->cuentas[i].num_transacciones, &tabla->cuentas[i].ultimoAcceso))
-    {
+    // Leer los datos del archivo y cargarlos en la tabla de memoria compartida
+    while (i < CUENTAS_TOTALES && fscanf(archivo, "%d,%49[^,],%f,%d,%ld",
+                                         &tabla->cuentas[i].numero_cuenta,  // Número de cuenta
+                                         tabla->cuentas[i].titular,         // Titular de la cuenta
+                                         &tabla->cuentas[i].saldo,          // Saldo de la cuenta
+                                         &tabla->cuentas[i].num_transacciones, // Número de transacciones
+                                         &tabla->cuentas[i].ultimoAcceso    // Último acceso (timestamp)
+                                         ) == 5) { // Comprobar que se leyeron correctamente los 5 campos
         i++;
     }
 
-    // Actualizamos el número de cuentas cargadas.
+    // Actualizar el número de cuentas cargadas
     tabla->num_cuentas = i;
 
+    // Cerrar el archivo
     fclose(archivo);
-    EscribirLog("Memoria compartida creada e inicializada correctamente");
 
-    return;
-
+    EscribirLog("Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat");
 }
 
 void LiberarMemoriaCompartida(){
@@ -228,15 +237,15 @@ void LiberarMemoriaCompartida(){
 }
 
 void ConectarMemoriaCompartida() {
-
+    // Generar la clave para la memoria compartida
     key_t clave_memoria = ftok("comun.h", 'M');
-
     if (clave_memoria == -1) {
         perror("Error al generar la clave de memoria compartida con ftok");
         EscribirLog("Error al generar clave de memoria compartida con ftok");
         exit(EXIT_FAILURE);
     }
 
+    // Conectar al segmento de memoria compartida existente
     shm_id = shmget(clave_memoria, sizeof(TablaCuentas), 0666);
     if (shm_id == -1) {
         perror("Error al conectar con la memoria compartida");
@@ -244,8 +253,8 @@ void ConectarMemoriaCompartida() {
         exit(EXIT_FAILURE);
     }
 
+    // Asociar la memoria compartida al proceso
     tabla = (TablaCuentas *)shmat(shm_id, NULL, 0);
-
     if (tabla == (void *)-1) {
         perror("Error al asociar la memoria compartida al proceso");
         EscribirLog("Error al asociar la memoria compartida al proceso");
@@ -258,3 +267,6 @@ void ConectarMemoriaCompartida() {
 void DesconectarMC() {
     shmdt(tabla); // Solo desconecta
 }
+
+
+

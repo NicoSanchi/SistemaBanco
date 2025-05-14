@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
     inicializar_configuracion();
     conectar_semaforos();
-    ConectarMemoriaCompartida();
+    //ConectarMemoriaCompartida();
 
     pthread_t usuario;
     pid_t pid_banco = atoi(argv[3]);

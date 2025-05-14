@@ -11,6 +11,7 @@
 #include <semaphore.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <errno.h>
 #include <sys/stat.h>
 #include "comun.h"
 
@@ -27,6 +28,8 @@ void IniciarMonitor();
 void detener_monitor();
 void LeerAlertas(int sig);
 int EncontrarLRU();
+void InicializarDirectoriosTransacciones();
+void CrearDirectorioUsuario(int numero_cuenta);
 
 int main()
 {
@@ -39,6 +42,9 @@ int main()
 
     // Creamos la memoria compartida
     CrearMemoriaCompartida();
+
+    // Inicializamos los directorios de transacciones
+    InicializarDirectoriosTransacciones();
 
     signal(SIGUSR1, LeerAlertas);  // Manejar señal del monitor
     signal(SIGINT, ManejarSenial); // Si recibe una señal de SIGINT que es de Ctrl C, libera los recursos
@@ -88,7 +94,6 @@ void MenuInicio()
             LiberarMemoriaCompartida();
             // unlink(PIPE_ALERTAS);
             break;
-
         default:
             printf("\nLa opción seleccionada no es válida.\n");
             printf("\nPresione una tecla para continuar...");
@@ -117,14 +122,15 @@ void iniciar_sesion()
 {
     system("clear");
 
-    //inicializar_configuracion();
+    // Declaración de variables
     int i, indiceLRU;
-    bool encontrado = false, usuarioEnMemoria = false;
+    bool encontradoEnMC = false, encontradoEnArchivo = false;
     FILE *archivo;
-    char linea[100];        // Buffer para leer cada línea
-    char numero_cuenta[10]; // Se recomienda mayor tamaño para seguridad
+    char linea[100];
+    char numero_cuenta[10];
     int numero_cuenta_en_int;
     char titular[50];
+    Cuenta cuentaEncontrada;
 
     // Encabezado visual
     printf("┌───────────────────────────────────────┐\n");
@@ -136,6 +142,7 @@ void iniciar_sesion()
     fgets(numero_cuenta, sizeof(numero_cuenta), stdin);
     numero_cuenta[strcspn(numero_cuenta, "\n")] = 0; // Eliminar salto de línea
     numero_cuenta_en_int = atoi(numero_cuenta);
+
     // Leer titular de la cuenta
     printf("👤 Titular de la cuenta: ");
     fgets(titular, sizeof(titular), stdin);
@@ -144,120 +151,129 @@ void iniciar_sesion()
     // Animación de carga
     printf("\n🔍 Verificando credenciales...\n\n");
     fflush(stdout);
-    sleep(2);
-    //-----------------------------------------------------------------------------------------
-    archivo = fopen(configuracion.archivo_cuentas, "r");
-    
-    if (archivo == NULL) {
-        perror("Error al abrir el archivo de cuentas");
-        EscribirLog("Error al abrir el archivo cuentas intentando iniciar sesión");
-        exit(EXIT_FAILURE);
+    sleep(1);
+
+
+    // Bloqueo para acceder a la memoria compartida
+    //sem_wait(semaforo_cuentas);
+
+    // Buscar en memoria compartida (MC)
+    for (i = 0; i < tabla->num_cuentas; i++)
+    {
+        if (tabla->cuentas[i].numero_cuenta == numero_cuenta_en_int &&
+            strcmp(tabla->cuentas[i].titular, titular) == 0)
+        {
+            encontradoEnMC = true; // Credenciales encontradas en MC
+            tabla->cuentas[i].ultimoAcceso = time(NULL); // Actualizar último acceso
+            EscribirLog("Usuario encontrado en memoria compartida");
+            break;
+        }
     }
 
-    EscribirLog("Archivo de cuentas abierto correctamente intentando iniciar sesión");
+    // Liberar el semáforo tras acceder a MC
+    //sem_post(semaforo_cuentas);
 
-    Cuenta cuentaEncontrada;
-
-    while (fgets(linea, sizeof(linea), archivo))
+    if (encontradoEnMC)
     {
-        // Obtener número de cuenta
-        char *token = strtok(linea, ",");
-        if (token != NULL)
+        // Si las credenciales están en MC, se permite el inicio de sesión
+        printf("✅ Autenticación exitosa (Memoria)\n\n");
+        printf("🚀 Abriendo tu sesión bancaria...\n");
+        sleep(1);
+        EscribirLog("El usuario ha iniciado sesión correctamente");
+    }
+    else
+    {
+        // Si no están en MC, buscar en el archivo
+        archivo = fopen(configuracion.archivo_cuentas, "r");
+        if (archivo == NULL)
         {
-            char numero_cuenta_archivo[10];
-            strncpy(numero_cuenta_archivo, token, sizeof(numero_cuenta_archivo) - 1);
-            numero_cuenta_archivo[sizeof(numero_cuenta_archivo) - 1] = '\0';
+            perror("Error al abrir el archivo de cuentas");
+            EscribirLog("Error al abrir el archivo cuentas intentando iniciar sesión");
+            exit(EXIT_FAILURE);
+        }
+        EscribirLog("Archivo de cuentas abierto correctamente intentando iniciar sesión");
 
-            // Obtener titular
-            token = strtok(NULL, ",");
+        // Leer el archivo línea por línea
+        while (fgets(linea, sizeof(linea), archivo))
+        {
+            char *token = strtok(linea, ",");
             if (token != NULL)
             {
+                int numero_cuenta_archivo = atoi(token); // Leer número de cuenta
+                token = strtok(NULL, ",");
                 char titular_archivo[50];
                 strncpy(titular_archivo, token, sizeof(titular_archivo) - 1);
-                titular_archivo[sizeof(titular_archivo) - 1] = '\0';
+                titular_archivo[sizeof(titular_archivo) - 1] = '\0'; // Leer titular
 
-                // Comparar sin saltos de línea
-                if (strcmp(numero_cuenta_archivo, numero_cuenta) == 0 &&
+                // Comparar credenciales
+                if (numero_cuenta_archivo == numero_cuenta_en_int &&
                     strcmp(titular_archivo, titular) == 0)
                 {
-                    // Guardamos los datos de la cuenta
-                    cuentaEncontrada.numero_cuenta = atoi(numero_cuenta_archivo);
+                    // Guardar los datos de la cuenta encontrada
+                    cuentaEncontrada.numero_cuenta = numero_cuenta_archivo;
                     strncpy(cuentaEncontrada.titular, titular_archivo, sizeof(cuentaEncontrada.titular) - 1);
                     cuentaEncontrada.saldo = atof(strtok(NULL, ","));
                     cuentaEncontrada.num_transacciones = atoi(strtok(NULL, ","));
-
-                    encontrado = true;
+                    encontradoEnArchivo = true;
                     break;
                 }
             }
         }
-    }
 
-    fclose(archivo); // Cerrar el archivo
-    EscribirLog("Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión");
+        fclose(archivo); // Cerrar el archivo
+        EscribirLog("Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión");
 
-    if (!encontrado) {
-        printf("❌ Error: Credenciales incorrectas\n");
-        EscribirLog("El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales");
-        printf("\nPresione una tecla para continuar...");
-        getchar();
-        system("clear");
-        return;
-    }
+        if (encontradoEnArchivo)
+        {
+            // Si las credenciales están en el archivo, se permite el inicio de sesión
+            printf("✅ Autenticación exitosa (Archivo)\n\n");
+            printf("🚀 Abriendo tu sesión bancaria...\n");
+            sleep(1);
+            EscribirLog("El usuario ha iniciado sesión correctamente");
 
-    // Si las credenciales son correctas buscamos en memoria si el usuario ya está conectado
-    printf("✅ Autenticación exitosa\n\n");
-    printf("🚀 Abriendo tu sesión bancaria...\n");
+            // Desalojar al usuario que lleva más tiempo sin acceder (LRU)
+            //sem_wait(semaforo_cuentas);
 
-    EscribirLog("El usuario ha iniciado sesión correctamente");
+            indiceLRU = EncontrarLRU(); // Encontrar el índice del LRU
+            tabla->cuentas[indiceLRU] = cuentaEncontrada; // Reemplazar con la nueva cuenta
+            tabla->cuentas[indiceLRU].ultimoAcceso = time(NULL); // Actualizar último acceso
 
-    for(i=0; i<CUENTAS_TOTALES; i++){
+            EscribirLog("Cuenta cargada en memoria compartida, desalojando al que lleva mayor tiempo sin acceder");
 
-        if(tabla->cuentas[i].numero_cuenta == numero_cuenta_en_int && strcmp(tabla->cuentas[i].titular, titular) == 0){
-            usuarioEnMemoria = true;
-            EscribirLog("Usuario existente en memoria compartida");
-            break;
+            //sem_post(semaforo_cuentas);
         }
-
+        else
+        {
+            // Si las credenciales no están en MC ni en el archivo, mostrar error
+            printf("❌ Error: Credenciales incorrectas\n");
+            EscribirLog("El usuario ha intentado iniciar sesión. Fallo al introducir las credenciales");
+            printf("\nPresione una tecla para continuar...");
+            getchar();
+            system("clear");
+            return;
+        }
     }
 
-    if (!usuarioEnMemoria) {
-
-        indiceLRU = EncontrarLRU();
-        tabla->cuentas[indiceLRU].numero_cuenta = cuentaEncontrada.numero_cuenta;
-        tabla->cuentas[indiceLRU].num_transacciones = cuentaEncontrada.num_transacciones;
-        tabla->cuentas[indiceLRU].saldo = cuentaEncontrada.saldo;
-        strncpy(tabla->cuentas[indiceLRU].titular, cuentaEncontrada.titular, sizeof(tabla->cuentas[indiceLRU].titular) - 1);
-        //tabla->cuentas[indiceLRU] = cuentaEncontrada;
-        tabla->cuentas[indiceLRU].ultimoAcceso = time(NULL);
-        EscribirLog("Cuenta introducida en memoria compartida");
-        
-    }
-    else {
-        tabla->cuentas[i].ultimoAcceso = time(NULL);
-    }
-
-    
-
-    pid_t pid_banco = getpid(); // guarda PID del padre real
-
-     __pid_t pid = fork();
+    // Crear un proceso hijo para manejar la sesión del usuario
+    pid_t pid_banco = getpid(); // PID del padre 
+    pid_t pid = fork();
     if (pid == 0)
     {
+        // Proceso hijo: compilar y ejecutar el programa del usuario
         char comando[300];
         snprintf(comando, sizeof(comando), "gcc usuario.c comun.c -o usuario -lpthread && ./usuario '%s' '%s' %d", numero_cuenta, titular, pid_banco);
-
         // Ejecutar gnome-terminal y correr el comando
         execlp("gnome-terminal", "gnome-terminal", "--", "bash", "-c", comando, NULL);
         exit(EXIT_FAILURE); // Si execlp falla
     }
-    else if (pid > 0) // Proceso padre
+    else if (pid > 0) 
     {
-        // Espera breve no bloqueante para dar tiempo al hijo
+        // Proceso padre: espera breve para dar tiempo al hijo
         usleep(550000); // 0.5 segundos
     }
     else if (pid == -1)
     {
+        // Error al crear el proceso hijo
         perror("Ha ocurrido un fallo en el sistema");
         EscribirLog("El usuario ha intentado iniciar sesión. Fallo en el sistema");
         exit(EXIT_FAILURE);
@@ -283,63 +299,67 @@ void RegistrarUsuario()
     int numeroCuentaCliente, numeroTransacciones = 0, saldo = 0;
     bool hayUsuarios = false;
 
+    // Bloqueo del semáforo para acceso seguro al archivo
     sem_wait(semaforo_cuentas);
 
-    ficheroUsers = fopen(configuracion.archivo_cuentas, "a+"); // Abrimos el archivo en formato append
+    // Abrir el archivo de cuentas en modo append para agregar nuevos usuarios
+    ficheroUsers = fopen(configuracion.archivo_cuentas, "a+");
     if (ficheroUsers == NULL)
     {
         perror("Error a la hora de abrir el archivo");
         EscribirLog("Fallo al abrir el archivo de usuarios");
 
-        sem_post(semaforo_cuentas);
+        sem_post(semaforo_cuentas); // Liberar el semáforo
         fclose(ficheroUsers);
-
         return;
     }
     else
         EscribirLog("Se ha abierto el archivo de cuentas");
 
-    while (fgets(linea, sizeof(linea), ficheroUsers)) // Leemos el archivo linea por linea
+
+    // Leer el archivo línea por línea para encontrar el último número de cuenta
+    while (fgets(linea, sizeof(linea), ficheroUsers))
     {
         char *token = strtok(linea, ","); // Tomamos el numero de cuenta de la linea
 
         if (token != NULL)
-        { // Si el archivo no esta vacio, asignamos al numero de cuenta el numero de cuenta del ultimo cliente
+        { 
+            // Si el archivo no esta vacio, asignamos al numero de cuenta el numero de cuenta del ultimo cliente
             numeroCuentaCliente = atoi(token);
             hayUsuarios = true;
         }
     }
 
-    if (hayUsuarios) // Si habia usuarios existentes, asigna el nuevo numero de cuenta siguiente
+    // Si habia usuarios existentes, asigna el nuevo numero de cuenta siguiente
+    if (hayUsuarios) 
         numeroCuentaCliente++;
     else
         numeroCuentaCliente = 1000; // Si no inicializa a 1000 el numero de cuenta
 
+    // Solicitar el nombre del titular
     printf("👤 Introduce el nombre del titular: ");
     fgets(nombre, sizeof(nombre), stdin);
-    nombre[strcspn(nombre, "\n")] = 0;
+    nombre[strcspn(nombre, "\n")] = 0; // Eliminar salto de línea
 
-    // Mensaje de progreso añadido
+    // Mensaje de progreso
     printf("\n🔄 Creando nueva cuenta...\n\n");
     fflush(stdout); // Asegurar que se muestre inmediatamente
-    sleep(2);       // Pequeña pausa para efecto visual
+    sleep(1);       // Pequeña pausa para efecto visual
 
     // Generar saldo aleatorio (1000-10000)
     srand(time(NULL));
     saldo = rand() % (10000 - 1000 + 1) + 1000; // Generamos un numero entre 1000 y 10000 que sera su saldo
 
-    fseek(ficheroUsers, -1, SEEK_END); // Nos movemos al final del archivo de usuarios
+    // Moverse al final del archivo para agregar el nuevo usuario
+    fseek(ficheroUsers, -1, SEEK_END); 
     char ultimoCaracter = fgetc(ficheroUsers);
 
-    if (ultimoCaracter != '\n' && hayUsuarios) // Y comprobamos si hay usuarios y si el ultimo caracter no es un salto de linea
-        fprintf(ficheroUsers, "\n");           // En el caso de que haya usuarios y el utlimo caracter no es un salto de linea, lo añadimos manualmente
-    // De modo que se escriba en el archivo de usuarios linea por linea
+    // si hay usuarios y si el ultimo caracter no es un salto de linea, lo añadimos manualmente
+    if (ultimoCaracter != '\n' && hayUsuarios) 
+        fprintf(ficheroUsers, "\n");           
 
-    fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); // Escribimos en el archivo de usaurio el nuevo usuario
-
-    fclose(ficheroUsers);
-    sem_post(semaforo_cuentas);
-    EscribirLog("Se ha cerrado el archivo de cuentas");
+    // Escribir los datos del nuevo usuario en el archivo
+    fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); 
 
     // Confirmación visual
     printf("\n┌───────────────────────────────────────┐\n");
@@ -352,32 +372,44 @@ void RegistrarUsuario()
 
     EscribirLog("Nuevo usuario registrado");
 
-    printf("\nPulsa una tecla para continuar...");
-    getchar();
+    CrearDirectorioUsuario(numeroCuentaCliente); // Crear el directorio del usuario
 
+    // Guardar el nuevo usuario en la memoria compartida si hay espacio disponible
+    if (tabla->num_cuentas < CUENTAS_TOTALES)
+    {
+        sem_wait(semaforo_cuentas); // Bloqueo del semáforo para acceso seguro a la memoria compartida
 
-    if (tabla->num_cuentas < CUENTAS_TOTALES) {
-        sem_wait(semaforo_cuentas);
-
+        // Crear una nueva cuenta
         Cuenta nuevaCuenta;
-
         nuevaCuenta.numero_cuenta = numeroCuentaCliente;
         strncpy(nuevaCuenta.titular, nombre, sizeof(nuevaCuenta.titular));
         nuevaCuenta.saldo = saldo;
         nuevaCuenta.num_transacciones = numeroTransacciones;
-        nuevaCuenta.ultimoAcceso = time(NULL);
-    
+        nuevaCuenta.ultimoAcceso = time(NULL); // Registrar el tiempo actual como último acceso
+
+        // Agregar la nueva cuenta a la memoria compartida
         tabla->cuentas[tabla->num_cuentas] = nuevaCuenta;
-        tabla->num_cuentas++;
-        
+        tabla->num_cuentas++; // Incrementar el contador de cuentas en memoria compartida
+
         EscribirLog("Nuevo usuario añadido también a memoria compartida");
 
-        sem_post(semaforo_cuentas);
+        sem_post(semaforo_cuentas); // Liberar el semáforo
     }
-    
+    else
+    {
+        // Si no hay espacio en memoria compartida, registrar en el log
+        EscribirLog("No hay espacio en memoria compartida para el nuevo usuario. Solo se guardará en el archivo.");
+    }
+
+    // Cerrar el archivo
+    fclose(ficheroUsers);
+    sem_post(semaforo_cuentas);     // Liberar el semáforo
+    EscribirLog("Se ha cerrado el archivo de cuentas");
+
+    printf("\nPulsa una tecla para continuar...");
+    getchar();
 
     system("clear");
-
     return;
 }
 
@@ -467,4 +499,50 @@ int EncontrarLRU() {
     }
 
     return indiceLRU;
+}
+
+
+// Función para inicializar directorios
+void InicializarDirectoriosTransacciones() {
+    // Crear directorio principal
+    if (mkdir("./transacciones", 0777) == -1 && errno != EEXIST) {
+        char error_msg[256];
+        snprintf(error_msg, sizeof(error_msg), "Error al crear directorio principal de transacciones: %s", strerror(errno));
+        perror(error_msg);
+        EscribirLog("Error al crear directorio principal de transacciones");
+        return;
+    }
+    
+    // Crear directorios para cuentas existentes
+    //sem_wait(semaforo_cuentas);
+    for (int i = 0; i < tabla->num_cuentas; i++) {
+        CrearDirectorioUsuario(tabla->cuentas[i].numero_cuenta);
+    }
+    //sem_post(semaforo_cuentas);
+}
+
+// Función para crear directorios de cada usuario
+void CrearDirectorioUsuario(int numero_cuenta) {
+    char path[256];
+    
+    // Crear directorio principal "transacciones" si no existe
+    snprintf(path, sizeof(path), "./transacciones");
+    
+    if (mkdir(path, 0777) == -1 && errno != EEXIST) {
+        char error_msg[256];
+        snprintf(error_msg, sizeof(error_msg), "Error al crear directorio transacciones: %s", strerror(errno));
+        perror(error_msg);
+        EscribirLog("Error al crear directorio transacciones");
+        return;
+    }
+    
+    // Crear directorio del usuario
+    snprintf(path, sizeof(path), "./transacciones/%d", numero_cuenta);
+    
+    if (mkdir(path, 0777) == -1 && errno != EEXIST) {
+        char error_msg[256];
+        snprintf(error_msg, sizeof(error_msg), "Error al crear directorio para cuenta %d: %s", numero_cuenta, strerror(errno));
+        perror(error_msg);
+        EscribirLog(error_msg);
+    }
 }
