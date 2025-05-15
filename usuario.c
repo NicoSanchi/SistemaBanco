@@ -294,11 +294,11 @@ void *realizar_retiro(void *arg)
 
 void *realizar_transferencia(void *arg)
 {
-    int numero_cuenta_origen = *(int *)arg; // Recuperar el número de cuenta de origen desde el argumento
+    int numero_cuenta_origen = *(int *)arg;
     int cantidad;
     int numero_cuenta_destino;
     bool error = false;
-    int iPrueba;
+    bool cuenta_destino_en_archivo = false;
 
     // Solicitar datos de la transferencia
     printf("\n🔀 Introduzca el número de cuenta de destino: ");
@@ -309,78 +309,129 @@ void *realizar_transferencia(void *arg)
     scanf("%d", &cantidad);
     while (getchar() != '\n');
 
-    sem_wait(semaforo_cuentas);
+    sem_wait(semaforo_memoria_compartida);
 
-    // Variables para almacenar punteros a las cuentas
     Cuenta *cuenta_origen = NULL;
     Cuenta *cuenta_destino = NULL;
 
-    // Buscar las cuentas en memoria compartida
-    for (int i = 0; i < tabla->num_cuentas; i++)
-    {
-        if (tabla->cuentas[i].numero_cuenta == numero_cuenta_origen)
+    // Buscar cuentas en memoria compartida
+    for (int i = 0; i < tabla->num_cuentas; i++) {
+        if (tabla->cuentas[i].numero_cuenta == numero_cuenta_origen) {
             cuenta_origen = &tabla->cuentas[i];
-
+        }
         if (tabla->cuentas[i].numero_cuenta == numero_cuenta_destino) {
             cuenta_destino = &tabla->cuentas[i];
-            iPrueba = i;
         }
     }
 
-    // Verificar cuentas
-    if (!cuenta_origen)
-    {
+    // Verificar existencia de cuenta origen
+    if (!cuenta_origen) {
         printf("\n❌ No se encontró la cuenta de origen %d\n", numero_cuenta_origen);
-        error = true;
-    }
-    else if (!cuenta_destino)
-    {
-        printf("\n❌ No se encontró la cuenta de destino %d\n", numero_cuenta_destino);
-        EscribirLog("Numero de cuenta de destino no encontrado al intentar transferir");
-        error = true;
-    }
-    // Verificar si hay fondos suficientes
-    else if (cuenta_origen->saldo < cantidad)
-    {
-        printf("\n❌ Fondos insuficientes. Saldo actual: %.2f €\n", cuenta_origen->saldo);
-        EscribirLog("Fondos insuficientes al intentar transferencia");
+        EscribirLog("Cuenta de origen no encontrada.");
         error = true;
     }
 
-    if (error)
-    {
-        sem_post(semaforo_cuentas);
+    // Si cuenta destino no está en memoria, intentar en archivo
+    if (!cuenta_destino && !error) {
+        FILE *fichero = fopen(configuracion.archivo_cuentas, "r+");
+        if (!fichero) {
+            perror("Error al abrir el archivo de cuentas.");
+            EscribirLog("Error al abrir el archivo de cuentas.");
+            error = true;
+        } else {
+            EscribirLog("Archivo de cuentas abierto correctamente.");
+            char linea[256];
+            long posicion;
+            int num_cuenta_archivo;
+            char titular_archivo[50];
+            float saldo_archivo;
+            int num_transacciones_archivo;
+            time_t ultimoAcceso_archivo;
+
+            while (fgets(linea, sizeof(linea), fichero)) {
+                posicion = ftell(fichero) - strlen(linea);
+                char *token = strtok(linea, ",");
+
+                if (token) {
+                    num_cuenta_archivo = atoi(token);
+                    if (numero_cuenta_destino == num_cuenta_archivo) {
+                        token = strtok(NULL, ",");
+                        strncpy(titular_archivo, token, sizeof(titular_archivo) - 1);
+                        titular_archivo[sizeof(titular_archivo) - 1] = '\0';
+
+                        token = strtok(NULL, ",");
+                        saldo_archivo = atof(token) + cantidad;
+
+                        token = strtok(NULL, ",");
+                        num_transacciones_archivo = atoi(token);
+
+                        token = strtok(NULL, ",");
+                        ultimoAcceso_archivo = atol(token);
+
+                        fseek(fichero, posicion, SEEK_SET);
+                        fprintf(fichero, "%d,%s,%.2f,%d,%ld\n",
+                                num_cuenta_archivo,
+                                titular_archivo,
+                                saldo_archivo,
+                                num_transacciones_archivo,
+                                ultimoAcceso_archivo);
+
+                        EscribirLog("Cuenta destino encontrada y actualizada en archivo.");
+                        cuenta_destino_en_archivo = true;
+                        break;
+                    }
+                }
+            }
+
+            fclose(fichero);
+
+            if (!cuenta_destino_en_archivo) {
+                printf("\n❌ No se encontró la cuenta de destino %d\n", numero_cuenta_destino);
+                EscribirLog("Cuenta de destino no encontrada en memoria ni archivo.");
+                error = true;
+            }
+        }
+    }
+
+    // Verificar fondos suficientes (si cuenta origen es válida)
+    if (!error && cuenta_origen->saldo < cantidad) {
+        printf("\n❌ Fondos insuficientes. Saldo actual: %.2f €\n", cuenta_origen->saldo);
+        EscribirLog("Fondos insuficientes para transferencia.");
+        error = true;
+    }
+
+    // Si hubo error, salir
+    if (error) {
+        sem_post(semaforo_memoria_compartida);
         printf("\nPresione una tecla para continuar...");
         getchar();
         system("clear");
         return NULL;
     }
 
-    // Realizar la transferencia
+    // Realizar transferencia
     cuenta_origen->saldo -= cantidad;
     cuenta_origen->num_transacciones += 1;
 
-    // cuenta_destino->saldo += cantidad;
-    // cuenta_destino->num_transacciones += 1;
+    if (cuenta_destino) {
+        cuenta_destino->saldo += cantidad;
+        cuenta_destino->num_transacciones += 1;
+    }
 
-    tabla->cuentas[iPrueba].saldo += cantidad; 
-
-    // Mostrar el resultado
     printf("\n✅ Transferencia exitosa. Nuevo saldo: %.2f €\n", cuenta_origen->saldo);
-    EscribirLog("El usuario ha realizado una transferencia exitosa");
+    EscribirLog("Transferencia realizada con éxito.");
 
-    // Registrar en el historial
+    // Registrar transacción
     RegistrarTransacciones(numero_cuenta_origen, numero_cuenta_destino, cantidad, "TRANSFERENCIA");
 
     printf("\nPresione una tecla para continuar...");
     getchar();
     system("clear");
 
-    sem_post(semaforo_cuentas);
-
-    return (NULL);
-
+    sem_post(semaforo_memoria_compartida);
+    return NULL;
 }
+
 
 void *consultar_saldo(void *arg)
 {
