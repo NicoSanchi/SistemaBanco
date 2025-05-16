@@ -37,7 +37,6 @@ void *llamar_sacar_cuenta_buffer(void *arg);
 
 int main()
 {
-    printf("HOLAAAA");
     // Configuración inicial de semáforos
     inicializar_semaforos();
     conectar_semaforos();
@@ -56,10 +55,10 @@ int main()
 
     IniciarMonitor();
 
-    printf("Prueba\n");
+    
     pthread_t hilo_buffer;
     pthread_create(&hilo_buffer, NULL, llamar_sacar_cuenta_buffer, NULL);
-    printf("Despues\n");
+    
 
     MenuInicio();
 
@@ -616,7 +615,9 @@ void trasladar_datos(){
 void *llamar_sacar_cuenta_buffer(void *arg)
 {
     while(1){
+        EscribirLog("Se está entrando a la función sacar buffer");
         SacarCuentaBuffer();
+        EscribirLog("Se sale de la función sacar buffer");
         sleep(5);
     }
 }

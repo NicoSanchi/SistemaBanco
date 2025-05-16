@@ -288,7 +288,6 @@ void SacarCuentaBuffer() {
             sem_post(semaforo_cuentas);
             remove(configuracion.archivo_cuentas);
             rename("archivo_temporal.txt", configuracion.archivo_cuentas);
-            return;
         }
         
     }
