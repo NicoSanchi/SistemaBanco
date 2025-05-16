@@ -198,6 +198,7 @@ void *realizar_deposito(void *arg)
             tabla->cuentas[i].saldo += cantidad;
             tabla->cuentas[i].num_transacciones += 1;
             nuevoSaldo = tabla->cuentas[i].saldo;
+            MeterCuentaBuffer(tabla->cuentas[i]);
             exito = true;
             break;
         }
@@ -259,6 +260,7 @@ void *realizar_retiro(void *arg)
                 tabla->cuentas[i].saldo -= cantidad;
                 tabla->cuentas[i].num_transacciones += 1;
                 nuevoSaldo = tabla->cuentas[i].saldo;
+                MeterCuentaBuffer(tabla->cuentas[i]);
                 exito = true;
                 EscribirLog("El usuario ha realizado un retiro exitosamente");
             }
