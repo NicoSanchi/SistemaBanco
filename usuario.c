@@ -48,7 +48,6 @@ int main(int argc, char *argv[])
             tabla->cuentas[i].saldo,
             tabla->cuentas[i].num_transacciones,
             tabla->cuentas[i].ultimoAcceso);
-     
     }
 
     while (1)
@@ -204,7 +203,6 @@ void *realizar_deposito(void *arg)
         }
     }
 
-
     // Mostrar el resultado
     if (exito) {
         printf("\n✅ Ingreso realizado con éxito. Nuevo saldo: %.2f €\n", nuevoSaldo);
@@ -215,7 +213,6 @@ void *realizar_deposito(void *arg)
         EscribirLog("Erro al realizar el deposito");
     }
     
-
     printf("\nPresione una tecla para continuar...");
     getchar();
     system("clear");
@@ -250,7 +247,6 @@ void *realizar_retiro(void *arg)
         return NULL;
     }
 
-
     // Buscamos en la tabla
     for (int i = 0; i < tabla->num_cuentas; i++)
     {
@@ -278,7 +274,7 @@ void *realizar_retiro(void *arg)
     // Mostrar el resultado
     if (exito)
     {
-        sleep(2);
+        sleep(1);
         printf("\n✅ Retiro realizado con éxito. Nuevo saldo: %.2f €\n", nuevoSaldo);
         RegistrarTransacciones(numero_cuenta, 0, cantidad, "RETIRO");
     }
@@ -483,11 +479,15 @@ void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, int cantidad, c
 {
     sem_wait(semaforo_transacciones);
 
-    FILE *ficheroTransacciones = fopen(configuracion.archivo_transacciones, "a");
+    // Construir la ruta del archivo transacciones.log del usuario
+    char rutaArchivo[256];
+    snprintf(rutaArchivo, sizeof(rutaArchivo), "./transacciones/%d/transacciones.log", cuentaOrigen);
+
+    FILE *ficheroTransacciones = fopen(rutaArchivo, "a");
     if (ficheroTransacciones == NULL)
     {
-        perror("Error al abrir el archivo de transacciones");
-        EscribirLog("Fallo al abrir el archivo de transacciones");
+        perror("Error al abrir el archivo de transacciones del usuario");
+        EscribirLog("Fallo al abrir el archivo de transacciones del usuario");
         sem_post(semaforo_transacciones);
         return;
     }
@@ -513,5 +513,5 @@ void RegistrarTransacciones(int cuentaOrigen, int cuentaDestino, int cantidad, c
 
     fclose(ficheroTransacciones);
     sem_post(semaforo_transacciones);
-    EscribirLog("Se ha cerrado el archivo de transacciones");
+    EscribirLog("Transacción registrada en el archivo transacciones.log del usuario");
 }

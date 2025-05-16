@@ -556,6 +556,19 @@ void CrearDirectorioUsuario(int numero_cuenta) {
         perror(error_msg);
         EscribirLog(error_msg);
     }
+
+    // Crear el fichero transacciones.log dentro del directorio del usuario
+    snprintf(path, sizeof(path), "./transacciones/%d/transacciones.log", numero_cuenta);
+    FILE *fichero = fopen(path, "w");
+    if (fichero == NULL) {
+        char error_msg[256];
+        snprintf(error_msg, sizeof(error_msg), "Error al crear fichero transacciones.log para cuenta %d: %s", numero_cuenta, strerror(errno));
+        perror(error_msg);
+        EscribirLog(error_msg);
+    } else {
+        fclose(fichero);
+        EscribirLog("Fichero transacciones.log creado correctamente");
+    }
 }
 
 //void *llamar_trasladar_datos(void *arg){
