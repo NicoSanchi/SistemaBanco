@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
     inicializar_configuracion();
     conectar_semaforos();
     ConectarMemoriaCompartida();
+    ConectarColaMensajes();
 
     pthread_t usuario;
     pid_t pid_banco = atoi(argv[3]);
@@ -412,10 +413,16 @@ void *realizar_transferencia(void *arg)
     // Realizar transferencia
     cuenta_origen->saldo -= cantidad;
     cuenta_origen->num_transacciones += 1;
+    MeterCuentaBuffer(cuenta_origen);
 
     if (cuenta_destino) {
         cuenta_destino->saldo += cantidad;
         cuenta_destino->num_transacciones += 1;
+        MeterCuentaBuffer(cuenta_destino);
+        //sem_wait(semaforo_buffer);
+        //buffer.operacion[buffer.fin] = *cuenta_destino;
+        //buffer.fin = (buffer.fin +1) % 10;
+        //sem_post(semaforo_buffer);
     }
 
     printf("\n✅ Transferencia exitosa. Nuevo saldo: %.2f €\n", cuenta_origen->saldo);

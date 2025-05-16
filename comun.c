@@ -16,6 +16,7 @@ sem_t *semaforo_log = NULL;
 sem_t *semaforo_transacciones = NULL;
 sem_t *semaforo_alertas = NULL;
 sem_t *semaforo_memoria_compartida = NULL;
+sem_t *semaforo_buffer = NULL;
 
 // Definición global para configuración
 Config configuracion;
@@ -23,11 +24,15 @@ Config configuracion;
 // Definición para la tabla de cuentas
 TablaCuentas *tabla = NULL;
 
+// Definición para el buffer
+//bufferEstructurado buffer;
+
 //Definición de la variable
 int shm_id;
 
 // Definición de la variable global
 int id_cola = -1;  // -1 indica que no está conectada
+int id_cola_cuentas = -1; // -1 indica que no está conectada
 
 
 void inicializar_semaforos(){
@@ -36,9 +41,10 @@ void inicializar_semaforos(){
     semaforo_transacciones = sem_open("/semaforo_transacciones", O_CREAT, 0644, 1); // Inicializa un semaforo para transacciones en 1
     semaforo_alertas = sem_open("/semaforo_alertas", O_CREAT, 0644, 1); // Inicializa un semáforo para las alertas en 1.
     semaforo_memoria_compartida = sem_open("/semaforo_memoria_compartida", O_CREAT, 0644, 1); // Inicializa un semáforo para la memoria compartida en 1.
+    semaforo_buffer = sem_open("/semaforo_buffer", O_CREAT, 0644, 1); // Inicializa un semáforo para la memoria compartida en 1.
 
     // Comprueba que no falle ni un semaforo
-    if(semaforo_cuentas== SEM_FAILED || semaforo_log == SEM_FAILED || semaforo_transacciones == SEM_FAILED || semaforo_alertas == SEM_FAILED || semaforo_memoria_compartida == SEM_FAILED){
+    if(semaforo_cuentas== SEM_FAILED || semaforo_log == SEM_FAILED || semaforo_transacciones == SEM_FAILED || semaforo_alertas == SEM_FAILED || semaforo_memoria_compartida == SEM_FAILED || semaforo_buffer == SEM_FAILED){
         perror("⚠Ha ocurrido un error a la hora de crear los semáforos");
         EscribirLog("Error al crear los semáforos");
         exit(EXIT_FAILURE);
@@ -52,9 +58,10 @@ void conectar_semaforos(){
     semaforo_transacciones = sem_open("/semaforo_transacciones", 0);
     semaforo_alertas = sem_open("/semaforo_alertas", 0);
     semaforo_memoria_compartida = sem_open("/semaforo_memoria_compartida", 0);
+    semaforo_buffer = sem_open("/semaforo_buffer", 0);
 
     // Comprueba que no falle ni un semaforo
-    if(semaforo_cuentas == SEM_FAILED || semaforo_log == SEM_FAILED || semaforo_transacciones == SEM_FAILED  || semaforo_alertas == SEM_FAILED || semaforo_memoria_compartida == SEM_FAILED){
+    if(semaforo_cuentas == SEM_FAILED || semaforo_log == SEM_FAILED || semaforo_transacciones == SEM_FAILED  || semaforo_alertas == SEM_FAILED || semaforo_memoria_compartida == SEM_FAILED || semaforo_buffer == SEM_FAILED){
         perror("⚠ Error al conectar con los semáforos existentes");
         EscribirLog("Error al conectar los semáforos");
         exit(EXIT_FAILURE);
@@ -68,12 +75,14 @@ void destruir_semaforos(){
     sem_close(semaforo_transacciones);
     sem_close(semaforo_alertas);
     sem_close(semaforo_memoria_compartida);
+    sem_close(semaforo_buffer);
     // Elimina los semaforos
     sem_unlink("/semaforo_cuentas");
     sem_unlink("/semaforo_log");
     sem_unlink("/semaforo_transacciones");
     sem_unlink("/semaforo_alertas");
     sem_unlink("/semaforo_memoria_compartida");
+    sem_unlink("/semaforo_buffer");
 
     EscribirLog("Los semáforos han sido destruidos");
 }
@@ -152,6 +161,14 @@ void CrearColaMensajes() {
         exit(EXIT_FAILURE);
     }
     EscribirLog("Cola de mensajes creada/conectada correctamente");
+
+    id_cola_cuentas = msgget(CLAVE_COLA_CUENTAS, IPC_CREAT | 0666);
+    if (id_cola_cuentas == -1) {
+        perror("Error al crear la cola de mensajes para las cuentas");
+        EscribirLog("Error al crear la cola de mensajes para las cuentas");
+        exit(EXIT_FAILURE);
+    }
+    EscribirLog("La cola de mensajes para las cuentas ha sido conectada correctamente.");
 }
 
 void ConectarColaMensajes() {
@@ -161,6 +178,7 @@ void ConectarColaMensajes() {
         EscribirLog("Error al conectar a la cola de mensajes");
         exit(EXIT_FAILURE);
     }
+    EscribirLog("La cola se ha conectado correctamente");
 }
 
 void DestruirColaMensajes() {
@@ -173,7 +191,108 @@ void DestruirColaMensajes() {
             id_cola = -1;  // Marca como no válida
         }
     }
+    if (id_cola_cuentas != -1) {
+        if (msgctl(id_cola_cuentas, IPC_RMID, NULL) == -1) {  // Elimina la cola
+            perror("Error al destruir la cola de mensajes");
+            EscribirLog("Error al destruir la cola de mensajes");
+        } else {
+            EscribirLog("Cola de mensajes destruida correctamente");
+            id_cola_cuentas = -1;  // Marca como no válida
+        }
+    }
 }
+
+void MeterCuentaBuffer(struct Cuenta cuenta) {
+    id_cola_cuentas= msgget(CLAVE_COLA_CUENTAS, 0666);  // Solo conecta (sin IPC_CREAT)
+    if (id_cola_cuentas == -1) {
+        perror("Error al conectar a la cola de mensajes existente");
+        EscribirLog("Error al conectar a la cola de mensajes");
+        exit(EXIT_FAILURE);
+    }
+    bufferEstructurado buffer;
+    memset(&buffer, 0, sizeof(bufferEstructurado));
+
+    if(buffer.num_cuentas < 10){
+        buffer.operacion[buffer.num_cuentas] = cuenta;
+        buffer.num_cuentas++;
+    
+        struct {
+            long tipo;
+            bufferEstructurado buffer;
+        } MensajeCuenta;
+
+        MensajeCuenta.tipo = 1;
+        MensajeCuenta.buffer = buffer;
+
+        if(msgsnd(id_cola_cuentas, &MensajeCuenta, sizeof(bufferEstructurado), 0) == -1){
+            perror("Error al enviar el mensaje a la cola de mensajes");
+        }
+        else{
+            EscribirLog("Error al enviar el mensaje a la cola de mensajes.");
+        }
+    }
+    else{
+        EscribirLog("El buffer ya contiene las 10 cuentas.");
+    }
+}
+
+void SacarCuentaBuffer() {
+
+    id_cola_cuentas = msgget(CLAVE_COLA_CUENTAS, 0666);
+    if (id_cola_cuentas == -1) {
+        perror("Error al conectar a la cola de mensajes existente");
+        EscribirLog("Error al conectar a la cola de mensajes");
+        exit(EXIT_FAILURE);
+    }
+    EscribirLog("Cola de mensajes conectada.");
+
+    struct {
+        long tipo;
+        bufferEstructurado buffer;
+    } MensajeCuenta;
+
+    while(msgrcv(id_cola_cuentas, &MensajeCuenta, sizeof(bufferEstructurado), 0, IPC_NOWAIT)!=-1){
+        for(int i=0; i<MensajeCuenta.buffer.num_cuentas; i++){
+            Cuenta cuenta = MensajeCuenta.buffer.operacion[i];
+    
+            FILE *archivo = fopen(configuracion.archivo_cuentas, "r");
+            if(archivo == NULL){
+                perror("Error a la hora de abrir el archivo");
+                EscribirLog("Error a la hora de abrir el archivo de cuentas.");
+                return;
+            }
+            sem_wait(semaforo_cuentas);
+
+            FILE *archivo_temporal = fopen("archivo_temporal.txt", "w");
+            if(archivo_temporal == NULL){
+                perror("Error a la hora de abrir el archivo");
+                EscribirLog("Error a la hora de abrir el archivo de cuentas temporal");
+                return;
+            }
+            sem_wait(semaforo_memoria_compartida);
+            char linea[530];
+            while(fgets(linea, sizeof(linea), archivo)){
+                Cuenta cuenta_archivo;
+                if(sscanf(linea, "%d,%49[^,],%f,%d,%ld\n", &cuenta_archivo.numero_cuenta, cuenta_archivo.titular, &cuenta_archivo.saldo, &cuenta_archivo.num_transacciones, &cuenta_archivo.ultimoAcceso)){
+                    if(cuenta_archivo.numero_cuenta == cuenta.numero_cuenta){
+                        cuenta_archivo.saldo = cuenta.saldo;
+                        cuenta_archivo.num_transacciones = cuenta.num_transacciones;
+                        cuenta_archivo.ultimoAcceso = cuenta.ultimoAcceso;
+                    }
+                    fprintf(archivo_temporal, "%d,%s,%f,%d,%ld\n", cuenta_archivo.numero_cuenta, cuenta_archivo.titular, cuenta_archivo.saldo, cuenta_archivo.num_transacciones, cuenta_archivo.ultimoAcceso);
+                }
+            }
+            fclose(archivo);
+            fclose(archivo_temporal);
+            sem_post(semaforo_memoria_compartida);
+            sem_post(semaforo_cuentas);
+            remove(configuracion.archivo_cuentas);
+            rename("archivo_temporal.txt", configuracion.archivo_cuentas);
+            return;
+        }
+        
+    }
+}  
 
 void CrearMemoriaCompartida() {
     FILE *archivo;
@@ -235,7 +354,7 @@ void CrearMemoriaCompartida() {
 }
 
 void LiberarMemoriaCompartida(){
-    shmdt(tabla); // Separamos la región del espacio de direccionamiento del proceso.
+    //shmdt(tabla); // Separamos la región del espacio de direccionamiento del proceso.
     shmctl(shm_id, IPC_RMID, 0); // Eliminamos la región de memoria compartida.
     EscribirLog("Memoria compartida liberada");
     return;
@@ -267,11 +386,14 @@ void ConectarMemoriaCompartida() {
     }
 
     EscribirLog("Memoria compartida conectada correctamente");
+    return;
 }
 
 void DesconectarMC() {
     shmdt(tabla); // Solo desconecta
+    return;
 }
+
 
 
 

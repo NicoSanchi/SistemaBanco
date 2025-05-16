@@ -31,11 +31,13 @@ void LeerAlertas(int sig);
 int EncontrarLRU();
 void InicializarDirectoriosTransacciones();
 void CrearDirectorioUsuario(int numero_cuenta);
-void *llamar_trasladar_datos(void *arg);
+//void *llamar_trasladar_datos(void *arg);
 void trasladar_datos();
+void *llamar_sacar_cuenta_buffer(void *arg);
 
 int main()
 {
+    printf("HOLAAAA");
     // Configuración inicial de semáforos
     inicializar_semaforos();
     conectar_semaforos();
@@ -54,8 +56,10 @@ int main()
 
     IniciarMonitor();
 
-    pthread_t volcar_datos;
-    pthread_create(&volcar_datos, NULL, llamar_trasladar_datos, NULL);
+    printf("Prueba\n");
+    pthread_t hilo_buffer;
+    pthread_create(&hilo_buffer, NULL, llamar_sacar_cuenta_buffer, NULL);
+    printf("Despues\n");
 
     MenuInicio();
 
@@ -96,7 +100,9 @@ void MenuInicio()
             detener_monitor();
             sem_wait(semaforo_cuentas);
             sem_post(semaforo_cuentas);
+            trasladar_datos();
             destruir_semaforos();
+            DesconectarMC();
             LiberarMemoriaCompartida();
             // unlink(PIPE_ALERTAS);
             break;
@@ -553,15 +559,15 @@ void CrearDirectorioUsuario(int numero_cuenta) {
     }
 }
 
-void *llamar_trasladar_datos(void *arg){
-    while(1){
-        sem_wait(semaforo_memoria_compartida);
-        trasladar_datos();
-        sem_post(semaforo_memoria_compartida);
-        sleep(10);
-    }
-    return NULL;
-}
+//void *llamar_trasladar_datos(void *arg){
+    //while(1){
+        //sem_wait(semaforo_memoria_compartida);
+        //trasladar_datos();
+        //sem_post(semaforo_memoria_compartida);
+        //sleep(10);
+    //}
+    //return NULL;
+//}
 
 void trasladar_datos(){
     FILE *fichero_original;
@@ -579,6 +585,7 @@ void trasladar_datos(){
         fclose(fichero_original);
         return;
     }
+    sem_wait(semaforo_memoria_compartida);
     char linea[256];
     while(fgets(linea, sizeof(linea), fichero_original)){
         int num_cuenta_archivo;
@@ -602,6 +609,34 @@ void trasladar_datos(){
 
     remove(configuracion.archivo_cuentas);
     rename("archivo_temporal.txt", configuracion.archivo_cuentas);
-
+    sem_post(semaforo_memoria_compartida);
     return;
 }
+
+void *llamar_sacar_cuenta_buffer(void *arg)
+{
+    while(1){
+        SacarCuentaBuffer();
+        sleep(5);
+    }
+}
+
+//void *gestionar_entrada_salida(void *arg)
+//{
+    //while(1)
+    //{
+        //if(buffer.inicio!=buffer.fin){
+            /*sem_wait(semaforo_buffer);
+            Cuenta op = buffer.operacion[buffer.inicio];
+            buffer.inicio = (buffer.inicio+1)%10;
+            FILE *archivo = fopen(configuracion.archivo_cuentas, "rb+");
+            sem_wait(semaforo_cuentas);
+            fseek(archivo, op.numero_cuenta * sizeof(Cuenta), SEEK_SET);
+            fwrite(&op, sizeof(Cuenta), 1, archivo);
+            sem_post(semaforo_cuentas);
+            sem_post(semaforo_buffer);
+            fclose(archivo);
+            sleep(10);
+        }
+    }
+}*/

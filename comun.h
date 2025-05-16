@@ -8,6 +8,7 @@
 
 // Definición de la clave para la cola de mensajes 
 #define CLAVE_COLA_MENSAJES 1234
+#define CLAVE_COLA_CUENTAS 5678
 #define TIPO_ALERTA 1
 
 #define CUENTAS_TOTALES 100
@@ -18,6 +19,7 @@ typedef struct {
     char texto[1024];   // Contenido de la alerta
 } MensajeAlerta;
 
+ 
 typedef struct Config
 {
     int limite_retiro;
@@ -47,6 +49,14 @@ typedef struct TablaCuentas
     int num_cuentas;
 } TablaCuentas;
 
+typedef struct bufferEstructurado
+{
+    Cuenta operacion[10];
+    int inicio;
+    int fin;
+    int num_cuentas;
+} bufferEstructurado;
+
 // Declaraciones de variables globales (definidas en comun.c)
 extern Config configuracion;
 extern TablaCuentas *tabla;
@@ -55,7 +65,10 @@ extern sem_t *semaforo_log;
 extern sem_t *semaforo_transacciones;
 extern sem_t *semaforo_alertas;
 extern sem_t *semaforo_memoria_compartida;
+extern sem_t *semaforo_buffer;
+//extern bufferEstructurado buffer;
 extern int id_cola;
+extern int id_cola_cuentas;
 
 // Declaraciones de funciones
 void inicializar_configuracion(); 
@@ -70,4 +83,6 @@ void CrearMemoriaCompartida();
 void LiberarMemoriaCompartida();
 void ConectarMemoriaCompartida();
 void DesconectarMC();
+void MeterCuentaBuffer();
+void SacarCuentaBuffer();
 #endif
