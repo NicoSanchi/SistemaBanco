@@ -107,7 +107,7 @@ void cargar_transacciones() {
 // Envía una alerta al proceso banco mediante una cola de mensajes.
 // Luego, lanza una señal para notificar que hay una alerta disponible.
 void enviar_alerta(const char *mensaje) {
-    sem_wait(semaforo_alertas);
+    //sem_wait(semaforo_alertas);
     ConectarColaMensajes();
 
     // Preparar el mensaje
@@ -123,7 +123,7 @@ void enviar_alerta(const char *mensaje) {
     else
         EscribirLog("Alerta enviada a banco");
     
-    sem_post(semaforo_alertas);  // SIEMPRE se hace, ocurra o no error
+    //sem_post(semaforo_alertas);  // SIEMPRE se hace, ocurra o no error
     
     kill(getppid(), SIGUSR1);
 }

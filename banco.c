@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <pthread.h>
 #include <string.h>
+#include <pthread.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <sys/wait.h>
 #include <sys/types.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
 #include <time.h>
 #include <semaphore.h>
 #include <fcntl.h>
@@ -28,19 +26,28 @@ void RegistrarUsuario();
 void IniciarMonitor();
 void detener_monitor();
 void LeerAlertas(int sig);
-int EncontrarLRU();
 void InicializarDirectoriosTransacciones();
 void CrearDirectorioUsuario(int numero_cuenta);
-//void *llamar_trasladar_datos(void *arg);
-void trasladar_datos();
-void *llamar_sacar_cuenta_buffer(void *arg);
-
+int EncontrarLRU();
+void VolcarDatos();
+void *trasladar_buffer(void *arg);
 int main()
 {
     // Configuración inicial de semáforos
     inicializar_semaforos();
     conectar_semaforos();
     CrearColaMensajes();
+    int valor;
+   // sem_getvalue(semaforo_cuentas, &valor);
+    //printf("semaforo cuentas: %d", valor);
+    //sem_getvalue(semaforo_memoria_compartida, &valor);
+    //printf("semaforo memoria: %d", valor);
+    sem_getvalue(semaforo_alertas, &valor);
+    if(valor==0){
+        sem_post(semaforo_alertas);
+    }
+    //printf("semaforo alertas: %d\n", valor);
+    //getchar();
 
     inicializar_configuracion();
 
@@ -54,11 +61,8 @@ int main()
     signal(SIGINT, ManejarSenial); // Si recibe una señal de SIGINT que es de Ctrl C, libera los recursos
 
     IniciarMonitor();
-
-    
     pthread_t hilo_buffer;
-    pthread_create(&hilo_buffer, NULL, llamar_sacar_cuenta_buffer, NULL);
-    
+    pthread_create(&hilo_buffer, NULL, trasladar_buffer, NULL);
 
     MenuInicio();
 
@@ -72,6 +76,15 @@ void MenuInicio()
     int opcion;
     while (opcion != 3)
     {
+        /*for(int i=0; i<tabla->num_cuentas; i++){
+            printf("%d,%s,%.2f,%d,%ld\n",
+                tabla->cuentas[i].numero_cuenta,
+                tabla->cuentas[i].titular,
+                tabla->cuentas[i].saldo,
+                tabla->cuentas[i].num_transacciones,
+                tabla->cuentas[i].ultimoAcceso);
+        }*/
+
         printf("┌──────────────────────────────┐\n");
         printf("│        🔐 SECURE BANK        │\n");
         printf("├──────────────────────────────┤\n");
@@ -94,17 +107,16 @@ void MenuInicio()
             RegistrarUsuario();
             break;
         case 3:
-            printf("\n🔜¡HASTA LUEGO!🔜\n\n");
-            EscribirLog("El usuario ha salido del sistema");
-            detener_monitor();
             sem_wait(semaforo_cuentas);
             sem_post(semaforo_cuentas);
-            trasladar_datos();
-            destruir_semaforos();
-            DesconectarMC();
+            detener_monitor();
+            VolcarDatos();
             LiberarMemoriaCompartida();
-            // unlink(PIPE_ALERTAS);
+            destruir_semaforos();
+            printf("\n🔜¡HASTA LUEGO!🔜\n\n");
+            EscribirLog("El usuario ha salido del sistema");
             break;
+
         default:
             printf("\nLa opción seleccionada no es válida.\n");
             printf("\nPresione una tecla para continuar...");
@@ -119,9 +131,10 @@ void ManejarSenial(int senial)
 { // Funcion por si el banco se cierra con Ctrl C, que se liberen los recursos
     sem_wait(semaforo_cuentas);
     sem_post(semaforo_cuentas);
-    destruir_semaforos();
     detener_monitor();
+    VolcarDatos();
     LiberarMemoriaCompartida();
+    destruir_semaforos();
     // unlink(PIPE_ALERTAS);
     EscribirLog("El proceso banco se ha cerrado con Ctrl + C");
     printf("\n\n🚨 Programa terminado con Ctrl + C. Liberando recursos.\n\n");
@@ -166,7 +179,7 @@ void iniciar_sesion()
 
 
     // Bloqueo para acceder a la memoria compartida
-    //sem_wait(semaforo_cuentas);
+    sem_wait(semaforo_memoria_compartida);
 
     // Buscar en memoria compartida (MC)
     for (i = 0; i < tabla->num_cuentas; i++)
@@ -182,7 +195,7 @@ void iniciar_sesion()
     }
 
     // Liberar el semáforo tras acceder a MC
-    //sem_post(semaforo_cuentas);
+    sem_post(semaforo_memoria_compartida);
 
     if (encontradoEnMC)
     {
@@ -191,15 +204,18 @@ void iniciar_sesion()
         printf("🚀 Abriendo tu sesión bancaria...\n");
         sleep(1);
         EscribirLog("El usuario ha iniciado sesión correctamente");
+        getchar();
     }
     else
     {
         // Si no están en MC, buscar en el archivo
+        sem_wait(semaforo_cuentas);
         archivo = fopen(configuracion.archivo_cuentas, "r");
         if (archivo == NULL)
         {
             perror("Error al abrir el archivo de cuentas");
             EscribirLog("Error al abrir el archivo cuentas intentando iniciar sesión");
+            sem_post(semaforo_cuentas);
             exit(EXIT_FAILURE);
         }
         EscribirLog("Archivo de cuentas abierto correctamente intentando iniciar sesión");
@@ -232,26 +248,28 @@ void iniciar_sesion()
         }
 
         fclose(archivo); // Cerrar el archivo
+        sem_post(semaforo_cuentas);
         EscribirLog("Se ha cerrado el archivo de cuentas correctamente intentando iniciar sesión");
 
         if (encontradoEnArchivo)
         {
             // Si las credenciales están en el archivo, se permite el inicio de sesión
-            printf("✅ Autenticación exitosa (Archivo)\n\n");
+            printf("✅ Autenticación exitosa (Archivo). Haciendo hueco en MC...\n\n");
+            sleep(1);
             printf("🚀 Abriendo tu sesión bancaria...\n");
             sleep(1);
             EscribirLog("El usuario ha iniciado sesión correctamente");
 
             // Desalojar al usuario que lleva más tiempo sin acceder (LRU)
-            //sem_wait(semaforo_cuentas);
+            //sem_wait(semaforo_memoria_compartida);
 
             indiceLRU = EncontrarLRU(); // Encontrar el índice del LRU
             tabla->cuentas[indiceLRU] = cuentaEncontrada; // Reemplazar con la nueva cuenta
             tabla->cuentas[indiceLRU].ultimoAcceso = time(NULL); // Actualizar último acceso
 
-            EscribirLog("Cuenta cargada en memoria compartida, desalojando al que lleva mayor tiempo sin acceder");
+            //sem_post(semaforo_memoria_compartida);
 
-            //sem_post(semaforo_cuentas);
+            EscribirLog("Cuenta cargada en memoria compartida, desalojando al que lleva mayor tiempo sin acceder");            
         }
         else
         {
@@ -293,6 +311,7 @@ void iniciar_sesion()
     system("clear");
 }
 
+
 void RegistrarUsuario()
 {
     system("clear");
@@ -304,73 +323,89 @@ void RegistrarUsuario()
     printf("│        ✍️  REGISTRO DE USUARIO         │\n");
     printf("└───────────────────────────────────────┘\n\n");
 
-    // Inicializamos las varibales
+    // Inicializamos las variables
     FILE *ficheroUsers;
-    char nombre[50], linea[100], esperar;
-    int numeroCuentaCliente, numeroTransacciones = 0, saldo = 0;
-    bool hayUsuarios = false;
+    char nombre[50];
+    int numeroCuentaCliente = 1000; // Valor inicial por defecto
+    int numeroTransacciones = 0;
+    float saldo = 0.0;
 
-    // Bloqueo del semáforo para acceso seguro al archivo
     sem_wait(semaforo_cuentas);
 
-    // Abrir el archivo de cuentas en modo append para agregar nuevos usuarios
+    // Abrir el archivo en modo lectura para obtener el último número de cuenta
+    ficheroUsers = fopen(configuracion.archivo_cuentas, "r");
+    if (ficheroUsers != NULL)
+    {
+        char linea[256];
+        while (fgets(linea, sizeof(linea), ficheroUsers))
+        {
+            int numCuentaArchivo;
+            sscanf(linea, "%d", &numCuentaArchivo);
+            if (numCuentaArchivo >= numeroCuentaCliente)
+            {
+                numeroCuentaCliente = numCuentaArchivo + 1; // Incrementar el número de cuenta
+            }
+        }
+        fclose(ficheroUsers);
+    }
+    else
+    {
+        EscribirLog("El archivo de cuentas no existe o no se pudo abrir. Se usará el número de cuenta inicial.");
+    }
+
+    // Abrir el archivo en modo append para registrar el nuevo usuario
     ficheroUsers = fopen(configuracion.archivo_cuentas, "a+");
     if (ficheroUsers == NULL)
     {
         perror("Error a la hora de abrir el archivo");
         EscribirLog("Fallo al abrir el archivo de usuarios");
 
-        sem_post(semaforo_cuentas); // Liberar el semáforo
-        fclose(ficheroUsers);
+        sem_post(semaforo_cuentas);
         return;
     }
     else
-        EscribirLog("Se ha abierto el archivo de cuentas");
-
-
-    // Leer el archivo línea por línea para encontrar el último número de cuenta
-    while (fgets(linea, sizeof(linea), ficheroUsers))
     {
-        char *token = strtok(linea, ","); // Tomamos el numero de cuenta de la linea
-
-        if (token != NULL)
-        { 
-            // Si el archivo no esta vacio, asignamos al numero de cuenta el numero de cuenta del ultimo cliente
-            numeroCuentaCliente = atoi(token);
-            hayUsuarios = true;
-        }
+        EscribirLog("Se ha abierto el archivo de cuentas");
     }
-
-    // Si habia usuarios existentes, asigna el nuevo numero de cuenta siguiente
-    if (hayUsuarios) 
-        numeroCuentaCliente++;
-    else
-        numeroCuentaCliente = 1000; // Si no inicializa a 1000 el numero de cuenta
 
     // Solicitar el nombre del titular
     printf("👤 Introduce el nombre del titular: ");
     fgets(nombre, sizeof(nombre), stdin);
-    nombre[strcspn(nombre, "\n")] = 0; // Eliminar salto de línea
+    nombre[strcspn(nombre, "\n")] = 0;
 
-    // Mensaje de progreso
-    printf("\n🔄 Creando nueva cuenta...\n\n");
-    fflush(stdout); // Asegurar que se muestre inmediatamente
-    sleep(1);       // Pequeña pausa para efecto visual
-
-    // Generar saldo aleatorio (1000-10000)
+    // Generar saldo aleatorio (1000.0 - 10000.0)
     srand(time(NULL));
-    saldo = rand() % (10000 - 1000 + 1) + 1000; // Generamos un numero entre 1000 y 10000 que sera su saldo
+    saldo = (float)(rand() % (10000 - 1000 + 1) + 1000);
 
-    // Moverse al final del archivo para agregar el nuevo usuario
-    fseek(ficheroUsers, -1, SEEK_END); 
-    char ultimoCaracter = fgetc(ficheroUsers);
+    // Registrar en memoria compartida si hay espacio
+    sem_wait(semaforo_memoria_compartida);
+    if (tabla->num_cuentas < CUENTAS_TOTALES)
+    {
+        Cuenta nuevaCuenta;
+        nuevaCuenta.numero_cuenta = numeroCuentaCliente;
+        strncpy(nuevaCuenta.titular, nombre, sizeof(nuevaCuenta.titular) - 1);
+        nuevaCuenta.titular[sizeof(nuevaCuenta.titular) - 1] = '\0';
+        nuevaCuenta.saldo = saldo;
+        nuevaCuenta.num_transacciones = numeroTransacciones;
+        nuevaCuenta.ultimoAcceso = time(NULL);
 
-    // si hay usuarios y si el ultimo caracter no es un salto de linea, lo añadimos manualmente
-    if (ultimoCaracter != '\n' && hayUsuarios) 
-        fprintf(ficheroUsers, "\n");           
+        tabla->cuentas[tabla->num_cuentas] = nuevaCuenta;
+        tabla->num_cuentas++;
 
-    // Escribir los datos del nuevo usuario en el archivo
-    fprintf(ficheroUsers, "%d,%s,%d,%d", numeroCuentaCliente, nombre, saldo, numeroTransacciones); 
+        EscribirLog("Usuario registrado en memoria compartida");
+    }
+    else
+    {
+        printf("\n⚠ No hay espacio en memoria compartida. Se guardará solo en archivo. Inicie sesión para entrar en MC.\n");
+        EscribirLog("No hay espacio en memoria compartida para registrar al usuario");
+    }
+    sem_post(semaforo_memoria_compartida);
+
+    // Registrar en el archivo
+    fprintf(ficheroUsers, "%d,%s,%f,%d,%ld\n", numeroCuentaCliente, nombre, saldo, numeroTransacciones, time(NULL));
+    fclose(ficheroUsers);
+    sem_post(semaforo_cuentas);
+    EscribirLog("Usuario registrado en el archivo de cuentas");
 
     // Confirmación visual
     printf("\n┌───────────────────────────────────────┐\n");
@@ -378,50 +413,13 @@ void RegistrarUsuario()
     printf("├───────────────────────────────────────┤\n");
     printf("│  Titular:     %-23s │\n", nombre);
     printf("│  N° Cuenta:   %-23d │\n", numeroCuentaCliente);
-    printf("│  Saldo:       €%-22d │\n", saldo);
+    printf("│  Saldo:       €%-22.2f │\n", saldo);
     printf("└───────────────────────────────────────┘\n");
-
-    EscribirLog("Nuevo usuario registrado");
-
-    CrearDirectorioUsuario(numeroCuentaCliente); // Crear el directorio del usuario
-
-    // Guardar el nuevo usuario en la memoria compartida si hay espacio disponible
-    if (tabla->num_cuentas < CUENTAS_TOTALES)
-    {
-        sem_wait(semaforo_cuentas); // Bloqueo del semáforo para acceso seguro a la memoria compartida
-
-        // Crear una nueva cuenta
-        Cuenta nuevaCuenta;
-        nuevaCuenta.numero_cuenta = numeroCuentaCliente;
-        strncpy(nuevaCuenta.titular, nombre, sizeof(nuevaCuenta.titular));
-        nuevaCuenta.saldo = saldo;
-        nuevaCuenta.num_transacciones = numeroTransacciones;
-        nuevaCuenta.ultimoAcceso = time(NULL); // Registrar el tiempo actual como último acceso
-
-        // Agregar la nueva cuenta a la memoria compartida
-        tabla->cuentas[tabla->num_cuentas] = nuevaCuenta;
-        tabla->num_cuentas++; // Incrementar el contador de cuentas en memoria compartida
-
-        EscribirLog("Nuevo usuario añadido también a memoria compartida");
-
-        sem_post(semaforo_cuentas); // Liberar el semáforo
-    }
-    else
-    {
-        // Si no hay espacio en memoria compartida, registrar en el log
-        EscribirLog("No hay espacio en memoria compartida para el nuevo usuario. Solo se guardará en el archivo.");
-    }
-
-    // Cerrar el archivo
-    fclose(ficheroUsers);
-    sem_post(semaforo_cuentas);     // Liberar el semáforo
-    EscribirLog("Se ha cerrado el archivo de cuentas");
 
     printf("\nPulsa una tecla para continuar...");
     getchar();
 
     system("clear");
-    return;
 }
 
 // Función para crear el proceso monitor
@@ -492,27 +490,6 @@ void LeerAlertas(int sig)
     sem_post(semaforo_alertas);
 }
 
-int EncontrarLRU() {
-
-    time_t min = time(NULL); 
-    int indiceLRU = 0;
-
-    for (int i = 0; i < tabla->num_cuentas; i++) {
-
-        if (tabla->cuentas[i].ultimoAcceso < min) {
-            min = tabla->cuentas[i].ultimoAcceso;
-            indiceLRU = i;
-        }
-    }
-
-    if (tabla->num_cuentas == 0) {
-        return 0;
-    }
-
-    return indiceLRU;
-}
-
-
 // Función para inicializar directorios
 void InicializarDirectoriosTransacciones() {
     // Crear directorio principal
@@ -571,22 +548,44 @@ void CrearDirectorioUsuario(int numero_cuenta) {
     }
 }
 
-//void *llamar_trasladar_datos(void *arg){
-    //while(1){
-        //sem_wait(semaforo_memoria_compartida);
-        //trasladar_datos();
-        //sem_post(semaforo_memoria_compartida);
-        //sleep(10);
-    //}
-    //return NULL;
-//}
+int EncontrarLRU() {
+    // Bloquea el acceso a la memoria compartida para evitar condiciones de carrera
+    sem_wait(semaforo_memoria_compartida);
 
-void trasladar_datos(){
+    // Inicializa el tiempo mínimo con el tiempo actual
+    time_t min = time(NULL); 
+    int indiceLRU = 0; // Índice del usuario con el menor tiempo de acceso (LRU)
+
+    // Recorre la tabla de cuentas para encontrar el usuario con el menor tiempo de acceso
+    for (int i = 0; i < tabla->num_cuentas; i++) {
+        // Si el tiempo de acceso de la cuenta actual es menor que el mínimo registrado
+        if (tabla->cuentas[i].ultimoAcceso < min) {
+            min = tabla->cuentas[i].ultimoAcceso; // Actualiza el tiempo mínimo
+            indiceLRU = i; // Actualiza el índice del LRU
+        }
+    }
+
+    // Si no hay cuentas en la tabla, libera el semáforo y retorna 0
+    if (tabla->num_cuentas == 0) {
+        sem_post(semaforo_memoria_compartida); // Libera el semáforo antes de retornar
+        return 0;
+    }
+
+    // Libera el semáforo después de acceder a la tabla
+    sem_post(semaforo_memoria_compartida);
+
+    // Retorna el índice del usuario con el menor tiempo de acceso
+    return indiceLRU;
+}
+
+void VolcarDatos() {
+    sem_wait(semaforo_cuentas);
     FILE *fichero_original;
     fichero_original = fopen(configuracion.archivo_cuentas, "r");
     if(!fichero_original){
         perror("Error a la hora de abrir el archivo de cuentas.");
         EscribirLog("Error a la hora de abrir el archivo de cuentas.");
+        sem_post(semaforo_cuentas);
         return;
     }
     FILE *fichero_temporal;
@@ -595,6 +594,7 @@ void trasladar_datos(){
         perror("Error a la hora de crear el archivo temporal.");
         EscribirLog("Error a la hora de crear el archivo temporal.");
         fclose(fichero_original);
+        sem_post(semaforo_cuentas);
         return;
     }
     sem_wait(semaforo_memoria_compartida);
@@ -621,42 +621,18 @@ void trasladar_datos(){
 
     remove(configuracion.archivo_cuentas);
     rename("archivo_temporal.txt", configuracion.archivo_cuentas);
+
     sem_post(semaforo_memoria_compartida);
+    sem_post(semaforo_cuentas);
+
     return;
 }
 
-void *llamar_sacar_cuenta_buffer(void *arg)
-{
+void *trasladar_buffer(void *arg){
     while(1){
-        EscribirLog("Se está entrando a la función sacar buffer");
+        EscribirLog("Se está entrando al buffer");
         SacarCuentaBuffer();
-        EscribirLog("Se sale de la función sacar buffer");
-        sleep(5);
+        EscribirLog("Se está saliendo del buffer");
+        sleep(10);
     }
 }
-
-//void *gestionar_entrada_salida(void *arg)
-//{
-    //while(1)
-    //{
-        //if(buffer.inicio!=buffer.fin){
-            /*sem_wait(semaforo_buffer);
-            Cuenta op = buffer.operacion[buffer.inicio];
-            buffer.inicio = (buffer.inicio+1)%10;
-            FILE *archivo = fopen(configuracion.archivo_cuentas, "rb+");
-            sem_wait(semaforo_cuentas);
-            fseek(archivo, op.numero_cuenta * sizeof(Cuenta), SEEK_SET);
-            fwrite(&op, sizeof(Cuenta), 1, archivo);
-            sem_post(semaforo_cuentas);
-            sem_post(semaforo_buffer);
-            fclose(archivo);
-            sleep(10);
-        }
-    }
-}*/
-
-
-
-
-
-
