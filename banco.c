@@ -416,6 +416,8 @@ void RegistrarUsuario()
     printf("│  Saldo:       €%-22.2f │\n", saldo);
     printf("└───────────────────────────────────────┘\n");
 
+    CrearDirectorioUsuario(numeroCuentaCliente);
+
     printf("\nPulsa una tecla para continuar...");
     getchar();
 
