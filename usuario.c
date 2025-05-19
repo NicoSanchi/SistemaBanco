@@ -121,20 +121,28 @@ void ManejarSalida(int senial)
     int i;
     int cuenta;
     int transaccion;
+    int memoriaCompartida;
     char comando[100];
 
-    sem_getvalue(semaforo_cuentas, &cuenta);
+    sem_getvalue(semaforo_cuentas, &cuenta); // Comprueba si el semaforo esta bloquedao
     while (cuenta < 1)
     {
-        sem_post(semaforo_cuentas);
+        sem_post(semaforo_cuentas); // Si está bloqueado se liberá
         sem_getvalue(semaforo_cuentas, &cuenta);
     }
-    sem_getvalue(semaforo_transacciones, &transaccion);
+    sem_getvalue(semaforo_transacciones, &transaccion); // Comprueba si el semaforo esta bloquedao
     while (transaccion < 1)
     {
-        sem_post(semaforo_transacciones);
+        sem_post(semaforo_transacciones); // Si está bloqueado se liberá
         sem_getvalue(semaforo_transacciones, &transaccion);
     }
+    sem_getvalue(semaforo_memoria_compartida, &memoriaCompartida); // Comprueba si el semaforo esta bloquedao
+    while (memoriaCompartida < 1)
+    {
+        sem_post(semaforo_memoria_compartida); // Si está bloqueado se liberá
+        sem_getvalue(semaforo_memoria_compartida, &memoriaCompartida);
+    }
+    
 
     printf("\n👋 Saliendo del programa...\n");
     sleep(1);
