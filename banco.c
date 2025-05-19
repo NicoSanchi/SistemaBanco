@@ -491,13 +491,23 @@ void InicializarDirectoriosTransacciones() {
         EscribirLog("Error al crear directorio principal de transacciones");
         return;
     }
-    
-    // Crear directorios para cuentas existentes
-    //sem_wait(semaforo_cuentas);
-    for (int i = 0; i < tabla->num_cuentas; i++) {
-        CrearDirectorioUsuario(tabla->cuentas[i].numero_cuenta);
+
+    // Leer todos los usuarios del archivo de cuentas y crear sus directorios
+    FILE *archivo = fopen(configuracion.archivo_cuentas, "r");
+    if (archivo == NULL) {
+        EscribirLog("No se pudo abrir el archivo de cuentas para crear directorios de transacciones");
+        return;
     }
-    //sem_post(semaforo_cuentas);
+    char linea[256];
+    while (fgets(linea, sizeof(linea), archivo)) {
+        int numero_cuenta;
+        char *token = strtok(linea, ",");
+        if (token != NULL) {
+            numero_cuenta = atoi(token);
+            CrearDirectorioUsuario(numero_cuenta);
+        }
+    }
+    fclose(archivo);
 }
 
 // Función para crear directorios de cada usuario
