@@ -11,12 +11,20 @@ gcc usuario.c comun.c -o usuario -pthread
 # - Permitir ejecutar el programa con sudo sin contraseña
 #########################################
 
+
+# ✅ Verificar permisos
+if [[ "$EUID" -ne 0 ]]; then
+  echo "❌ Este script debe ejecutarse como root. Usa: sudo $0"
+  exit 1
+fi
+
 # === CONFIGURACIÓN: ===
-NUEVO_USUARIO="ASIAN_BANK"
-CLAVE="SistemaBanco"
+NUEVO_USUARIO="UsuarioBanco"
+CLAVE="banco"
 RUTA_ORIG="./"
 RUTA_SCRIPT="arrancar_banco.sh"
-NOMBRE_PROGRAMA="Banco"
+NOMBRE_PROGRAMA="banco"
+
 
 # Rutas
 RUTA_DEST="/home/$NUEVO_USUARIO/SistemaBanco"
