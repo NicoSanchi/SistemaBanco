@@ -38,16 +38,6 @@ int main()
     conectar_semaforos();
     CrearColaMensajes();
     int valor;
-   // sem_getvalue(semaforo_cuentas, &valor);
-    //printf("semaforo cuentas: %d", valor);
-    //sem_getvalue(semaforo_memoria_compartida, &valor);
-    //printf("semaforo memoria: %d", valor);
-    sem_getvalue(semaforo_alertas, &valor);
-    if(valor==0){
-        sem_post(semaforo_alertas);
-    }
-    //printf("semaforo alertas: %d\n", valor);
-    //getchar();
 
     inicializar_configuracion();
 
@@ -204,7 +194,6 @@ void iniciar_sesion()
         printf("🚀 Abriendo tu sesión bancaria...\n");
         sleep(1);
         EscribirLog("El usuario ha iniciado sesión correctamente");
-        getchar();
     }
     else
     {

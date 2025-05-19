@@ -14400,3 +14400,1950 @@
 [2025-05-19 17:00:27] Monitor detenido
 [2025-05-19 17:00:27] Los semáforos han sido destruidos
 [2025-05-19 17:00:27] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:40:56] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:40:56] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:40:56] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:56] Monitor iniciado en segundo plano
+[2025-05-19 18:40:56] Se está entrando al buffer
+[2025-05-19 18:40:56] Cola de mensajes conectada.
+[2025-05-19 18:40:56] Se está saliendo del buffer
+[2025-05-19 18:40:56] cargando transacciones
+[2025-05-19 18:40:56] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:40:56] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Se está entrando al buffer
+[2025-05-19 18:40:56] Cola de mensajes conectada.
+[2025-05-19 18:40:56] Se está saliendo del buffer
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Se está entrando al buffer
+[2025-05-19 18:40:56] Cola de mensajes conectada.
+[2025-05-19 18:40:56] Se está saliendo del buffer
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Se está entrando al buffer
+[2025-05-19 18:40:56] Cola de mensajes conectada.
+[2025-05-19 18:40:56] Se está saliendo del buffer
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Se está entrando al buffer
+[2025-05-19 18:40:56] Cola de mensajes conectada.
+[2025-05-19 18:40:56] Se está saliendo del buffer
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:56] Alerta enviada a banco
+[2025-05-19 18:40:56] Alerta recibida
+[2025-05-19 18:40:57] Cola de mensajes destruida correctamente
+[2025-05-19 18:40:57] Monitor detenido
+[2025-05-19 18:40:57] Los semáforos han sido destruidos
+[2025-05-19 18:40:57] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:40:59] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:40:59] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:40:59] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Fichero transacciones.log creado correctamente
+[2025-05-19 18:40:59] Monitor iniciado en segundo plano
+[2025-05-19 18:40:59] Se está entrando al buffer
+[2025-05-19 18:40:59] Cola de mensajes conectada.
+[2025-05-19 18:40:59] Se está saliendo del buffer
+[2025-05-19 18:40:59] cargando transacciones
+[2025-05-19 18:40:59] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:40:59] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Se está entrando al buffer
+[2025-05-19 18:40:59] Cola de mensajes conectada.
+[2025-05-19 18:40:59] Se está saliendo del buffer
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Alerta enviada a banco
+[2025-05-19 18:40:59] Alerta recibida
+[2025-05-19 18:40:59] Cola de mensajes destruida correctamente
+[2025-05-19 18:40:59] Monitor detenido
+[2025-05-19 18:40:59] Los semáforos han sido destruidos
+[2025-05-19 18:40:59] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:41:01] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:41:01] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:41:01] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:01] Monitor iniciado en segundo plano
+[2025-05-19 18:41:01] Se está entrando al buffer
+[2025-05-19 18:41:01] cargando transacciones
+[2025-05-19 18:41:01] Cola de mensajes conectada.
+[2025-05-19 18:41:01] Se está saliendo del buffer
+[2025-05-19 18:41:01] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:41:01] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Se está entrando al buffer
+[2025-05-19 18:41:01] Cola de mensajes conectada.
+[2025-05-19 18:41:01] Se está saliendo del buffer
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Se está entrando al buffer
+[2025-05-19 18:41:01] Cola de mensajes conectada.
+[2025-05-19 18:41:01] Se está saliendo del buffer
+[2025-05-19 18:41:01] Alerta enviada a banco
+[2025-05-19 18:41:01] Alerta recibida
+[2025-05-19 18:41:01] Cola de mensajes destruida correctamente
+[2025-05-19 18:41:01] Monitor detenido
+[2025-05-19 18:41:01] Los semáforos han sido destruidos
+[2025-05-19 18:41:01] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:41:03] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:41:03] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:41:03] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:03] Monitor iniciado en segundo plano
+[2025-05-19 18:41:03] cargando transacciones
+[2025-05-19 18:41:03] Se está entrando al buffer
+[2025-05-19 18:41:03] Cola de mensajes conectada.
+[2025-05-19 18:41:03] Se está saliendo del buffer
+[2025-05-19 18:41:03] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:41:03] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Se está entrando al buffer
+[2025-05-19 18:41:03] Cola de mensajes conectada.
+[2025-05-19 18:41:03] Se está saliendo del buffer
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Se está entrando al buffer
+[2025-05-19 18:41:03] Cola de mensajes conectada.
+[2025-05-19 18:41:03] Se está saliendo del buffer
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Se está entrando al buffer
+[2025-05-19 18:41:03] Cola de mensajes conectada.
+[2025-05-19 18:41:03] Se está saliendo del buffer
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Se está entrando al buffer
+[2025-05-19 18:41:03] Cola de mensajes conectada.
+[2025-05-19 18:41:03] Se está saliendo del buffer
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Se está entrando al buffer
+[2025-05-19 18:41:03] Cola de mensajes conectada.
+[2025-05-19 18:41:03] Se está saliendo del buffer
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Se está entrando al buffer
+[2025-05-19 18:41:03] Cola de mensajes conectada.
+[2025-05-19 18:41:03] Se está saliendo del buffer
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Alerta enviada a banco
+[2025-05-19 18:41:03] Alerta recibida
+[2025-05-19 18:41:03] Cola de mensajes destruida correctamente
+[2025-05-19 18:41:03] Monitor detenido
+[2025-05-19 18:41:03] Los semáforos han sido destruidos
+[2025-05-19 18:41:03] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:41:05] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:41:05] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:41:05] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:05] Monitor iniciado en segundo plano
+[2025-05-19 18:41:05] Se está entrando al buffer
+[2025-05-19 18:41:05] Cola de mensajes conectada.
+[2025-05-19 18:41:05] Se está saliendo del buffer
+[2025-05-19 18:41:05] cargando transacciones
+[2025-05-19 18:41:05] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:41:05] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Se está entrando al buffer
+[2025-05-19 18:41:05] Cola de mensajes conectada.
+[2025-05-19 18:41:05] Se está saliendo del buffer
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Se está entrando al buffer
+[2025-05-19 18:41:05] Cola de mensajes conectada.
+[2025-05-19 18:41:05] Se está saliendo del buffer
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Alerta enviada a banco
+[2025-05-19 18:41:05] Alerta recibida
+[2025-05-19 18:41:05] Cola de mensajes destruida correctamente
+[2025-05-19 18:41:05] Monitor detenido
+[2025-05-19 18:41:05] Los semáforos han sido destruidos
+[2025-05-19 18:41:05] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:41:06] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:41:06] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:41:06] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:06] Monitor iniciado en segundo plano
+[2025-05-19 18:41:06] Se está entrando al buffer
+[2025-05-19 18:41:06] Cola de mensajes conectada.
+[2025-05-19 18:41:06] Se está saliendo del buffer
+[2025-05-19 18:41:06] cargando transacciones
+[2025-05-19 18:41:06] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:41:06] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Se está entrando al buffer
+[2025-05-19 18:41:06] Cola de mensajes conectada.
+[2025-05-19 18:41:06] Se está saliendo del buffer
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Se está entrando al buffer
+[2025-05-19 18:41:06] Cola de mensajes conectada.
+[2025-05-19 18:41:06] Se está saliendo del buffer
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Alerta enviada a banco
+[2025-05-19 18:41:06] Alerta recibida
+[2025-05-19 18:41:06] Cola de mensajes destruida correctamente
+[2025-05-19 18:41:06] Monitor detenido
+[2025-05-19 18:41:06] Los semáforos han sido destruidos
+[2025-05-19 18:41:06] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:41:09] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:41:09] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:41:09] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:09] Monitor iniciado en segundo plano
+[2025-05-19 18:41:09] Se está entrando al buffer
+[2025-05-19 18:41:09] Cola de mensajes conectada.
+[2025-05-19 18:41:09] Se está saliendo del buffer
+[2025-05-19 18:41:09] cargando transacciones
+[2025-05-19 18:41:09] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:41:09] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:09] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Se está entrando al buffer
+[2025-05-19 18:41:09] Cola de mensajes conectada.
+[2025-05-19 18:41:09] Se está saliendo del buffer
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Se está entrando al buffer
+[2025-05-19 18:41:09] Cola de mensajes conectada.
+[2025-05-19 18:41:09] Se está saliendo del buffer
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Se está entrando al buffer
+[2025-05-19 18:41:09] Cola de mensajes conectada.
+[2025-05-19 18:41:09] Se está saliendo del buffer
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Alerta enviada a banco
+[2025-05-19 18:41:09] Alerta recibida
+[2025-05-19 18:41:09] Cola de mensajes destruida correctamente
+[2025-05-19 18:41:09] Monitor detenido
+[2025-05-19 18:41:09] Los semáforos han sido destruidos
+[2025-05-19 18:41:09] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:41:11] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:41:11] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:41:11] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:11] Monitor iniciado en segundo plano
+[2025-05-19 18:41:11] Se está entrando al buffer
+[2025-05-19 18:41:11] Cola de mensajes conectada.
+[2025-05-19 18:41:11] Se está saliendo del buffer
+[2025-05-19 18:41:11] cargando transacciones
+[2025-05-19 18:41:11] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:41:11] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:41:11] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Se está entrando al buffer
+[2025-05-19 18:41:11] Cola de mensajes conectada.
+[2025-05-19 18:41:11] Se está saliendo del buffer
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Alerta enviada a banco
+[2025-05-19 18:41:11] Alerta recibida
+[2025-05-19 18:41:11] Cola de mensajes destruida correctamente
+[2025-05-19 18:41:11] Monitor detenido
+[2025-05-19 18:41:11] Los semáforos han sido destruidos
+[2025-05-19 18:41:11] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:41:14] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:41:14] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:41:14] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:14] Monitor iniciado en segundo plano
+[2025-05-19 18:41:14] Se está entrando al buffer
+[2025-05-19 18:41:14] Cola de mensajes conectada.
+[2025-05-19 18:41:14] Se está saliendo del buffer
+[2025-05-19 18:41:14] cargando transacciones
+[2025-05-19 18:41:14] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:41:14] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Se está entrando al buffer
+[2025-05-19 18:41:14] Cola de mensajes conectada.
+[2025-05-19 18:41:14] Se está saliendo del buffer
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Se está entrando al buffer
+[2025-05-19 18:41:14] Cola de mensajes conectada.
+[2025-05-19 18:41:14] Se está saliendo del buffer
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Se está entrando al buffer
+[2025-05-19 18:41:14] Cola de mensajes conectada.
+[2025-05-19 18:41:14] Se está saliendo del buffer
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Se está entrando al buffer
+[2025-05-19 18:41:14] Cola de mensajes conectada.
+[2025-05-19 18:41:14] Se está saliendo del buffer
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Se está entrando al buffer
+[2025-05-19 18:41:14] Cola de mensajes conectada.
+[2025-05-19 18:41:14] Se está saliendo del buffer
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Se está entrando al buffer
+[2025-05-19 18:41:14] Cola de mensajes conectada.
+[2025-05-19 18:41:14] Se está saliendo del buffer
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:14] Alerta enviada a banco
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Alerta recibida
+[2025-05-19 18:41:14] Cola de mensajes destruida correctamente
+[2025-05-19 18:41:14] Monitor detenido
+[2025-05-19 18:41:14] Los semáforos han sido destruidos
+[2025-05-19 18:41:14] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:41:15] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:41:15] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:41:15] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:15] Monitor iniciado en segundo plano
+[2025-05-19 18:41:15] Se está entrando al buffer
+[2025-05-19 18:41:15] Cola de mensajes conectada.
+[2025-05-19 18:41:15] Se está saliendo del buffer
+[2025-05-19 18:41:15] cargando transacciones
+[2025-05-19 18:41:15] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:41:15] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:15] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Se está entrando al buffer
+[2025-05-19 18:41:15] Cola de mensajes conectada.
+[2025-05-19 18:41:15] Se está saliendo del buffer
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Se está entrando al buffer
+[2025-05-19 18:41:15] Cola de mensajes conectada.
+[2025-05-19 18:41:15] Se está saliendo del buffer
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:15] Alerta enviada a banco
+[2025-05-19 18:41:15] Alerta recibida
+[2025-05-19 18:41:16] Cola de mensajes destruida correctamente
+[2025-05-19 18:41:16] Monitor detenido
+[2025-05-19 18:41:16] Los semáforos han sido destruidos
+[2025-05-19 18:41:16] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:41:17] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:41:17] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:41:17] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:17] Monitor iniciado en segundo plano
+[2025-05-19 18:41:17] Se está entrando al buffer
+[2025-05-19 18:41:17] Cola de mensajes conectada.
+[2025-05-19 18:41:17] Se está saliendo del buffer
+[2025-05-19 18:41:17] cargando transacciones
+[2025-05-19 18:41:17] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:41:17] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Se está entrando al buffer
+[2025-05-19 18:41:17] Cola de mensajes conectada.
+[2025-05-19 18:41:17] Se está saliendo del buffer
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:17] Alerta enviada a banco
+[2025-05-19 18:41:17] Alerta recibida
+[2025-05-19 18:41:17] Cola de mensajes destruida correctamente
+[2025-05-19 18:41:17] Monitor detenido
+[2025-05-19 18:41:17] Los semáforos han sido destruidos
+[2025-05-19 18:41:17] El proceso banco se ha cerrado con Ctrl + C
+[2025-05-19 18:41:19] Cola de mensajes creada/conectada correctamente
+[2025-05-19 18:41:19] Se ha creado la segunda cola de mensajes correctamente en Comun.c
+[2025-05-19 18:41:19] Memoria compartida creada e inicializada correctamente con los datos de cuentas.dat
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Fichero transacciones.log creado correctamente
+[2025-05-19 18:41:19] Monitor iniciado en segundo plano
+[2025-05-19 18:41:19] Se está entrando al buffer
+[2025-05-19 18:41:19] Cola de mensajes conectada.
+[2025-05-19 18:41:19] Se está saliendo del buffer
+[2025-05-19 18:41:19] cargando transacciones
+[2025-05-19 18:41:19] Buscando anomalia de retiros consecutivos...
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Buscando anomalia de transferencias consecutivas...
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Se está entrando al buffer
+[2025-05-19 18:41:19] Cola de mensajes conectada.
+[2025-05-19 18:41:19] Se está saliendo del buffer
+[2025-05-19 18:41:19] Buscando anomalia de transferencia sospechosa...
+[2025-05-19 18:41:19] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencia sospechosa encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Se está entrando al buffer
+[2025-05-19 18:41:19] Cola de mensajes conectada.
+[2025-05-19 18:41:19] Se está saliendo del buffer
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Se está entrando al buffer
+[2025-05-19 18:41:19] Cola de mensajes conectada.
+[2025-05-19 18:41:19] Se está saliendo del buffer
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de retiros consecutivos encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Anomalia de transferencias consecutivas encontrada
+[2025-05-19 18:41:19] Alerta enviada a banco
+[2025-05-19 18:41:19] Alerta recibida
+[2025-05-19 18:41:19] Cola de mensajes destruida correctamente
+[2025-05-19 18:41:19] Monitor detenido
+[2025-05-19 18:41:19] Los semáforos han sido destruidos
+[2025-05-19 18:41:19] El proceso banco se ha cerrado con Ctrl + C
